@@ -1,0 +1,10 @@
+<!-- <cmp-modal #modCompany (onAccept)="aceptarDialogo()">
+</cmp-modal> -->
+<p-tree [value]="company" selectionMode="single" [(selection)]="selectedFile"></p-tree>
+<div class="p-dialog-footer" style="width: 100%; position: fixed;left: 0%; bottom: 0%;">
+    <button [loading]="loadingCancel" [disabled]="loadingAcept" (click)="closeDialog()" pButton pRipple type="button" label="Cancelar" icon="pi pi-times-circle"
+        class="p-button-rounded p-button-secondary mr-3">
+    </button>
+    <button [loading]="loadingAcept" [disabled]="loadingCancel" (click)="acceptDialog()" pButton pRipple type="submit" label="Aceptar" icon="pi pi-check-circle"
+        class="p-button-rounded p-button-info"></button>
+</div>

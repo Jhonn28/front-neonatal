@@ -1,0 +1,105 @@
+<button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Show"></button>
+<button pButton pRipple (click)="showDialog()" type="button" label="Primary" class="p-button-rounded"></button>
+<p-dialog header="Title" [(visible)]="display" [closable]="false" [draggable]="false" [responsive]="false"
+    [resizable]="false" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '90vw'}" [style]="{width: width}">
+    <p-table *ngIf="isDraw" [columns]="table.columns" [value]="table.data"
+        styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [resizableColumns]="true"
+        sortMode="multiple" [paginator]="true" [rows]="table.rows" columnResizeMode="expand"
+        [totalRecords]="table.data.length" [scrollable]="true" [loading]="false" [rowsPerPageOptions]="[ 5,10,15,20]"
+        [style]="{'width': '100%','min-height': '200px'}" paginatorPosition="top" [metaKeySelection]="true"
+        alwaysShowPaginator="true" showJumpToPageDropdown="true" [showPageLinks]="false"
+        currentPageReportTemplate="Página {currentPage} de {totalPages}" [autoLayout]="true"
+        loadingIcon="fas fa-spinner" [scrollable]="true" scrollHeight="400px" scrollDirection="both" [datakey]="table.primaryField" [selectionMode]='seleccionMode'
+        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columns.length">
+                    <span class="text-muted">No se encontraron registros</span>
+                </td>
+            </tr>
+        </ng-template>
+        <!-- Left -->
+        <ng-template pTemplate="paginatorleft" let-state>
+            Registros ({{state.totalRecords}})
+        </ng-template>
+        <!-- colgroup -->
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngIf="expanded" [style]="{'width':'3rem'}">
+                <ng-container *ngFor="let col of columns">
+                    <col *ngIf="col.visible" [style]="{'width': col.width+'rem'}">
+                </ng-container>
+            </colgroup>
+        </ng-template>
+        <!-- header -->
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <ng-container *ngFor="let col of columns">
+                    <th [pResizableColumnDisabled]="!col.resizable" pResizableColumn
+                        *ngIf="col.visible && !col.expanded" [pSortableColumn]="col.sortable ? col.name : null"
+                        class="centrar">
+                        <div style="white-space:pre-line;text-align: center;vertical-align: middle;">
+                            {{col.visualName | uppercase}}
+                            <p-sortIcon *ngIf="col.sortable" field="{{col.name}}">
+                            </p-sortIcon>
+                            <i *ngIf="col.comment" [pTooltip]="col.comment" class="fa fa-info-circle"></i>
+                        </div>
+                    </th>
+                </ng-container>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row let-columns="columns">
+            <tr>
+
+                <td style="width: 3rem; text-align: center;">
+                    <p-tableCheckbox [value]="row"></p-tableCheckbox>
+                </td>
+                <ng-container *ngFor="let col of columns">
+
+                <td *ngIf="col.visible">
+                    {{row[col.name]}}
+                </td>
+                </ng-container>
+            </tr>
+
+        </ng-template>
+    </p-table>
+    <!-- <p-table [value]="products" [columns]="table.columns" [(selection)]="selectedProducts3" dataKey="code"
+        responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <ng-container *ngFor="let col of columns">
+                    <th>Code</th>
+                </ng-container>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                </td>
+                <td>{{product.code}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.quantity}}</td>
+            </tr>
+        </ng-template>
+    </p-table> -->
+
+    <p-footer>
+        <!-- <cmp-button title="Cancelar" [icon]="'fas fa-ban'" (click)="hide()"></cmp-button>
+        <cmp-button title="Aceptar" (click)="onConfirm()" [icon]="'fas fa-check-circle'" [color]="'success'">
+        </cmp-button> -->
+        <button pButton pRipple type="button" label="CANCELAR" icon="pi pi-times-circle"
+            class="p-button-rounded p-button-secondary" (click)="hide($event)">
+        </button>
+        <button pButton pRipple type="button" label="ACEPTAR" icon="pi pi-check-circle"
+            [loading]="loading" (click)="onAcept($event)" class="p-button-rounded p-button-info"></button>
+    </p-footer>
+</p-dialog>

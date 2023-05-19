@@ -1,0 +1,44 @@
+<!-- Header -->
+<div
+    class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-1 pb-1 sm:px-2 border-b bg-card dark:bg-transparent">
+    <div class="flex-1">
+        <!-- Buttons -->
+        <cmp-button #botInsertar id="botInsertar" *ngIf="isButtonInsert" (click)="insert($event)" [type]="'basic'"
+            [color]="'info'" [icon]="'fas fa-plus-circle'" [title]="'Insertar'">
+        </cmp-button>
+        <cmp-button #botGuardar id="botGuardar" *ngIf="isButtonSave" (click)="save($event)" type="rounded"
+            [color]="'success'" [icon]="'fas fa-save'" [title]="'Guardar'">
+        </cmp-button>
+        <cmp-button #botEliminar id="botEliminar" *ngIf="isButtonDelete" (click)="delete($event)" type="text"
+            [color]="'danger'" [icon]="'fas fa-trash-alt'" [title]="'Eliminar'">
+        </cmp-button>
+        <ng-content></ng-content>
+        <!--
+        <div>
+            <h2 class="text-2xl md:text-2xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                Page heading
+            </h2>
+        </div> -->
+    </div>
+    <!-- Actions -->
+    <div class="flex flex-shrink-0 items-center sm:hide sm:mt-0 sm:ml-4">
+
+
+
+        <!-- <cmp-breadcrumb></cmp-breadcrumb> -->
+        <!-- Breadcrumbs -->
+
+        <!-- <div>
+            <div class="hidden sm:flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">Security</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <span class="ml-1 text-secondary">Users</span>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<p-dialog appendTo="body" [(visible)]="display" [closable]="true" [draggable]="false" [resizable]="false"
+    [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '90vw'}" (onHide)="hide()" [style]="{width: width}">
+    <p-header>
+        <div class="title justify-center"><i class="fas fa-camera-retro mr-2"></i> {{title}}</div>
+    </p-header>
+    <img [src]="pathImg" style="width: 70%; display: block; margin: auto;">
+</p-dialog>

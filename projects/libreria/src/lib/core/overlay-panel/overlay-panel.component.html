@@ -1,0 +1,193 @@
+<div class="p-inputgroup">
+    <input type="text" pInputText placeholder="Keyword" [disabled]="true" [(ngModel)]="uidSelect" class="p-inputtext-sm"
+        style="white-space:pre-line;">
+    <button type="button" pButton pRipple icon="pi pi-search" styleClass="p-button-warn"
+        (click)="showModalDialog()"></button>
+</div>
+<p-dialog [(visible)]="displayModal" [closable]="false" [draggable]="false" [responsive]="false" [resizable]="false"
+    [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '90vw'}" [style]="{width: width}" (onHide)="onHide()">
+    <p-header>
+        <div class="title"><i class="fas fa-building"></i> {{title}}</div>
+    </p-header>
+
+    <!-- CONTENIDO BUSQUEDA -->
+    <h6 style="font-size: 0.8rem; font-weight: bold;">Filtros de Búsqueda: </h6>
+    <div class="p-fluid p-formgrid p-grid">
+        <ng-container *ngFor="let col of _columns">
+            <div class="p-field p-col-4">
+                <label class="label-form">{{col.name | uppercase}}: </label>
+                <input type="text" pInputText class="p-inputtext-sm">
+            </div>
+        </ng-container>
+        <div class="p-field p-col-4">
+            <button type="button" pButton pRipple icon="pi pi-refresh" [loading]="isLoading" label="Buscar"
+                (click)="search()" styleClass="p-button-warn"></button>
+        </div>
+    </div>
+
+    <!-- <p-fieldset legend="Resultado de la consulta" style="width: 600px;">
+        <p-table [columns]="_columns" [value]="data"
+            styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [resizableColumns]="true"
+            [paginator]="true" [rows]="10" columnResizeMode="expand" [totalRecords]="data.length" [scrollable]="true"
+            [loading]="false" [style]="{'width': '100%','min-height': '200px'}" paginatorPosition="top"
+            [autoLayout]="true" loadingIcon="fas fa-spinner" scrollHeight="400px" selectionMode="single"
+            [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event)">
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns.length">
+                        <span class="text-muted">No se encontraron registros</span>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="paginatorleft" let-state>
+                Registros ({{state.totalRecords}})
+            </ng-template>
+
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngIf="expanded" [style]="{'width':'3rem'}">
+                    <ng-container *ngFor="let col of columns">
+                        <col *ngIf="col.visible && !col.expanded" [style]="{'width': col.width+'rem'}">
+                    </ng-container>
+                </colgroup>
+            </ng-template>
+
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngIf="expanded"></th>
+                    <ng-container *ngFor="let col of columns">
+                        <th [pResizableColumnDisabled]="!col.resizable" pResizableColumn
+                            *ngIf="col.visible && !col.expanded" [pSortableColumn]="col.sortable ? col.name : null"
+                            class="centrar">
+                            <div style="white-space:pre-line;text-align: center;vertical-align: middle;">
+                                {{col.visualName | uppercase}}
+                                <p-sortIcon *ngIf="col.sortable" field="{{col.name}}">
+                                </p-sortIcon>
+                                <i *ngIf="col.comment" [pTooltip]="col.comment" class="fa fa-info-circle"></i>
+                            </div>
+                        </th>
+                    </ng-container>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.name]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </p-fieldset> -->
+    <h6 style="font-size: 0.8rem; font-weight: bold;">Resultado de Búsqueda: </h6>
+    <p-table [columns]="_columns" [value]="data" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm"
+        [resizableColumns]="true" [paginator]="true" [rows]="10" columnResizeMode="expand" [totalRecords]="data.length"
+        [scrollable]="true" [loading]="false" [style]="{'width': '100%','min-height': '200px'}" paginatorPosition="top"
+        [autoLayout]="true" loadingIcon="fas fa-spinner" scrollHeight="400px" selectionMode="single"
+        [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event)">
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columns.length">
+                    <span class="text-muted">No se encontraron registros</span>
+                </td>
+            </tr>
+        </ng-template>
+        <!-- Left -->
+        <ng-template pTemplate="paginatorleft" let-state>
+            Registros ({{state.totalRecords}})
+        </ng-template>
+        <!-- colgroup -->
+
+        <!-- header -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th [style]="{'width':'5rem'}">Código</th>
+                <th>Valor</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td [style]="{'width':'5rem'}">{{rowData.value}}</td>
+                <td>{{rowData.label}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-footer>
+        <button pButton pRipple type="button" label="CANCELAR" icon="pi pi-times-circle"
+            class="p-button-rounded p-button-secondary" (click)="hide()">
+        </button>
+    </p-footer>
+</p-dialog>
+<p-overlayPanel appendTo="body" #op [showCloseIcon]="true" [style]="{width: '600px'}" [focusOnShow]="false"
+    [dismissable]="false">
+    <ng-template pTemplate>
+
+
+        <p-table [value]="data" [columns]="_columns" selectionMode="single" [(selection)]="selectedProduct"
+            [scrollable]="true" [paginator]="true" [rows]="10" [scrollable]="true" scrollHeight="400px"
+            scrollDirection="both" paginatorPosition="top" (onRowSelect)="onRowSelect($event)">
+            <!-- <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="columns.length">
+                    <span class="text-muted">No se encontraron registros</span>
+                </td>
+            </tr>
+        </ng-template> -->
+            <!-- Left -->
+            <ng-template pTemplate="paginatorleft" let-state>
+                Registros ({{state.totalRecords}})
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngIf="expanded" [style]="{'width':'3rem'}">
+                    <ng-container *ngFor="let col of columns">
+                        <col *ngIf="col.visible && !col.expanded" [style]="{'width': col.width+'rem'}">
+                    </ng-container>
+                </colgroup>
+            </ng-template>
+            <!-- header -->
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngIf="expanded"></th>
+                    <ng-container *ngFor="let col of columns">
+                        <th [pResizableColumnDisabled]="!col.resizable" pResizableColumn
+                            *ngIf="col.visible && !col.expanded" [pSortableColumn]="col.sortable ? col.name : null"
+                            class="centrar">
+                            <div style="white-space:pre-line;text-align: center;vertical-align: middle;">
+                                {{col.visualName | uppercase}}
+                                <p-sortIcon *ngIf="col.sortable" field="{{col.name}}">
+                                </p-sortIcon>
+                                <i *ngIf="col.comment" [pTooltip]="col.comment" class="fa fa-info-circle"></i>
+                            </div>
+                        </th>
+                    </ng-container>
+                </tr>
+            </ng-template>
+            <!--  <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th>Image</th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template> -->
+            <!--  <ng-template pTemplate="body" let-rowData let-product>
+            <tr [pSelectableRow]="rowData">
+                <td>{{product.name}}</td>
+                <td><img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.image"
+                        class="product-image" /></td>
+                <td>{{product.price}}</td>
+            </tr>
+        </ng-template> -->
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.name]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-template>
+</p-overlayPanel>

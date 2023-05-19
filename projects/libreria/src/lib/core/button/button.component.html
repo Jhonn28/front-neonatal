@@ -1,0 +1,7 @@
+<button pButton pRipple [loading]="loading" (onClick)="startLoad()" [pTooltip]="tooltip" type="button" [disabled]="disabled" [label]="title" [icon]="icon" class="p-button-raised p-button-sm"  
+class="p-button-sm" [ngClass]="{ 
+'p-button-info' : color === 'info','p-button' : color === 'primary','p-button-secondary' : color === 'secondary'
+  , 'p-button-success' : color === 'success', 'p-button-danger' : color === 'danger'
+  , 'p-button-warning' : color === 'warning'
+  }">
+</button>

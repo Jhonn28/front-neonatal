@@ -1,0 +1,38 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@layout/*": ["src/app/layout/*"],
+      "@core/*": ["src/app/core/*"],
+      "@admin/*": ["src/app/admin/*"],
+      "@services/*": ["src/app/services/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@libreria": [
+        "dist/libreria/libreria",
+        "dist/libreria"
+      ]
+    },
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "strict": false,
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": true,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": false
+  }
+}

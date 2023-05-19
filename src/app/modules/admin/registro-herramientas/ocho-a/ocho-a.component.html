@@ -1,0 +1,417 @@
+<div class="absolute inset-2 flex flex-col min-w-0 overflow-hidden p-0">
+
+  <div class="flex-auto p-0 overflow-y-auto" cdkScrollable>
+
+    <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0 mt-1">
+
+      <div class="sm:col-span-6 flex flex-col flex-auto p-0 bg-blueGray-300 shadow rounded-lg overflow-hidden">
+        <div class="flex flex-col flex-auto overflow-x-auto">
+
+
+          <form [formGroup]="herramientasForm" (ngSubmit)="saveData(stepper)">
+
+            <section class=" py-1 bg-blueGray-100">
+              <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+                <div class="rounded-t bg-white mb-0 px-6 py-6">
+                  <div class="text-center  justify-between">
+                    <h6 class="text-blueGray-700 text-base font-bold">
+                      ESTANDARES E INDICADORES DE PROCESO : COMPLICACIONES OBSTÉTRICAS
+                    </h6>
+                  </div>
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+
+                  <div class="flex flex-wrap mt-4">
+
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Provincia:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <input type="text"
+                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          formControlName="provincia" [attr.disabled]="true">
+                      </div>
+                    </div>
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Distrito:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <p-dropdown [options]="area_salud" [filter]="area_salud.length >= 10" appendTo="body"
+                          [style]="{'width':'100%'}" formControlName="area_salud"
+                          placeholder="Seleccione..."></p-dropdown>
+                      </div>
+                    </div>
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Unidad operativa:
+                          <!-- <span class="text-required"> * </span> -->
+
+                        </label>
+                        <input type="text"
+                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          formControlName="unidad_operativa" [attr.disabled]="true">
+                      </div>
+                    </div>
+
+
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Fecha de la medición:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <input type="text"
+                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          formControlName="fecha_medicion" [attr.disabled]="true">
+                      </div>
+                    </div>
+
+
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Mes evaluado:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <p-dropdown [options]="tiempo" [filter]="tiempo.length >= 10" appendTo="body"
+                          [style]="{'width':'100%'}" formControlName="mes_evaluado"
+                          placeholder="Seleccione..."></p-dropdown>
+                      </div>
+                    </div>
+
+
+
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Responsable de la medición:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <input type="text"
+                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          formControlName="responsable_medicion" [attr.disabled]="true">
+                      </div>
+                    </div>
+
+
+                  </div>
+
+
+                </div>
+              </div>
+            </section>
+
+             <p-accordion [activeIndex]="0">
+              <p-accordionTab header="Instructivo">
+                                <ol>
+                  <li class="my-2 text-justify"> <strong>1. </strong>Realice la medición de éste indicador en forma
+                    mensual.</li>
+                  <li class="my-2 text-justify"> <strong>2. </strong>Registre el nombre de la Provincia, el nombre del
+                    Área de Salud y su número de Área, el nombre de la Unidad Operativa, la fecha de la medición, el mes
+                    evaluado y el nombre y apellido de la persona responsable de la medición.</li>
+                  <li class="my-2 text-justify"> <strong>3. </strong>Solicite en Estadística las historias clínicas
+                    enlistadas como pre eclampsia y eclampsia del instrumento anterior (incluyendo las cesáreas
+                    realizadas por estos diagnósticos).</li>
+                  <li class="my-2 text-justify"> <strong>4. </strong>A continuación verifique en la historia clínica:
+                    formularios de ingreso (008), evolución (005), administración de medicamentos, y otros, si el
+                    proveedor de salud realizó y registró las actividades planteadas en el estándar según la norma. Si
+                    la paciente es atendida en emergencia se realizaran las actividades correspondientes hasta el ítem8,
+                    que termina con la transferencia, mientras que si es hospitalizada se realizarán además las
+                    actividades hasta el ítem 30. Se debe tener en cuenta casos especiales, por ejemplo que durante
+                    laevolución de la paciente se puede realizar el parto / cesárea, lo que impide que se realice la
+                    medición de la frecuencia cardiaca fetal, o por ejemplo si la paciente eclámptica llega en el post
+                    parto a la Unidad de Salud, no se realizará la medición de la frecuencia cardiaca fetal, sin embargo
+                    esto no quiere decir que el
+                    estándar sea negativo, por no cumplir estas actividades, sino que no aplica la realización de las
+                    mismas.</li>
+                  <li class="my-2 text-justify"> <strong>5. </strong>En el instrumento de recolección de datos: registre
+                    el número de la historia clínica seleccionada y en cada casillero en sentido vertical registre con
+                    signo positivo (+) si cumple con cada ítem o con signo negativo (-) si no cumple, mientras que si no
+                    es aplicable por casos especiales como los mencionados o por la edad gestacional se registrará NA
+                    (no aplica), sin que esto perjudique el cumplimiento general del estándar.</li>
+                  <li class="my-2 text-justify"> <strong>6. </strong>En el casillero del instrumento que corresponde a
+                    ¿Cumple el estándar con los aspectos requeridos de acuerdo al nivel de resolución de la Unidad de
+                    Salud?, Registre signo positivo (+) si cumple con los aspectos que le correspondan de acuerdo al
+                    nivel de resolución de la Unidad de Salud. Si no se cumple se registrará con signo negativo (-).
+                  </li>
+                </ol>
+
+              </p-accordionTab>
+            </p-accordion>
+
+            <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0 mt-1">
+
+              <div class="sm:col-span-6 flex flex-col flex-auto p-0 bg-card shadow rounded-lg overflow-hidden">
+                <div class="flex flex-col flex-auto overflow-x-auto">
+
+                  <div class="stepper">
+                    <mat-stepper linear #stepper id="stepper">
+
+                      <!-- TODO: STEP 1 -->
+                      <mat-step [stepControl]="insumosForm" [editable]="true">
+                        <div class="flex flex-col  bg-card filter-pricing">
+                          <div class="p-4">
+                            <div class="text-base text-justify font-bold">
+
+                              <p>8 A. Porcentaje de pacientes con Pre eclampsia y Eclampsia que fueron manejadas de acuerdo a la norma.
+                            </div>
+                          </div>
+                        </div>
+
+
+
+                        <p-table [value]="insumosForm.controls" styleClass="p-datatable-gridlines p-datatable-wrapper"
+                          [autoLayout]="true" responsiveLayout="scroll" [rowHover]="true">
+
+
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th class="min-w-10  w-fit text-center">No. De Historia Clínica
+                                <span class="text-required"> * </span>
+                              </th>
+
+                              <ng-container formArrayName="codigo">
+                                <ng-container *ngFor="let cod of codigoForm.controls; let i=index">
+                                  <ng-container [formGroupName]="i">
+                                    <th class="min-w-10  w-fit text-center">
+                                      <input pInputText pKeyFilter="int" inputId="integeronly"
+                                        formControlName="codigo_clinica" />
+                                    </th>
+
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+
+
+                            </tr>
+                          </ng-template>
+
+
+                          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <ng-container formArrayName="insumos">
+                              <!-- TODO: 31 col -->
+                              <tr [formGroupName]="rowIndex">
+
+                                <td colspan="31" *ngIf="rowIndex==7" class="font-bold bg-red-200 p-3">Continuar el llenado del instrumento si la  paciente fue hospitalizada Manejo de la paciente HOSPITALIZADA con Preeclampsia, eclampsia:</td>
+                              </tr>
+                              <!-- TODO: ·col  -->
+                              <tr [formGroupName]="rowIndex">
+                                <p *ngIf="rowIndex==1" class="font-bold">Determinar al menos una vez:</p>
+                                <p *ngIf="rowIndex==4" class="font-bold">Manejo Terapéutico:</p>
+                                <p *ngIf="rowIndex==7" class="font-bold">Realización de exámenes de laboratorio (al ingreso):</p>
+                                <p *ngIf="rowIndex==8" class="font-bold">Determinar en cada turno (TID):</p>
+                                <p *ngIf="rowIndex==13" class="font-bold">Manejo Terapéutico</p>
+                                <p *ngIf="rowIndex==17" class="font-bold">Terminar el embarazo por parto o cesárea independientemente de la edad gestacional, con consentimiento informado,  en las primeras 24 horas. Si presenta uno o más signos de complicación  deberá terminar el embarazo en las primeras 12 horas</p>
+                              </tr>
+
+                              <tr [formGroupName]="rowIndex">
+                                <td style="text-align-last:rigth;">
+
+                                  <textarea class="component text-data w-100" type="text"
+                                      pInputTextarea formControlName="text"
+                                      [attr.disabled]="true"></textarea>
+                                </td>
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="1"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="2" (onChange)="promedio(insumosForm,codigoForm)">
+                                  </p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="3"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="4"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="5"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="6"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="7"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="8"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="9"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="10"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="11"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="12"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="13"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="14"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="15"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="16"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="17"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="18"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="19"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="20"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="21"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="22"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="23"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="24"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="25"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="26"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="27"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="28"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="29"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;">
+                                  <p-inputSwitch formControlName="30"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+
+                              </tr>
+                            </ng-container>
+                          </ng-template>
+                        </p-table>
+
+                        <div class="block">
+                          <p class="flex justify-end my-2"> Numerador: <span class="font-bold">{{numerador}}</span></p>
+                          <p class="flex justify-end my-2"> Denominador: <span class="font-bold">{{denominador}}</span>
+                          </p>
+                          <p class="flex justify-end my-2"> Porcentaje: <span class="font-bold">{{porcentaje}}</span>
+                          </p>
+                        </div>
+
+                        <div class="flex justify-end mt-4">
+
+                          <button class="px-8 bg-indigo-900	text-white	" mat-button type="submit" matStepperNext>
+                            Guardar
+                          </button>
+                        </div>
+                      </mat-step>
+
+                    </mat-stepper>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+    <pre>
+  <code>
+    <!-- {{herramientasForm.value|json}} -->
+  </code>
+</pre>
+  </div>

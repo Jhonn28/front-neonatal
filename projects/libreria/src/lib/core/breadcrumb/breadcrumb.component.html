@@ -1,0 +1,17 @@
+<nav class="flex">
+  <ol class="inline-flex items-center space-x-1 md:space-x-3 mr-3">
+    <li class="inline-flex items-center">
+      <a [routerLink]="['/','admin','home']" routerLinkActive="router-link-active"  class="inline-flex items-center">
+        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:home'" ></mat-icon>
+      </a>
+    </li>
+    <ng-container *ngFor="let item of menu;let i = index">
+      <li>
+        <div class="flex items-center">
+          <mat-icon class="icon-size-4" [svgIcon]="'heroicons_outline:chevron-right'"></mat-icon>
+          <a class="ml-1 text-base text-secondary">{{ item }}</a>
+        </div>
+      </li>
+    </ng-container>
+  </ol>
+</nav>

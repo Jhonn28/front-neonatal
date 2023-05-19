@@ -1,0 +1,89 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+
+    <div class="flex-auto w-auto p-4 sm:p-4 bg-card dark:bg-transparent">
+        <!-- Form -->
+        <form [formGroup]="securityForm" #securityFormNgForm="ngForm" (ngSubmit)="changePassword()">
+            <!-- Section -->
+            <div class="w-full">
+                <div class="text-secondary">Sólo puedes cambiar tu contraseña dos veces en 24 horas.</div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 mt-2">
+                <div class="grid sm:grid-cols-4 gap-2 w-full mt-2">
+                    <!-- Current password -->
+                    <div class="sm:col-span-4">
+                        <mat-form-field class="fuse-mat-no-subscript w-full fuse-mat-dense">
+                            <mat-label>Contraseña actual</mat-label>
+                            <input [formControlName]="'passwordActual'" type="password" matInput #currentPasswordField>
+                            <button mat-icon-button type="button"
+                                (click)="currentPasswordField.type === 'password' ? currentPasswordField.type = 'text' : currentPasswordField.type = 'password'"
+                                matSuffix>
+                                <mat-icon class="icon-size-5" *ngIf="currentPasswordField.type === 'password'"
+                                    [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                <mat-icon class="icon-size-5" *ngIf="currentPasswordField.type === 'text'"
+                                    [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <i class="text-red-700 text-sm" *ngIf="isInvalidField('passwordActual')">{{getErrorMessage('currentPassword')}}</i>
+                    </div>
+                    <!-- New password -->
+                    <div class="sm:col-span-4">
+                        <mat-form-field class="fuse-mat-no-subscript w-full fuse-mat-dense">
+                            <mat-label>Nueva contraseña</mat-label>
+                            <input [formControlName]="'nuevaPassword'" type="password" matInput #passwordField>
+                            <button mat-icon-button type="button"
+                                (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                                matSuffix>
+                                <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                                    [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                                    [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <i class="text-red-700 text-sm"  *ngIf="isInvalidField('nuevaPassword')">{{getErrorMessage('newPassword')}}</i>
+                    </div>
+                    <!-- Confirm password -->
+                    <div class="sm:col-span-4">
+                        <mat-form-field class="fuse-mat-no-subscript w-full fuse-mat-dense">
+                            <mat-label>Confirmar contraseña</mat-label>
+                            <input [formControlName]="'passwordConfirm'" type="password" matInput #passwordConfirmField>
+                            <button mat-icon-button type="button"
+                                (click)="passwordConfirmField.type === 'password' ? passwordConfirmField.type = 'text' : passwordConfirmField.type = 'password'"
+                                matSuffix>
+                                <mat-icon class="icon-size-5" *ngIf="passwordConfirmField.type === 'password'"
+                                    [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                                <mat-icon class="icon-size-5" *ngIf="passwordConfirmField.type === 'text'"
+                                    [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <i class="text-red-700 text-sm" *ngIf="isInvalidField('passwordConfirm')">{{getErrorMessage('passwordConfirm')}}</i>
+                    </div>
+                </div>
+
+                <div class="flex flex-col mt-2 sm:ml-10" *ngIf="rules">
+                    <div class="font-semibold">Tu nueva contraseña debe cumplir con:</div>
+                    <div class="flex" *ngFor="let item of rules">
+                        <i class="fas fa-angle-right text-green-600 mr-3"></i>
+                        <div class="text-blue-700 italic">{{item.rule}}</div>
+                    </div>
+                </div>
+
+                <span class="text-red-700 text-sm"
+                    *ngIf="ifEqualsPassword('nuevaPassword','passwordConfirm')">{{getErrorMessage('newPassword','passwordConfirm')}}</span>
+            </div>
+            <!-- Divider -->
+            <div class="my-4 border-t"></div>
+
+            <!-- Actions -->
+            <div class="flex flex-shrink-0 items-center justify-end">
+                <button class="ml-4" mat-flat-button [color]="'primary'" [disabled]="securityFormNgForm.disabled"
+                    type="submit">
+                    <mat-icon *ngIf="!securityFormNgForm.disabled" [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                    <span *ngIf="!securityFormNgForm.disabled" class="ml-2 mr-1">Restablecer contraseña</span>
+                    <mat-progress-spinner *ngIf="securityFormNgForm.disabled" [diameter]="24" [mode]="'indeterminate'">
+                    </mat-progress-spinner>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

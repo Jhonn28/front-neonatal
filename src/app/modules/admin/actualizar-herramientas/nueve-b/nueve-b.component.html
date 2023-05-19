@@ -1,0 +1,495 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+  <div class="flex items-center p-2 justify-center w-full bg-card">
+    <div>
+      <div class="text-lg font-semibold tracking-tight leading-12  text-center">Revisión indicador 9B
+
+      </div>
+    </div>
+
+  </div>
+  <div class="flex-auto pt-2 sm:px-4 sm:pb-4">
+    <div class="barra"></div>
+    <div class="p-2 bg-card shadow rounded overflow-hidden">
+      <div class="flex justify-center flex-col sm:flex-row items-center w-full py-3 sm:my-2">
+
+        <form [formGroup]="supervisionForm" (ngSubmit)="buscarSupervision()">
+          <div class="flex flex-wrap  -mx-3 mb-6">
+
+            <div class="w-full md:w-1/2  lg:w-1/2 px-3">
+              <label class=" flex justify-endblock tracking-wide text-gray-700 text-sm font-bold mb-2"
+                for="grid-last-name">
+                Distrito:
+              </label>
+              <p-dropdown class="flex justify-end w-full" appendTo="body" [filter]="distritos.length >= 10"
+                emptyFilterMessage="No existen registros" [(ngModel)]="selectDistrito" styleClass="component my-1 mx-1"
+                [options]="distritos" placeholder="Seleccione..." formControlName="distrito"
+                [readonly]="lectura_distrito">
+                {{distritos}}
+              </p-dropdown>
+            </div>
+            <div class="w-full md:w-1/2 lg:w-1/2 px-3">
+              <label class="block tracking-wide text-gray-700 text-sm font-bold mb-2" for="grid-last-name">
+                Establecimiento:
+              </label>
+              <p-dropdown appendTo="body" [filter]="establecimientos.length >= 10"
+                emptyFilterMessage="No existen registros" formControlName="establecimiento"
+                [(ngModel)]="selectEstablecimiento" styleClass="component my-1 mx-1" [options]="establecimientos"
+                placeholder="Seleccione...">
+                {{establecimientos}}
+              </p-dropdown>
+            </div>
+
+            <div class="w-full md:w-1/2 px-3 flex justify-end mt-2">
+              <button class="px-2 bg-indigo-900	text-white p-2" mat-button type="submit">
+
+                <span class="mr-2 font-medium"><i class="fas fa-search mx-1"></i> Consultar</span>
+              </button>
+            </div>
+            <div class="w-full md:w-1/2 px-3 flex justify-start mt-2">
+              <button class="px-2 bg-red-500	text-white p-2" mat-button type="button" (click)="resetInfo()">
+                <span class="ml-2 font-medium"> <i class="fas fa-trash mx-1"></i> Limpiar</span>
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+      <p-table #dt1 [value]="seguimiento" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['establecimiento_hlic','porcentaje_estandar_hlic']" [autoLayout]="true"
+        responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+
+          <div class="flex">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                placeholder="Criterio búsqueda" />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="font-black text-center">Establecimiento</th>
+            <th class="font-black text-center">Numerador</th>
+            <th class="font-black text-center">Denominador</th>
+            <th class="font-black text-center">Porcentaje</th>
+            <th class="min-w-8 w-fit text-center">Visualizar</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-dataRow>
+          <tr>
+            <td class="text-center">{{dataRow.unidad_operativa_heg}}</td>
+            <td class="text-center">{{dataRow.numerador_heg}}</td>
+            <td class="text-center">{{dataRow.denominador_heg}}</td>
+            <td class="text-center font-bold text-indigo-90">{{dataRow.porcentaje_heg}}</td>
+
+            <td class="text-center">
+              <button (click)="onVisual(dataRow)"
+                class="h-6 w-7 bg-transparent hover:bg-green-500 text-green-700 hover:text-white border border-green-500 hover:border-transparent rounded"
+                type="button" icon="fas fa-eye" pButton pRipple>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">No customers found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <div *ngIf="visibleForm" class="flex-auto p-2 overflow-y-auto" cdkScrollable>
+
+    <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0 mt-1">
+
+      <div class="sm:col-span-6 flex flex-col flex-auto p-0 bg-blueGray-300 shadow rounded-lg overflow-hidden">
+        <div class="flex flex-col flex-auto overflow-x-auto">
+
+
+          <form [formGroup]="herramientasForm" (ngSubmit)="saveData(stepper)">
+
+            <section class=" py-1 bg-blueGray-100">
+              <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+                <div class="rounded-t bg-white mb-0 px-6 py-6">
+                  <div class="text-center  justify-between">
+                    <h6 class="text-blueGray-700 text-base font-bold">
+                      ESTÁNDAR E INDICADOR DE PROCESO: COMPLICACIONES NEONATALES
+                    </h6>
+                  </div>
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+
+                  <div class="flex flex-wrap mt-4">
+
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Provincia:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <input type="text"
+                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          formControlName="provincia" [attr.disabled]="true">
+                      </div>
+                    </div>
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Área salud:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <p-dropdown [options]="area_salud" [filter]="area_salud.length >= 10" appendTo="body"
+                          [style]="{'width':'100%'}" formControlName="area_salud"
+                          placeholder="Seleccione..." [readonly]="true"></p-dropdown>
+                      </div>
+                    </div>
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Unidad operativa:
+                          <!-- <span class="text-required"> * </span> -->
+
+                        </label>
+                        <input type="text"
+                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          formControlName="unidad_operativa" [attr.disabled]="true">
+                      </div>
+                    </div>
+
+
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Fecha de la medición:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <input type="text"
+                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          formControlName="fecha_medicion" [attr.disabled]="true">
+                      </div>
+                    </div>
+
+
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Mes evaluado:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <p-dropdown [options]="tiempo" [filter]="tiempo.length >= 10" appendTo="body"
+                          [style]="{'width':'100%'}" formControlName="mes_evaluado"
+                          placeholder="Seleccione..." [readoly]="true"></p-dropdown>
+                      </div>
+                    </div>
+
+
+
+                    <div class="w-full lg:w-4/12 px-4">
+                      <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-sm font-bold mb-2">
+                          Responsable de la medición:
+                          <span class="text-required"> * </span>
+
+                        </label>
+                        <input type="text"
+                          class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          formControlName="responsable_medicion" [attr.disabled]="true">
+                      </div>
+                    </div>
+
+
+                  </div>
+
+
+                </div>
+              </div>
+            </section>
+
+             <p-accordion [activeIndex]="0">
+              <p-accordionTab header="Instructivo">
+                                <ol>
+                  <li class="my-2 text-justify"> <strong>1. </strong>Realice la medición de éste indicador en forma mensual.</li>
+                  <li class="my-2 text-justify"> <strong>2. </strong>Registre el nombre de la Provincia, el nombre y número del Área de Salud / Hospital la fecha de la medición, el mes evaluado y el nombre y apellido de la persona responsable de la medición.</li>
+                  <li class="my-2 text-justify"> <strong>3. </strong>Solicite y revise las historias clínicas de los neonatos, enlistadas con diagnostico definitivo y/ o Secundario de: Enfermedad de membrana Hialina, Neumonía intrautero/congénita, Síndrome de Distress (dificultad) respiratoria, Síndrome de aspiración meconial, Taquipnea transitoria del recién nacido.</li>
+                  <li class="my-2 text-justify"> <strong>4. </strong>Verifique en el formulario 051,  (volver al formulario del año 2003),  028 Atención del Recién Nacido,  hoja 005  (notas de evolución) y/o la hoja 008 (emergencia) los procedimientos ejecutados.</li>
+                  <li class="my-2 text-justify"> <strong>5. </strong>En el “instrumento de recolección de datos”: registre en  forma vertical  el número de la historia clínica seleccionada; y el casillero respectivo  registre con signo positivo (+) si cumple la  actividad  o con signo negativo (-) si no la cumple,  NA si no aplica.</li>
+                  <li class="my-2 text-justify"> <strong>6. </strong>En el casillero del instrumento que corresponde a ¿Cumple el estándar?, Registre signo positivo (+) si cumple con todos las actividades que le correspondan de acuerdo al nivel de resolución de la Unidad de Salud.  Si no se cumple se registrará con signo negativo (-).
+                  </li>
+                </ol>
+
+              </p-accordionTab>
+            </p-accordion>
+
+            <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0 mt-1">
+
+              <div class="sm:col-span-6 flex flex-col flex-auto p-0 bg-card shadow rounded-lg overflow-hidden">
+                <div class="flex flex-col flex-auto overflow-x-auto">
+
+                  <div class="stepper">
+                        <div class="flex flex-col  bg-card filter-pricing">
+                          <div class="p-4">
+                            <div class="text-base text-justify font-bold">
+
+                              <p>9B. Porcentaje de RN con trastornos respiratorios, que fueron manejados de acuerdo a la norma
+                            </div>
+                          </div>
+                        </div>
+
+
+
+                        <p-table [value]="insumosForm.controls" styleClass="p-datatable-gridlines p-datatable-wrapper"
+                          [autoLayout]="true" responsiveLayout="scroll" [rowHover]="true">
+
+
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th class="min-w-10  w-fit text-center">No. De Historia Clínica
+                                <span class="text-required"> * </span>
+                              </th>
+
+                              <ng-container formArrayName="codigo">
+                                <ng-container *ngFor="let cod of codigoForm.controls; let i=index">
+                                  <ng-container [formGroupName]="i">
+                                    <th class="min-w-10  h-24 w-fit text-center">
+                                      <input class="text-center w-16 -rotate-90" pInputText pKeyFilter="int" inputId="integeronly"
+                                        formControlName="codigo_clinica" disabled />
+                                    </th>
+
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+
+
+                            </tr>
+                          </ng-template>
+
+
+                          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <ng-container formArrayName="insumos">
+                              <!-- TODO: 31 col -->
+                              <tr [formGroupName]="rowIndex">
+                                <td colspan="31" *ngIf="rowIndex==2" class="font-bold bg-gray-300 p-3">Registrar en la Historia Clínica del RN</td>
+                                <td colspan="31" *ngIf="rowIndex==8" class="font-bold bg-gray-300 p-3">Realizar exámenes de laboratorio</td>
+                                <td colspan="31" *ngIf="rowIndex==10" class="font-bold bg-gray-300 p-3">Manejo terapéutico</td>
+                                <td colspan="31" *ngIf="rowIndex==16" class="font-bold bg-gray-300 p-3">Manejo del recién nacido HOSPITALIZADO con Trastorno Respiratorio en los niveles II y III</td>
+                                <td colspan="31" *ngIf="rowIndex==22" class="font-bold bg-gray-300 p-3">Realizar y  registrar los exámenes de laboratorio e Imagen</td>
+                                <td colspan="31" *ngIf="rowIndex==25" class="font-bold bg-gray-300 p-3">Manejo terapéutico</td>
+                              </tr>
+
+                              <tr [formGroupName]="rowIndex">
+                                <td colspan="31" *ngIf="rowIndex==16" class="font-bold bg-gray-300 p-3">Registrar en la Historia del RN cada 3 horas: (hasta que el RN se estabilice)</td>
+                              </tr>
+
+                              <!-- TODO: ·col  -->
+                              <tr [formGroupName]="rowIndex">
+                                <p *ngIf="rowIndex==0" class="font-bold">Determinar antecedentes gestacionales</p>
+                              </tr>
+
+                              <tr [formGroupName]="rowIndex">
+                                <td style="text-align-last:rigth;">
+
+                                  <textarea class="component text-data w-full" type="text"
+                                      pInputTextarea formControlName="text"
+                                      [attr.disabled]="true"></textarea>
+                                </td>
+                                <td style="text-align-last:center;" *ngIf="numero_historias>0">
+                                  <p-inputSwitch formControlName="1"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td style="text-align-last:center;" *ngIf="numero_historias>1">
+                                  <p-inputSwitch formControlName="2" (onChange)="promedio(insumosForm,codigoForm)">
+                                  </p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>2">
+                                  <p-inputSwitch formControlName="3"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>3">
+                                  <p-inputSwitch formControlName="4"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>4">
+                                  <p-inputSwitch formControlName="5"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>5">
+                                  <p-inputSwitch formControlName="6"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>6">
+                                  <p-inputSwitch formControlName="7"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>7">
+                                  <p-inputSwitch formControlName="8"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>8">
+                                  <p-inputSwitch formControlName="9"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>9">
+                                  <p-inputSwitch formControlName="10"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>10">
+                                  <p-inputSwitch formControlName="11"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>11">
+                                  <p-inputSwitch formControlName="12"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>12">
+                                  <p-inputSwitch formControlName="13"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>13">
+                                  <p-inputSwitch formControlName="14"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>14">
+                                  <p-inputSwitch formControlName="15"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>15">
+                                  <p-inputSwitch formControlName="16"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>16">
+                                  <p-inputSwitch formControlName="17"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>17">
+                                  <p-inputSwitch formControlName="18"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>18">
+                                  <p-inputSwitch formControlName="19"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>19">
+                                  <p-inputSwitch formControlName="20"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>20">
+                                  <p-inputSwitch formControlName="21"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>21">
+                                  <p-inputSwitch formControlName="22"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>22">
+                                  <p-inputSwitch formControlName="23"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>23">
+                                  <p-inputSwitch formControlName="24"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>24">
+                                  <p-inputSwitch formControlName="25"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>25">
+                                  <p-inputSwitch formControlName="26"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>26">
+                                  <p-inputSwitch formControlName="27"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>27">
+                                  <p-inputSwitch formControlName="28"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>28">
+                                  <p-inputSwitch formControlName="29"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                                <td style="text-align-last:center;" *ngIf="numero_historias>29">
+                                  <p-inputSwitch formControlName="30"
+                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+
+                              </tr>
+                            </ng-container>
+                          </ng-template>
+                        </p-table>
+
+                        <div class="block">
+                          <p class="flex justify-end my-2"> Numerador: <span class="font-bold">{{numerador}}</span></p>
+                          <p class="flex justify-end my-2"> Denominador: <span class="font-bold">{{denominador}}</span>
+                          </p>
+                          <p class="flex justify-end my-2"> Porcentaje: <span class="font-bold">{{porcentaje}}</span>
+                          </p>
+                        </div>
+
+                        <div class="flex justify-end mt-4">
+
+                          <button class="px-8 bg-indigo-900	text-white	" mat-button type="submit" >
+                            Guardar
+                          </button>
+                        </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <pre>
+<!--       {{herramientasForm.value|json}} -->
+    </pre>
+
+
+
+  </div>

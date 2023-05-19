@@ -1,0 +1,21 @@
+<p class="mb-2  text-base"> Seleccione la sucursal al que desea ingresar. </p>
+<ul class="relative">
+    <ng-container *ngFor="let branch of branchs">
+        <li (click)="selected(branch.value)"
+            class="mb-2 bg-gray-50 p-3 shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-primary">
+            <div class="flex items-center">
+                <div class="w-16 text-3xl leading-none">
+                    <i class="fas fa-city fa-3x text-yellow-500"></i>
+                </div>
+                <div class="w-full text-base">{{branch.label}}</div>
+                <div class="text-gray-800"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </li>
+    </ng-container>
+
+</ul>
+<div class="p-dialog-footer" style="width: 100%; position: fixed;left: 0%; bottom: 0%;">
+    <button (click)="cerrarDialogo()" pButton pRipple type="button" label="Cancelar" icon="pi pi-times-circle"
+        class="p-button-rounded p-button-secondary mr-3">
+    </button>
+</div>

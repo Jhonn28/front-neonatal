@@ -1,0 +1,37 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+    <cmp-menu-bar #barButtons></cmp-menu-bar>
+    <div
+        class="border-b flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-1 pb-1 sm:pt-1 sm:pb-1 sm:px-2 dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <cmp-button [title]="'ACTIVAR / DESACTIVAR'" (click)="questionActive()" [icon]="'fas fa-check'"></cmp-button>
+            <cmp-button [title]="'BLOQUEAR / DESBLOQUEAR'" (click)="questionBlockUser()" [icon]="'fas fa-user-lock'"></cmp-button>
+            <cmp-button [title]="'GENERAR CLAVE'" (click)="passwordGenerated()" [icon]="'fas fa-key'"></cmp-button>
+        </div>
+    </div>
+    <div class="flex-auto p-2 shadow overflow-y-auto" cdkScrollable>
+        <fuse-alert [appearance]="'outline'" [dismissible]="false" [dismissed]="false" [name]="'alertBox2'"
+            class="w-full pb-2" [type]="'info'">
+            Cuando se crean un usuario nuevo la clave es la misma que el valor del campo <b>USERNAME</b>.
+        </fuse-alert>
+        <div class="bg-card p-3 mb-2 rounded shadow">
+            <cmp-table #tabTable1></cmp-table>
+        </div>
+        <p-tabView styleClass="tab-view-custom">
+            <p-tabPanel header="Empresa">
+                <ng-template pTemplate="header">
+                    <i class="fas fa-building"></i>
+                    <span>ACCESO A ESTABLECIMIENTO</span>
+                </ng-template>
+                <cmp-table #tabTable2></cmp-table>
+            </p-tabPanel>
+
+            <p-tabPanel header="Clave">
+                <ng-template pTemplate="header">
+                    <i class="fas fa-key"></i>
+                    <span>DETALLE DE CLAVE</span>
+                </ng-template>
+                <cmp-table #tabTable3></cmp-table>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>

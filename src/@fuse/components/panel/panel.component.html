@@ -1,0 +1,39 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+    <ng-content select="[panelHeader]"></ng-content>
+    <mat-drawer-container class="flex-auto h-full">
+
+        <!-- Drawer -->
+        <mat-drawer class="flex w-72 min-w-72 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode"
+            [opened]="drawerOpened" #matDrawer>
+
+            <fuse-vertical-navigation [navigation]="navigation" [inner]="true" [mode]="'side'"
+                [name]="'docs-common-components-navigation'" [opened]="true">
+            </fuse-vertical-navigation>
+
+        </mat-drawer>
+
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex flex-col" fuseScrollReset>
+
+            <!-- Main -->
+            <div class="flex-auto">
+                <div class="flex flex-col flex-auto min-w-0">
+                    <div class="flex items-start justify-between px-2 py-1 border-b bg-primary-700 dark:bg-transparent text-on-primary">
+                        <div class="text-base font-medium tracking-tight leading-6 truncate">Información del producto</div>
+                        <div class="ml-2 mr-2">
+                            <button  mat-icon-button (click)="matDrawer.toggle()">
+                                <!-- <i class="fas fa-bars"></i> -->
+                                <mat-icon class="text-on-primary" [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-auto p-2">
+                        <ng-content select="[panelBody]"></ng-content>
+                    </div>
+                </div>
+            </div>
+
+        </mat-drawer-content>
+
+    </mat-drawer-container>
+</div>

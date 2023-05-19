@@ -1,0 +1,11 @@
+<div class="p-inputgroup">
+
+    <p-autoComplete [(ngModel)]="valor" placeholder="Dijite coincidencia..." (onSelect)="changeEvent()"
+        [inputStyle]="{'width':width}" [suggestions]="resultadoAutocompletar" [itemSize]="5" [forceSelection]="true"
+        (completeMethod)="onAutocomplete($event)" field="label" [type]="'search'" [disabled]="lectura" (onUnselect)="borrarEvent()">
+    </p-autoComplete>
+    <!-- <span class="p-inputgroup-addon" style="background:none;border:0;margin-left:-40px;z-index: 10;cursor: pointer;"><i
+            class="fas fa-keyboard"></i></span> -->
+</div>
+
+

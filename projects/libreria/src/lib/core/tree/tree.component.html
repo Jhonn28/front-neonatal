@@ -1,0 +1,19 @@
+<ng-container *ngIf="!isDraw">
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+</ng-container>
+
+ <p-contextMenu appendTo="body" #cm [model]="items"></p-contextMenu>
+<p-tree *ngIf="isDraw" #tree [value]="data" (onNodeSelect)="nodeSelect($event)" selectionMode="single" [(selection)]="selected"
+    [filter]="true" filterMode="strict" emptyMessage="No se han encontrado resultados" [loading]="loading"
+    [scrollHeight]="height" loadingIcon="fas fa-spinner">
+</p-tree>
+

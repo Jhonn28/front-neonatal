@@ -1,0 +1,503 @@
+<p-contextMenu appendTo="body" [target]="containerTable" [model]="menuContextual"></p-contextMenu>
+<div #containerTable (mousedown)="onFocusTable()" [style]="{'min-height': '200px'}">
+  <ng-container *ngIf="!isDraw">
+    <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+    <p-table [value]="[1,1,1,1,1,1,1.1,1,1]" class="table-loader">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>
+            <p-skeleton></p-skeleton>
+          </th>
+          <th>
+            <p-skeleton></p-skeleton>
+          </th>
+          <th>
+            <p-skeleton></p-skeleton>
+          </th>
+          <th>
+            <p-skeleton></p-skeleton>
+          </th>
+          <th>
+            <p-skeleton></p-skeleton>
+          </th>
+          <th>
+            <p-skeleton></p-skeleton>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-container>
+
+  <div *ngIf="isDraw">
+    <div *ngIf="table.isVisible">
+
+      <p-toolbar *ngIf="!typeForm">
+        <div class="p-toolbar-group-left">
+          <span *ngIf="title" style="font-weight: bold; font-size: 0.8rem;"><i class="fas fa-caret-right"></i>
+            {{title}}</span>
+        </div>
+        <div class="p-toolbar-group-right">
+          <span *ngIf="!tipoFormulario" class="p-input-icon-right">
+            <i class="fas fa-search pi-spinner"></i>
+            <input type="text" pInputText [(ngModel)]="textoFiltroGlobal" placeholder="Buscar..."
+              (input)="onGlobalFilter(textoFiltroGlobal)" class="texto-busqueda">
+          </span>
+        </div>
+      </p-toolbar>
+      <ng-container *ngIf="!typeForm">
+        <!-- read -->
+        <ng-container *ngIf="read">
+          <p-table #datatable *ngIf="table" [columns]="table.columns" [value]="table.data"
+            styleClass="p-datatable-gridlines p-datatable-striped" [resizableColumns]="true" sortMode="multiple"
+            [paginator]="pagination" [rows]="table.rows" columnResizeMode="expand" [totalRecords]="table.data.length"
+            [loading]="loading" [rowsPerPageOptions]="[ 5,10,15,20]" paginatorPosition="top" [metaKeySelection]="true"
+            [sortField]="fieldOrder" alwaysShowPaginator="true" showJumpToPageDropdown="true" [showPageLinks]="false"
+            currentPageReportTemplate="Página {currentPage} de {totalPages}" [autoLayout]="true"
+            [selectionMode]="selectionMode" loadingIcon="fas fa-spinner"
+            [selection]="tipoSeleccion === 'multiple' ? table.selecteds:selected" [dataKey]="table.primaryField"
+            (onRowSelect)="onSelect($event.data,$event)" [scrollable]="true" scrollDirection="both" responsiveLayout="scroll">
+            <!-- Menssage -->
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="columns.length">
+                  <span class="text-muted">No se encontraron registros</span>
+                </td>
+              </tr>
+            </ng-template>
+            <!-- Left -->
+            <ng-template pTemplate="paginatorleft" let-state>
+              Registros ({{state.totalRecords}})
+            </ng-template>
+            <!-- colgroup -->
+
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <ng-container *ngFor="let col of columns">
+                  <th [pResizableColumnDisabled]="!col.resizable" pResizableColumn *ngIf="col.visible && !col.expanded"
+                    [ngStyle]="{'width':col.width== 'null' ? 'auto' : col.width+'rem' }"
+                    [pSortableColumn]="col.sortable ? col.name : null" class="centrar">
+                    <div style="white-space:pre-line;text-align: center;vertical-align: middle;">
+                      {{col.visualName | uppercase}}
+                      <p-sortIcon *ngIf="col.sortable" field="{{col.name}}">
+                      </p-sortIcon>
+                      <span *ngIf="col.comment" [pTooltip]="col.comment" class="fa fa-info-circle"></span>
+                    </div>
+                  </th>
+                </ng-container>
+              </tr>
+
+            </ng-template>
+            <!-- row expanded -->
+            <ng-template pTemplate="body" let-row let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+              <tr [pSelectableRow]="row" *ngIf="row.visible === undefined">
+                <ng-container *ngFor="let col of columns; let indice=index;">
+                  <td *ngIf="col.visible && !col.expanded"
+                    [ngStyle]="{'width':col.width== 'null' ? 'auto' : col.width+'rem', 'text-align':col.width== 'null'? 'left' : col.align}">
+                    <ng-container [ngSwitch]="col.component">
+
+                      <div *ngSwitchCase="'avatar'">
+                        <div style="cursor: pointer;" class="img-avatar-circulo"
+                          (click)="openImageViewer(col.name,rowIndex)">
+                          <img *ngIf="row[col.name]" [src]="(row[col.name])">
+                          <img *ngIf="!row[col.name]" src="assets/images/no-img.jpg">
+                        </div>
+                      </div>
+                      <div *ngSwitchCase="'badge'">
+
+                        <span [ngClass]="{
+                                                    'bg-gray-700': row[col.name] === 'PENDIENTE',
+                                                    'bg-blue-500': row[col.name] === 'RECIBIDA',
+                                                    'bg-yellow-500': row[col.name] === 'DEVUELTA',
+                                                    'bg-red-500': row[col.name] === 'NO AUTORIZADO',
+                                                    'bg-green-500': row[col.name] === 'AUTORIZADO'
+                                                }"
+                          class="inline-block py-1 px-1 leading-none text-center whitespace-nowrap rounded-md align-baseline font-bold text-white">
+                          {{row[col.name]}}
+                        </span>
+                      </div>
+                      <div *ngSwitchDefault [style]="col.style" class="componentText">
+                        {{row[col.name]}}
+                      </div>
+
+                    </ng-container>
+                  </td>
+                </ng-container>
+              </tr>
+            </ng-template>
+
+          </p-table>
+        </ng-container>
+        <!-- Edit -->
+        <ng-container *ngIf="!read && !table.tree">
+          <p-table #datatable *ngIf="table" [columns]="table.columns" [value]="table.data"
+            [(selection)]="selectedCustomers" [dataKey]="table.primaryField"
+            styleClass="p-datatable-gridlines p-datatable-striped" [resizableColumns]="true" [rowHover]="true"
+            [rows]="table.rows" [showCurrentPageReport]="false" [totalRecords]="table.data.length"
+            [rowsPerPageOptions]="[5,10,15,20]" [loading]="loading" [paginator]="true" loadingIcon="fas fa-spinner"
+            paginatorPosition="top" [lazy]="false" [autoLayout]="true"
+            currentPageReportTemplate="Página {currentPage} de {totalPages}" [dir]="numberTableString"
+            [showPageLinks]="false" [showJumpToPageDropdown]="true" responsiveLayout="scroll" name="dtTablaEditable"
+            columnResizeMode="expand" [metaKeySelection]="true" (sortFunction)="onSortTableEditable($event)"
+            [customSort]="true" [sortField]="fieldOrder" (onRowSelect)="onSelect($event.data,$event)" focus="false"
+            selectionMode="single" [(selection)]="table.selected">
+            <!-- Menssage -->
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="columns.length">
+                  <span class="text-muted">No se encontraron registros</span>
+                </td>
+              </tr>
+            </ng-template>
+            <!-- Left -->
+            <ng-template pTemplate="paginatorleft" let-state>
+              Registros ({{state.totalRecords}})
+            </ng-template>
+            <!-- colgroup -->
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width">
+              </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <ng-container *ngFor="let col of columns">
+                  <th [pResizableColumnDisabled]="!col.resizable" pResizableColumn *ngIf="col.visible && !col.expanded"
+                    [pSortableColumn]="col.sortable ? col.name : null">
+                    <div style="white-space:pre-line;text-align: center;vertical-align: middle;">
+                      {{col.visualName | uppercase}}
+                      <span *ngIf="col.required" class="text-required"> * </span>
+                      <p-sortIcon *ngIf="col.sortable" field="{{col.name}}"></p-sortIcon>
+                      <i *ngIf="col.comment" [pTooltip]="col.comment"
+                        class="far fa-question-circle fa-1x hover:text-blue-500"></i>
+                      <!-- <p-columnFilter type="text" field="name" display="menu" class="ml-auto">
+                                            </p-columnFilter> -->
+                    </div>
+                  </th>
+                </ng-container>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+              <tr [pSelectableRow]="row" *ngIf="row.visible === undefined">
+                <ng-container *ngFor="let col of columns; let i = index">
+                  <td *ngIf="col.visible">
+                    <span class="p-column-title">{{col.name}}</span>
+                    <!-- TEXT -->
+                    <div *ngIf="col.component === 'text' && col.length <= 200" class="p-inputtext-sm">
+                      <input pInputText type="text" [(ngModel)]="row[col.name]" class="component"
+                        (change)="onChange($event,col.name,row)" [maxlength]="col.length"
+                        (mousedown)="onClickComponent(row)" [disabled]="col.read" [style]="{'width':col.width+'rem !important'}">
+
+                    </div>
+                    <!-- TEXAREA -->
+                    <div *ngIf="col.component === 'textarea' || col.length > 200" class="component"
+                      class="p-inputtext-sm" style="white-space:pre-line;">
+                      <!--  <textarea rows="5" cols="30" pInputTextarea></textarea> -->
+                      <textarea [rows]="5" [cols]="30" pInputTextarea [(ngModel)]="row[col.name]" class="component"
+                        (change)="onChange($event,col.name,row)" [maxlength]="col.legth"
+                        (mousedown)="onClickComponent(row)" [disabled]="col.read" [style]="{'width':col.width+'rem !important'}">
+                                        </textarea>
+                    </div>
+                    <!-- MASK -->
+                    <div *ngIf="col.component === 'mask'" class="p-inputtext-sm" class="component"
+                      style="white-space:pre-line;">
+                      <!-- <p-inputMask mask="99-999999" [(ngModel)]="row[col.name]" placeholder="99-999999"></p-inputMask> -->
+                      <p-inputMask [mask]="col.mask" [style]="{'width':'99%'}" styleClass="component centrar"
+                        (mousedown)="onClickComponent(row)" (change)="onChange($event,col.name,row)"
+                        (onComplete)="onChange($event,col.name,row)" [(ngModel)]="row[col.name]" [disabled]="col.read" [style]="{'width':col.width+'rem !important'}">
+                      </p-inputMask>
+                    </div>
+                    <!-- CHECK -->
+                    <div *ngIf="col.component === 'check'" style="text-align: center;vertical-align: middle;">
+                      <!-- <p-inputSwitch [(ngModel)]="row[col.name]"></p-inputSwitch> -->
+                      <p-inputSwitch [(ngModel)]="row[col.name]" (onChange)="onChange($event,col.name,row)"
+                        [disabled]="col.read" (mousedown)="onClickComponent(row)">
+                      </p-inputSwitch>
+                    </div>
+                    <!-- NUMBER -->
+                    <div *ngIf="col.component === 'number'" class="p-inputtext-sm" class="component"
+                      style="white-space:pre-line;">
+                      <!-- <p-inputNumber [(ngModel)]="row[col.name]"></p-inputNumber> -->
+                      <p-inputNumber [useGrouping]="false" (mousedown)="onClickComponent(row)"
+                        (onInput)="onChange($event,col.name,row)" [(ngModel)]="row[col.name]"
+                        [style]="{'width':'100%','min-width':'100%'}" inputStyleClass="component" size="10"
+                        [disabled]="col.read" [style]="{'width':col.width+'rem !important'}">
+                      </p-inputNumber>
+                    </div>
+                    <!-- DECIMALS -->
+                    <div *ngIf="col.component === 'decimals'" class="p-inputtext-sm" class="component"
+                      style="white-space:pre-line;">
+                      <!-- <p-inputNumber [(ngModel)]="row[col.name]"></p-inputNumber> -->
+                      <p-inputNumber [(ngModel)]="row[col.name]" (mousedown)="onClickComponent(row)"
+                        (onBlur)="onBlur($event,col.name)" (onInput)="onChange($event,col.name,row)"
+                        [style]="{'width':'100%','min-width':'100%'}" inputStyleClass="alinear-derecha" size="10"
+                        mode="decimal" [minFractionDigits]="col.decimals" inputStyleClass="component"
+                        [maxFractionDigits]="col.decimals" [disabled]="col.read" [style]="{'width':col.width+'rem !important'}">
+                      </p-inputNumber>
+                    </div>
+                    <!-- DROPDOWN -->
+                    <div *ngIf="col.component === 'dropdown'" class="p-inputtext-sm" style="white-space:pre-line;">
+
+                      <div *ngIf="col.read" [style]="col.style" [style]="{'width':col.width+'rem !important'}">
+                        {{row[col.name] | converterDropdown: col.listDropdown}}
+                      </div>
+                      <div *ngIf="!col.read">
+                        <p-dropdown appendTo="body" [filter]="col.listDropdown.length >= 10"
+                          (onChange)="onChange($event,col.name,row)" (mousedown)="onClickComponentDropDown(row)"
+                          emptyFilterMessage="No existen registros" [(ngModel)]="row[col.name]" styleClass="component"
+                           [options]="col.listDropdown" [disabled]="col.read">
+                          {{col.listaCombo}}
+                        </p-dropdown>
+                      </div>
+                    </div>
+                    <!-- AUTOCOMPLETE -->
+                    <div *ngIf="col.component === 'autocomplete'" class="p-inputtext-sm" style="white-space:pre-line">
+                      <div class="relative">
+                        <div class="absolute right-0 text-gray-600 flex items-center pr-2 h-full cursor-pointer">
+                          <i class="fas fa-keyboard" aria-hidden="true"></i>
+                        </div>
+                        <p-autoComplete
+                          class="autocomplete-table border sm:text-sm focus:ring-blue-500 focus:border-blue-500 block pr-8 p-0"
+                          appendTo="body" [(ngModel)]="row[col.name]" placeholder="Digite coincidencia..."
+                          [showEmptyMessage]="true" [suggestions]="resultadoAutocompletar"
+                          [inputStyle]="{'width':col.width+'rem !important'}" (completeMethod)="onAutocomplete($event,col.name)"
+                          field="label" styleClass="component" [minLength]="1" ></p-autoComplete>
+                      </div>
+
+                    </div>
+                    <!-- ICONO -->
+                    <div *ngIf="col.component === 'icono'" class="p-inputtext-sm" style="white-space:pre-line;">
+                      <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i [class]="row[col.name]"></i></span>
+                        <input type="text" pInputText [(ngModel)]="row[col.name]" disabled="true">
+                        <button *ngIf="row[col.name]" type="button" style="width: 1.75rem !important;"
+                          pTooltip="Cambiar icono" (click)="openModalIcon(col.name, rowIndex)" pButton pRipple
+                          icon="fas fa-edit" styleClass="p-button-danger"></button>
+                        <button *ngIf="!row[col.name]" type="button" style="width: 1.75rem !important;"
+                          pTooltip="Agregar icono" (click)="openModalIcon(col.name, rowIndex)" pButton pRipple
+                          icon="fas fa-plus-circle" styleClass="p-button-danger"></button>
+                      </div>
+                    </div>
+                    <!-- DATE -->
+                    <div *ngIf="col.component === 'date'" class="p-inputtext-sm" style="white-space:pre-line;">
+
+                      <input type="date" pInputText [(ngModel)]="row[col.name]"
+                        (dateChanged)="onChange($event,col.name,row)" (onSelect)="onChange($event,col.name,row)"
+                        (change)="onChange($event,col.name,selected)" [disabled]="col.read">
+                    </div>
+                    <!-- TIME -->
+                    <div *ngIf="col.component === 'time'" class="p-inputtext-sm" style="white-space:pre-line;">
+                      <!-- <input type="time" pInputText [(ngModel)]="row[col.name]"> -->
+                      <input type="time" pInputText [(ngModel)]="row[col.name]"
+                        (dateChanged)="onChange($event,col.name,row)" (onSelect)="onChange($event,col.name,row)"
+                        (change)="onChange($event,col.name,row)" [disabled]="col.read">
+                    </div>
+                    <!-- LABEL -->
+                    <div *ngIf="col.component === 'label'" style="white-space:pre-line;" [style]="{'width':col.width+'rem !important'}"
+                      class="componentText" >
+                      {{row[col.name]}}
+                    </div>
+                    <!-- UID -->
+                    <div *ngIf="col.component === 'uid' && row[col.name] > 0" [style]="col.style" class="componentText">
+                      {{row[col.name]}}
+                    </div>
+                  </td>
+                </ng-container>
+              </tr>
+            </ng-template>
+          </p-table>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="typeForm">
+        <div class="tabla-formulario">
+          <p-toolbar>
+            <div class="p-toolbar-group-left">
+              <span *ngIf="title" style="font-weight: bold; font-size: 14px;"><i class="fas fa-caret-right"></i>
+                {{title}}</span>
+            </div>
+            <div class="p-toolbar-group-right">
+              <!--  TIPO FORMULARIO-->
+              <div *ngIf="isUnique()===false">
+                <!--Muestra el paginador si no es unico-->
+                <div *ngIf="mostrarPaginadorFormulario">
+                  <p-paginator [rows]="1" [first]="indiceFilaActual" [totalRecords]="table.data.length"
+                    [showJumpToPageDropdown]="true" [showPageLinks]="false"
+                    currentPageReportTemplate="Registro {currentPage} de {totalPages}"
+                    (onPageChange)="onPaginatorForm($event)">
+                  </p-paginator>
+                </div>
+              </div>
+              <!--  <p-paginator [rows]="10" [totalRecords]="100" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator> -->
+            </div>
+          </p-toolbar>
+          <!-- Skeleto -->
+          <div class="p-fluid p-formgrid p-grid formulario-tabla" *ngIf="!selected" focus="false" [dir]="numeroTabla">
+            <ng-container *ngFor="let col of table.columns">
+              <div *ngIf="col.visible" class="p-field p-col-12 p-md-3">
+                <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+                <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+              </div>
+            </ng-container>
+          </div>
+          <!-- Formulario -->
+          <div class="p-fluid p-formgrid p-grid" *ngIf="selected" name="dtTablaEditable" focus="false"
+            [dir]="numberTableString">
+            <ng-container *ngFor="let col of table.columns">
+              <div class="p-field p-col-12" *ngIf="col.visible" [ngClass]="col.size">
+                <label class="label-form">{{col.visualName | uppercase}}: </label>
+                <span *ngIf="col.required" class="text-required"> * </span>
+                <i *ngIf="col.comment" class="fa fa-info-circle p-ml-1" style="font-size: 0.7rem"
+                  [pTooltip]="col.comment" tooltipPosition="bottom">
+                </i>
+                <!-- PrimaryKey -->
+                <div *ngIf="col.component === 'uid' && selected[col.name] > 0" [style]="col.style"
+                  class="p-inputtext-sm ">
+                  {{selected[col.name]}}
+                </div>
+                <!--Etiqueta-->
+                <div *ngIf="col.component==='label'" class="p-inputtext-sm ">
+                  {{selected[col.name]}}
+                </div>
+                <!-- Text -->
+                <div *ngIf="col.component === 'text' && col.length <= 200" class="p-inputtext-sm"
+                  style="white-space:pre-line;">
+                  <input pInputText type="text" [placeholder]="col.placeholder" [(ngModel)]="selected[col.name] "
+                    (change)="onChange($event,col.name,selected) " [disabled]="col.read " [maxlength]="col.length ">
+                  <small *ngIf="col.help" class="block text-secondary">{{ col.help }}</small>
+                </div>
+                <!-- TexArea -->
+                <div *ngIf="col.component==='textarea' || col.length > 200 ">
+                  <textarea pInputTextarea [placeholder]="col.placeholder" [(ngModel)]="selected[col.name] "
+                    (change)="onChange($event,col.name,selected) " [disabled]="col.read " [maxlength]="col.length">
+                                </textarea>
+                </div>
+                <!-- Number -->
+                <div *ngIf="col.component==='number' " class="p-inputtext-sm">
+                  <p-inputNumber [useGrouping]="false " (onInput)="onChange($event,col.name,selected) "
+                    [(ngModel)]="selected[col.name] " size="10 " [disabled]="col.read ">
+                  </p-inputNumber>
+                </div>
+                <!--Decimals-->
+                <div *ngIf="col.component==='decimals' " class="p-inputtext-sm">
+                  <p-inputNumber [(ngModel)]="selected[col.name] " (onInput)="onMetodoChange($event,col.name,selected) "
+                    size="10 " mode="decimal" [minFractionDigits]="col.decimals" [maxFractionDigits]="col.decimals "
+                    [disabled]="col.read ">
+                  </p-inputNumber>
+                </div>
+                <!--check-->
+                <div *ngIf="col.component==='check'">
+                  <p-inputSwitch [(ngModel)]="selected[col.name]" (onChange)="onChange($event,col.name,selected) "
+                    [disabled]="col.read">
+                  </p-inputSwitch>
+                </div>
+                <!--date-->
+                <div *ngIf="col.component==='date' " class="p-inputtext-sm " style="white-space:pre-line; ">
+
+                  <input type="date" pInputText (dateChanged)="onChange($event,col.name,selected)"
+                    (onSelect)="onChange($event,col.name,selected)" (change)="onChange($event,col.name,selected)"
+                    [disabled]="col.read" [(ngModel)]="selected[col.name]">
+                </div>
+                <!--dropdown-->
+                <div *ngIf="col.component==='dropdown' " class="p-inputtext-sm ">
+                  <div *ngIf="col.read" [style]="col.style">
+                    {{selected[col.name] | converterDropdown: col.listDropdown}}
+                  </div>
+                  <p-dropdown appendTo="body" *ngIf="!col.read" [filter]="col.listDropdown.length>= 10"
+                    (onChange)="onChange($event,col.name,selected)" emptyFilterMessage="No existen registros"
+                    [(ngModel)]="selected[col.name]" [style]="{'width':'100%'}" [options]="col.listDropdown"
+                    optionLabel="label" optionValue="value" [disabled]="col.read" placeholder="Seleccione...">
+                  </p-dropdown>
+                </div>
+
+                <!-- Autocomplete -->
+                <div *ngIf="col.component === 'autocomplete'" class="p-inputtext-sm">
+                  <div *ngIf="col.read" [style]="col.style">
+                    {{selected[col.name] | converterDropdown: col.listDropdown}}
+                  </div>
+                  <p-autoComplete *ngIf="!col.read" appendTo="body" [inputStyle]="{'width':'100%'}"
+                    [(ngModel)]="selected[col.name]" (ngModelChange)="onMetodoChange($event,col.name,selected)"
+                    [suggestions]="resultadoAutocompletar" [style]="{'width':'100%'}" [forceSelection]="true"
+                    (completeMethod)="onAutocomplete($event,col.name)" placeholder="Digite coincidencia..."
+                    field="label" [type]="'search'">
+                    <ng-template let-opciones pTemplate="item">
+                      <td style="width: 100%;height: 100%;padding: 0;margin: 0;"
+                        *ngFor="let valor  of opciones.label.split('|')">
+                        <span style="font-size: 0.8rem;padding-left: 5px;min-width:100%;">{{valor}}</span>
+                      </td>
+                    </ng-template>
+                  </p-autoComplete>
+                </div>
+
+                <!-- Upload -->
+                <div *ngIf="col.component==='upload' " class="p-inputtext-sm ">
+                  <!-- {{selected[col.name]}} -->
+                  <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-5" style="cursor: pointer;"
+                      (click)="openImageViewer(col.name,getRowIndex())">
+                      <img *ngIf="selected[col.name]" [src]="(selected[col.name])" class="img-avatar">
+                      <!-- <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar"> -->
+                      <img *ngIf="!selected[col.name]" src="assets/images/no-img.jpg" class="img-avatar">
+                    </div>
+                    <!-- {{imgTemp}} -->
+                    <div class="p-field p-col-7">
+                      <p-fileUpload #fileUpload mode="basic" customUpload="true"
+                        (uploadHandler)="onBasicUploadAuto($event.files[0],col.name,indiceFilaActual,fileUpload)"
+                        [auto]="true" chooseLabel="Subir  "></p-fileUpload>
+                      <small>Formato jpg o jpeg. Tamaño 150Kb</small>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- P12 -->
+                <div *ngIf="col.component==='p12' " class="p-inputtext-sm ">
+                  <div class="col-12 md:col-4">
+                    <div class="p-inputgroup">
+                      <!-- <button type="button" pButton pRipple label="Search"></button> -->
+                      <p-fileUpload #fileUpload mode="basic" customUpload="true"
+                        (uploadHandler)="uploadFilep12($event.files[0],col.name,indiceFilaActual,fileUpload)"
+                        [auto]="true" chooseLabel="Seleccionar" chooseIcon="pi pi-folder"></p-fileUpload>
+                      <input [(ngModel)]="selected[col.name] " disabled="true" type="text" pInputText
+                        placeholder="Subir certificado digital...">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Password-->
+                <div *ngIf="col.component === 'password' && col.length <= 200" class="p-inputtext-sm"
+                  style="white-space:pre-line;">
+                  <p-password [(ngModel)]="selected[col.name] " [toggleMask]="true"
+                    (change)="onChange($event,col.name,selected) " [disabled]="col.read " [maxlength]="col.length "
+                    [feedback]="false" placeholder="************"></p-password>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<cmp-image-viewer #imgViewer></cmp-image-viewer>

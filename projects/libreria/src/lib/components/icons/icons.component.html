@@ -1,0 +1,46 @@
+
+
+<div class="flex-auto p-6 sm:p-10">
+
+    <div class="prose prose-sm max-w-5xl">
+        <h2>Icons</h2>
+        <div class="flex my-0 xs:flex-col">
+            <span class="p-input-icon-right flex-auto">
+                <i class="pi pi-search"></i>
+                <input type="text" class="w-100" #txtSearch (keyup)="searchIcos(txtSearch.value)" pInputText placeholder="Search" />
+            </span>
+            <p-paginator class="min-w-40 ml-8 xs:ml-0" rows="45" [totalRecords]="icons.length"
+                [showJumpToPageDropdown]="true" [showPageLinks]="false" (onPageChange)="onPageChange($event)">
+            </p-paginator>
+        </div>
+    </div>
+
+</div>
+
+<div class="flex-auto">
+
+    <div class="p-0">
+        <div class="flex flex-wrap ">
+            <ng-container>
+                <ng-container *ngFor="let icon of icons | filtro: page">
+                    <div class="min-w-20 bg-white p-3 font-medium cursor-pointer"  [pTooltip]="icon.name"
+                        tooltipPosition="bottom" (click)="select(icon.icon)">
+                        <div class="w-20 flex-none rounded text-center hover:shadow border" [class.border-primary]="selectedIcon ===  icon.icon">
+                            <div class="block rounded overflow-hidden  text-center" >
+                                <div class="hover:bg-primary-500 hover:text-white bg-white">
+                                    <span class="text-5xl font-bold leading-tight">
+                                        <i [class]="icon.icon" style="font-size: 30px !important;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+            </ng-container>
+
+        </div>
+
+    </div>
+
+</div>
