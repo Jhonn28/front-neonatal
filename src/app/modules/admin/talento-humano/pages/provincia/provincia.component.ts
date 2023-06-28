@@ -74,7 +74,7 @@ export class ProvinciaComponent extends BarMenu implements OnInit {
   }
 
   delete(): void {
-    if (this.tabTable1.isFocus()) {
+   /*  if (this.tabTable1.isFocus()) {
       this.tabTable1.delete();
     } else if (this.tabTable2.isFocus()) {
       this.tabTable2.delete();
@@ -82,7 +82,7 @@ export class ProvinciaComponent extends BarMenu implements OnInit {
     }else if (this.tabTable3.isFocus()) {
       this.tabTable3.delete();
 
-    }
+    } */
   }
 
 }

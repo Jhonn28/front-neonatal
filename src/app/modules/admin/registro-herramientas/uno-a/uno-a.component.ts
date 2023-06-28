@@ -26,6 +26,7 @@ export class UnoAComponent implements OnInit {
   tiempo;
 
 
+
   insumos;
   consultorios;
   stock;
@@ -36,22 +37,22 @@ export class UnoAComponent implements OnInit {
   sala_parto;
 
   numero_sala: any;
-  items_cumple: number;
-  total_items: number;
-  promedio_general: number;
+  items_cumple: number=0;
+  total_items: number=0;
+  promedio_general: number=0;
 
 
 
   //
 
-  promedio_insumo: number;
-  promedio_gineco: number;
-  promedio_stock: number;
-  promedio_laboratorio: number;
-  promedio_servicio: number;
-  promedio_charol: number;
-  promedio_atencion_parto: number;
-  promedio_atencion_nacido: number;
+  promedio_insumo: number=0;
+  promedio_gineco: number=0;
+  promedio_stock: number=0;
+  promedio_laboratorio: number=0;
+  promedio_servicio: number=0;
+  promedio_charol: number=0;
+  promedio_atencion_parto: number=0;
+  promedio_atencion_nacido: number=0;
   //TODO: formulario
   herramientasForm: FormGroup = new FormGroup({});
 
@@ -67,7 +68,7 @@ export class UnoAComponent implements OnInit {
     this.numero_sala = _route.snapshot.data['info'][1];
     this.tiempo = _route.snapshot.data['info'][2];
 
-    console.log('sucursal=>', this.numero_sala);
+    console.log('sucursal=>', this.datosSucursal);
     this.initForm();
 
   }

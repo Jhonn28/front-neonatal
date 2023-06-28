@@ -451,14 +451,18 @@
                           Anterior
                         </button>
                         <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
-                        >
-                          Siguiente
-                        </button>
+                            (click)="loadDataStep4()" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
+                            Siguiente
+                          </button>
+                          <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
+                          (click)="calculaTotal()" *ngIf="(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
+                            Siguiente
+                          </button>
                       </div>
                     </mat-step>
 
                     <!-- TODO: STEP 4-->
-                    <mat-step [stepControl]="laboratorioForm" [editable]="true">
+                    <mat-step [stepControl]="laboratorioForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
 
 
                       <p-table [value]="laboratorioForm.controls"
@@ -522,7 +526,7 @@
                     </mat-step>
 
                     <!-- TODO: STEP 5-->
-                    <mat-step [stepControl]="servicioForm" [editable]="true">
+                    <mat-step [stepControl]="servicioForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
 
 
                       <p-table [value]="servicioForm.controls" styleClass="p-datatable-gridlines p-datatable-wrapper"
@@ -585,7 +589,7 @@
                     </mat-step>
 
                     <!-- TODO: STEP 6-->
-                    <mat-step [stepControl]="charolEmergenciaForm" [editable]="true">
+                    <mat-step [stepControl]="charolEmergenciaForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
 
 
                       <p-table [value]="charolEmergenciaForm.controls"
@@ -650,7 +654,7 @@
                     </mat-step>
 
                     <!-- TODO: STEP 7-->
-                    <mat-step [stepControl]="atencionPartoForm" [editable]="true">
+                    <mat-step [stepControl]="atencionPartoForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
 
 
                       <p-table [value]="atencionPartoForm.controls"
@@ -714,7 +718,7 @@
                     </mat-step>
 
                     <!-- TODO: STEP 8-->
-                    <mat-step [stepControl]="atencionNacidoForm" [editable]="true">
+                    <mat-step [stepControl]="atencionNacidoForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
 
 
                       <p-table [value]="atencionNacidoForm.controls"

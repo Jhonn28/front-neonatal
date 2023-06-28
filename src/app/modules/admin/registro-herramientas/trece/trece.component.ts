@@ -71,7 +71,7 @@ export class TreceComponent implements OnInit {
   async saveData() {
 
     if(this.herramientasForm.value.total_muertes>this.herramientasForm.value.total_atendidos){
-      this._utilService.toast_warning('El número de muertes no puede superar al número de atendidos.')
+      this._utilService.toast_warning('El total de muertes maternas que tienen un proceso de investigación epidemiológica no puede ser mayor al total de muertes maternas.')
       return;
     }
     if(this.herramientasForm.invalid){

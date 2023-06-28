@@ -47,9 +47,9 @@ export class IndicadorService {
     }
 
     //TODO: tiempo
-    getTiempo(): Promise<any> {
+    getTiempo(condition?:string): Promise<any> {
       return new Promise(async (resolve, reject) => {
-        await this._methodsService.get(`indicador/tiempo`).subscribe(async (result: IResultData) => {
+        await this._methodsService.get(`indicador/tiempo?${condition}`).subscribe(async (result: IResultData) => {
           resolve(result.data);
         }, (err) => {
           reject(err);
@@ -170,5 +170,16 @@ export class IndicadorService {
         })
       );
     }
+
+    getPorcentajeComplicacion(establecimiento:number,anio:string): Promise<any> {
+      return new Promise(async (resolve, reject) => {
+        await this._methodsService.get(`indicador/porcentaje-complicacion/${establecimiento}/${anio}`).subscribe(async (result: IResultData) => {
+          resolve(result.data);
+        }, (err) => {
+          reject(err);
+        });
+      });
+    }
+
 
 }

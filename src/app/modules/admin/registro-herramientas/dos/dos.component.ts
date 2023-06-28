@@ -101,9 +101,13 @@ export class DosComponent implements OnInit {
       this._utilService.toast_warning('Existen campos inválidos.');
       return;
     }
+    let cod_invalid='';
 
     this.codigoForm.value.forEach(element => {
       if(element.codigo_clinica.length>0){
+        if(element.codigo_clinica.length!=10){
+          cod_invalid+=element.codigo_clinica+' ';
+        }
         reg++;
       }
     });
@@ -112,6 +116,17 @@ export class DosComponent implements OnInit {
       return;
     }
 
+    if(cod_invalid.length!=0){
+      this._utilService.toast_warning('El/los número/s de historia/s clínica/s: '+cod_invalid+'son incorrectos.')
+    return;
+    }
+
+    const codigos = await this.filterCodigo(this.codigoForm.value);
+
+    if(codigos.length-1!=reg){
+      this._utilService.toast_warning('Existen números de historía clínica que se repiten.');
+      return;
+    }
 
     this.setData(this.insumosForm, this.codigoForm);
     const cabecera = new Object(
@@ -266,9 +281,19 @@ export class DosComponent implements OnInit {
   reset(event: any) {
     event.reset();
     this.deleteForm(this.insumosForm);
-
     this.loadDataStep1();
-
   }
+
+  filterCodigo(array) {
+    let hash = {};
+    array = array.filter(function (current) {
+      let exists = !hash[current.codigo_clinica];
+      hash[current.codigo_clinica] = true;
+      return exists;
+    });
+    return array;
+  }
+
+
 
 }

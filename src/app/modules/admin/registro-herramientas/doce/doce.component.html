@@ -183,18 +183,76 @@
                         <td class="font-black text-center">Diciembre</td>
                       </tr>
                       <tr>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="enero" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="febrero" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="marzo" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="abril" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="mayo" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="junio" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="julio" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="agosto" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="septiembre" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="octubre" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="noviembre" type="number" min="0" class="max-w-20"></td>
-                        <td style="text-align-last:center;"><input (change)="promedio(herramientasForm)" [min]="0" formControlName="diciembre" type="number" min="0" class="max-w-20"></td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_enero" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="enero" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_enero" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="enero" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_febrero" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="febrero" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_febrero" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="febrero" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_marzo" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="marzo" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_marzo" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="marzo" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_abril" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="abril" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_abril" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="abril" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_mayo" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="mayo" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_mayo" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="mayo" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_junio" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="junio" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_junio" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="junio" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_julio" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="julio" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_julio" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="julio" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_agosto" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="agosto" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_agosto" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="agosto" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_septiembre" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="septiembre" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_septiembre" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="septiembre" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_octubre" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="octubre" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_octubre" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="octubre" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input *ngIf="disable_noviembre" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="noviembre" type="number" min="0" class="max-w-20" disabled>
+                          <input *ngIf="!disable_noviembre" (change)="promedio(herramientasForm)" [min]="0"
+                            formControlName="noviembre" type="number" min="0" class="max-w-20">
+                        </td>
+                        <td style="text-align-last:center;">
+                          <input (change)="promedio(herramientasForm)" [min]="0" formControlName="diciembre"
+                            type="number" min="0" class="max-w-20">
+                        </td>
                       </tr>
                     </ng-template>
 
@@ -262,7 +320,7 @@
 
     <pre>
   <code>
-    <!-- {{herramientasForm.value|json}} -->
+    {{herramientasForm.value|json}}
   </code>
 </pre>
   </div>

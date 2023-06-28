@@ -99,6 +99,34 @@ export class OchoComponent implements OnInit {
       return;
     }
 
+    let cod_invalid='';
+    let reg=0;
+
+    this.insumosForm.value.forEach(element => {
+      if(element.nro_historia_clinica_hco.length>0){
+        if(element.nro_historia_clinica_hco.length!=10){
+          cod_invalid+=element.nro_historia_clinica_hco+' ';
+        }
+        reg++;
+      }
+    });
+    if(reg==0){
+      this._utilService.toast_warning('Ingrese por lo menos un número de historia clínica.')
+      return;
+    }
+
+    if(cod_invalid.length!=0){
+      this._utilService.toast_warning('El/los número/s de historia/s clínica/s: '+cod_invalid+'son incorrectos.')
+    return;
+    }
+
+    const codigos = await this.filterCodigo(this.insumosForm.value);
+
+    if(codigos.length!=reg){
+      this._utilService.toast_warning('Existen números de historía clínica que se repiten.');
+      return;
+    }
+
     const cabecera = new Object(
       {
         ide_segdis: this._utilService.getEmpresa(),
@@ -263,6 +291,16 @@ export class OchoComponent implements OnInit {
 
   get promedioForm(): FormArray {
     return this.herramientasForm.get('promedio') as FormArray;
+  }
+
+  filterCodigo(array) {
+    let hash = {};
+    array = array.filter(function (current) {
+      let exists = !hash[current.nro_historia_clinica_hco];
+      hash[current.nro_historia_clinica_hco] = true;
+      return exists;
+    });
+    return array;
   }
 
 }

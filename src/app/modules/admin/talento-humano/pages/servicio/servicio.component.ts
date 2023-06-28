@@ -45,8 +45,8 @@ export class ServicioComponent extends BarMenu implements OnInit {
   }
 
   delete(): void {
-    if(this.tabTable1.isFocus()){
+/*     if(this.tabTable1.isFocus()){
       this.tabTable1.delete();
-    }
+    } */
   }
 }

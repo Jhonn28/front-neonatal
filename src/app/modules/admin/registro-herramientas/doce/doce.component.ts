@@ -16,6 +16,20 @@ export class DoceComponent implements OnInit {
   indicadores;
   tiempo;
   area_salud;
+  mes;
+
+  disable_enero=false;
+  disable_febrero=false;
+  disable_marzo=false;
+  disable_abril=false;
+  disable_mayo=false;
+  disable_junio=false;
+  disable_julio=false;
+  disable_agosto=false;
+  disable_septiembre=false;
+  disable_octubre=false;
+  disable_noviembre=false;
+  disable_diciembre=false;
 
   numerador: number = 0;
   denominador: number = 0;
@@ -42,16 +56,29 @@ export class DoceComponent implements OnInit {
     //console.log('sucursal=>', this.datosSucursal);
     this.initForm();
 
+
   }
 
   async ngOnInit(): Promise<void> {
-
+    this.mes= Number(this._utilService.getDateCurrent('MM'));
+    if(this.mes>1) this.disable_enero = true;
+    if(this.mes>2) this.disable_febrero = true;
+    if(this.mes>3) this.disable_marzo = true;
+    if(this.mes>4) this.disable_abril = true;
+    if(this.mes>5) this.disable_mayo = true;
+    if(this.mes>6) this.disable_junio = true;
+    if(this.mes>7) this.disable_julio = true;
+    if(this.mes>8) this.disable_agosto = true;
+    if(this.mes>9) this.disable_septiembre = true;
+    if(this.mes>10) this.disable_octubre = true;
+    if(this.mes>11) this.disable_noviembre = true;
 
   }
 
 
   //iniciamos Formulario
-  initForm(): void {
+  async initForm() {
+
     this.herramientasForm = this._formBuilder.group({
       provincia: [this.datosSucursal.provincia],
       area_salud: [,Validators.required],
@@ -77,13 +104,38 @@ export class DoceComponent implements OnInit {
       embarazadas: [0, Validators.required],
       data: this._formBuilder.array([])
     })
+
+    const data = await this._indicadorService.getPorcentajeComplicacion(this._utilService.getSucursal(),this._utilService.getDateCurrent('yyyy'));
+    console.log(data);
+
+    if(data.length>0){
+      this.herramientasForm.get('enero').setValue(data[0].enero_hpc);
+      this.herramientasForm.get('febrero').setValue(data[0].febrero_hpc);
+      this.herramientasForm.get('marzo').setValue(data[0].marzo_hpc);
+      this.herramientasForm.get('abril').setValue(data[0].abril_hpc);
+      this.herramientasForm.get('mayo').setValue(data[0].mayo_hpc);
+      this.herramientasForm.get('junio').setValue(data[0].junio_hpc);
+      this.herramientasForm.get('julio').setValue(data[0].julio_hpc);
+      this.herramientasForm.get('agosto').setValue(data[0].agosto_hpc);
+      this.herramientasForm.get('septiembre').setValue(data[0].septiembre_hpc);
+      this.herramientasForm.get('octubre').setValue(data[0].octubre_hpc);
+      this.herramientasForm.get('noviembre').setValue(data[0].noviembre_hpc);
+      this.herramientasForm.get('diciembre').setValue(data[0].diciembre_hpc);
+
+      this.herramientasForm.get('embarazadas').setValue(data[0].numero_embarazada_hpc);
+
+      this.herramientasForm.get('total_muertes').setValue(data[0].total_muertes_hpc);
+      this.herramientasForm.get('total_atendidos').setValue(Number(data[0].total_complicaciones_hpc));
+      this.herramientasForm.get('porcentaje').setValue(Number(data[0].porcentaje_hpc));
+    }
+
   }
 
   //guarda data
   async saveData() {
 
     if (this.herramientasForm.value.total_muertes > this.herramientasForm.value.total_atendidos) {
-      this._utilService.toast_warning('El número de muertes no puede superar al número de atendidos.')
+      this._utilService.toast_warning('La suma de complicaciones obstétricas atendidas no puede ser mayor al total de complicaciones obstétricas esperadas.')
       return;
     }
     if (this.herramientasForm.invalid) {

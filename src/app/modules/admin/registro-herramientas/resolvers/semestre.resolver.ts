@@ -4,18 +4,17 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, of, forkJoin } from 'rxjs';
-import { SystemService, UtilsService } from '../../../../../../projects/libreria/src/public-api';
 import { IndicadorService } from 'app/services/indicador.service';
+import { Observable, of, forkJoin } from 'rxjs';
+import { SystemService } from '../../../../../../projects/libreria/src/public-api';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UnoAResolver implements Resolve<boolean> {
+export class SemestreResolver implements Resolve<boolean> {
   constructor(
     private _indicadorService: IndicadorService,
     private _systemService: SystemService,
-    private _utilService: UtilsService
 
   ) {
   }
@@ -29,9 +28,8 @@ export class UnoAResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     return forkJoin([
       this._systemService.getInfoSucursal(),
-      this._indicadorService.getNumeroSala(),
-      this._indicadorService.getTiempo('condition=ide_indtp>11 and ide_indtp<16')
-
+      this._indicadorService.getTiempo('condition=ide_indtp>15 and ide_indtp<18'),
+      this._indicadorService.getIndicador({ide:'ide_thas',campo:'detalle_thas',tabla:'th_area_salud'})
     ]);
   }
 }

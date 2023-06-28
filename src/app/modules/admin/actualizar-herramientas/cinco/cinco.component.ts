@@ -392,7 +392,6 @@ export class CincoComponent implements OnInit {
       return exists;
     });
     return array;
-
   }
 
 }

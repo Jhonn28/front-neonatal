@@ -25,6 +25,7 @@ import { DiezComponent } from './diez/diez.component';
 import { OnceComponent } from './once/once.component';
 import { DoceComponent } from './doce/doce.component';
 import { TreceComponent } from './trece/trece.component';
+import { SemestreResolver } from './resolvers/semestre.resolver';
 
 
 const routes: Routes = [
@@ -47,7 +48,7 @@ const routes: Routes = [
   {path: 'nueve-a',component:NueveAComponent,resolve:{info: DosResolver}},
   {path: 'nueve-b',component:NueveBComponent,resolve:{info: DosResolver}},
   {path: 'nueve-c',component:NueveCComponent,resolve:{info: DosResolver}},
-  {path: 'diez',component:DiezComponent,resolve:{info: DosResolver}},
+  {path: 'diez',component:DiezComponent,resolve:{info: SemestreResolver}},
   {path: 'once',component:OnceComponent,resolve:{info: DosResolver}},
   {path: 'doce',component:DoceComponent,resolve:{info: DosResolver}},
   {path: 'trece',component:TreceComponent,resolve:{info: DosResolver}},
