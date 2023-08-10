@@ -46,9 +46,8 @@ export class NivelAtencionComponent extends BarMenu implements OnInit {
     }
   }
   delete(): void {
-  /*   if(this.tabTable1.isFocus()){
-      this.tabTable1.delete();
-    } */
+    this._utilService.toast_info('Esta opción se encuentra deshabilitada en el sistema.')
+
   }
 
 

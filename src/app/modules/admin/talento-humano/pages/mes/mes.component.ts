@@ -30,21 +30,14 @@ export class MesComponent extends BarMenu implements OnInit {
 
 
   insert(): void {
+    this._utilService.toast_info('Esta opción se encuentra deshabilitada en el sistema.')
 
-    if(this.tabTable1.isFocus()){
-      this.tabTable1.insert();
-    }
   }
   async save() {
-
-    if(await this.tabTable1.isSave()){
-      await this._utilService.saveScreen(this.tabTable1);
-    }
+    this._utilService.toast_info('Esta opción se encuentra deshabilitada en el sistema.')
   }
   delete(): void {
-/*     if(this.tabTable1.isFocus()){
-      this.tabTable1.delete();
-    } */
+    this._utilService.toast_info('Esta opción se encuentra deshabilitada en el sistema.')
   }
 
 }

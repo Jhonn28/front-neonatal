@@ -73,6 +73,8 @@
         <ng-template pTemplate="header">
           <tr>
             <th class="font-black text-center">Establecimiento</th>
+            <th class="font-black text-center">Año</th>
+            <th class="font-black text-center">Periodo</th>
             <th class="font-black text-center">Numerador</th>
             <th class="font-black text-center">Denominador</th>
             <th class="font-black text-center">Porcentaje</th>
@@ -82,6 +84,8 @@
         <ng-template pTemplate="body" let-dataRow>
           <tr>
             <td class="text-center">{{dataRow.unidad_operativa_heg}}</td>
+            <td class="text-center">{{dataRow.fecha_medicion_heg | date:'yyyy'}}</td>
+            <td class="text-center">{{dataRow.detalle_indtp}}</td>
             <td class="text-center">{{dataRow.numerador_heg}}</td>
             <td class="text-center">{{dataRow.denominador_heg}}</td>
             <td class="text-center font-bold text-indigo-90">{{dataRow.porcentaje_heg}}</td>

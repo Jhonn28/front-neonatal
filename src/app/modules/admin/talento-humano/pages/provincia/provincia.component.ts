@@ -74,15 +74,8 @@ export class ProvinciaComponent extends BarMenu implements OnInit {
   }
 
   delete(): void {
-   /*  if (this.tabTable1.isFocus()) {
-      this.tabTable1.delete();
-    } else if (this.tabTable2.isFocus()) {
-      this.tabTable2.delete();
+    this._utilService.toast_info('Esta opción se encuentra deshabilitada en el sistema.')
 
-    }else if (this.tabTable3.isFocus()) {
-      this.tabTable3.delete();
-
-    } */
   }
 
 }

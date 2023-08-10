@@ -5,9 +5,7 @@
         <!-- Form -->
         <form [formGroup]="securityForm" #securityFormNgForm="ngForm" (ngSubmit)="changePassword()">
             <!-- Section -->
-            <div class="w-full">
-                <div class="text-secondary">Sólo puedes cambiar tu contraseña dos veces en 24 horas.</div>
-            </div>
+
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 mt-2">
                 <div class="grid sm:grid-cols-4 gap-2 w-full mt-2">
                     <!-- Current password -->
@@ -60,11 +58,13 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col mt-2 sm:ml-10" *ngIf="rules">
+                <div class="flex flex-col mt-2 sm:ml-10">
                     <div class="font-semibold">Tu nueva contraseña debe cumplir con:</div>
-                    <div class="flex" *ngFor="let item of rules">
-                        <i class="fas fa-angle-right text-green-600 mr-3"></i>
-                        <div class="text-blue-700 italic">{{item.rule}}</div>
+                    <div>
+                        <div class="text-blue-700 italic"><i class="fas fa-angle-right mr-3"></i>Longitud de contraseña entre 8 y 16 caracteres</div>
+                        <div class="text-blue-700 italic"><i class="fas fa-angle-right mr-3"></i>Mayúsculas y minúsculas</div>
+                        <div class="text-blue-700 italic"><i class="fas fa-angle-right mr-3"></i>Números</div>
+                        <div class="text-blue-700 italic"><i class="fas fa-angle-right mr-3"></i>Caracteres especiales</div>
                     </div>
                 </div>
 

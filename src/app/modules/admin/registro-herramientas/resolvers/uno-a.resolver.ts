@@ -30,7 +30,7 @@ export class UnoAResolver implements Resolve<boolean> {
     return forkJoin([
       this._systemService.getInfoSucursal(),
       this._indicadorService.getNumeroSala(),
-      this._indicadorService.getTiempo('condition=ide_indtp>11 and ide_indtp<16')
+      this._indicadorService.getTiempo('condition=ide_indtp>12 and ide_indtp<=16 order by ide_indtp')
 
     ]);
   }

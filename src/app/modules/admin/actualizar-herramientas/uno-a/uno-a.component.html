@@ -72,6 +72,8 @@
         <ng-template pTemplate="header">
           <tr>
             <th class="font-black text-center">Establecimiento</th>
+            <th class="font-black text-center">Año</th>
+            <th class="font-black text-center">Período</th>
             <th class="font-black text-center">Items cumple</th>
             <th class="font-black text-center">T. Items</th>
             <th class="font-black text-center">Puntaje</th>
@@ -81,6 +83,8 @@
         <ng-template pTemplate="body" let-dataRow>
           <tr>
             <td class="text-center">{{dataRow.establecimiento_hlic}}</td>
+            <td class="text-center">{{dataRow.fecha_medicion_hlic | date: 'yyyy'}}</td>
+            <td class="text-center">{{dataRow.detalle_indtp}}</td>
             <td class="text-center">{{dataRow.items_cumple_hlic}}</td>
             <td class="text-center">{{dataRow.total_items_hlic}}</td>
             <td class="text-center font-bold text-indigo-90">{{dataRow.porcentaje_estandar_hlic}}</td>

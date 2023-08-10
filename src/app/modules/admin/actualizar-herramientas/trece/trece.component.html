@@ -75,7 +75,7 @@
           <tr>
             <th class="font-black text-center">Establecimiento</th>
             <th class="font-black text-center">Fecha medición</th>
-            <th class="font-black text-center">Responsable</th>
+            <th class="font-black text-center">Período</th>
             <th class="min-w-8 w-fit text-center">Visualizar</th>
           </tr>
         </ng-template>
@@ -83,8 +83,7 @@
           <tr>
             <td class="text-center">{{dataRow.unidad_operativa_heg}}</td>
             <td class="text-center">{{dataRow.fecha_medicion_heg | date:'yyyy-MM-dd'}}</td>
-            <td class="text-center">{{dataRow.responsable_medicion_heg}}</td>
-
+            <td class="text-center">{{dataRow.detalle_indtp}}</td>
             <td class="text-center">
               <button (click)="onVisual(dataRow)"
                 class="h-6 w-7 bg-transparent hover:bg-green-500 text-green-700 hover:text-white border border-green-500 hover:border-transparent rounded"

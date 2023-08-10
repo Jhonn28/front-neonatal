@@ -154,7 +154,7 @@ export class OchoBComponent implements OnInit {
     await this._indicadorService.getEncabezadoGeneral(distrito, '8b', query).subscribe(resp => {
       this.seguimiento = resp;
       if (this.seguimiento.length == 0) {
-        this._utilService.toast_info('No existen registros relacionados a los critérios de búsqueda.')
+        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
       }
     })
 

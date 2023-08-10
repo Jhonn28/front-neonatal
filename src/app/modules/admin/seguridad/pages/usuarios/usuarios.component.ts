@@ -74,7 +74,7 @@ export class UsuariosComponent extends BarMenu implements AfterViewInit {
     this.tabTable1.getColumn('bloqueado_segusu').setWidth(5);
 
     this.tabTable1.getColumn('fecha_caduc_segusu').setVisualName('fecha caduca');
-    this.tabTable1.getColumn('fecha_caduc_segusu').setWidth(5);
+    this.tabTable1.getColumn('fecha_caduc_segusu').setVisible(false);
 
     this.tabTable1.getColumn('cambia_clave_segusu').setRead(true);
     this.tabTable1.getColumn('cambia_clave_segusu').setWidth(5);
@@ -223,13 +223,7 @@ export class UsuariosComponent extends BarMenu implements AfterViewInit {
   }
 
   delete(): void {
-    if (this.tabTable1.isFocus()) {
-      this.tabTable1.delete();
-    } else if (this.tabTable2.isFocus()) {
-      this.tabTable2.delete();
-    } else if (this.tabTable3.isFocus()) {
-      this.tabTable3.delete();
-    }
+    this._utilService.toast_info('Esta opción se encuentra deshabilitada en el sistema.')
   }
 
   questionActive(): void {

@@ -28,7 +28,7 @@ export class SemestreResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     return forkJoin([
       this._systemService.getInfoSucursal(),
-      this._indicadorService.getTiempo('condition=ide_indtp>15 and ide_indtp<18'),
+      this._indicadorService.getTiempo('condition=ide_indtp>16 and ide_indtp<=18 order by ide_indtp'),
       this._indicadorService.getIndicador({ide:'ide_thas',campo:'detalle_thas',tabla:'th_area_salud'})
     ]);
   }
