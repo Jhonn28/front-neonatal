@@ -232,7 +232,7 @@ export class OchoAComponent implements OnInit {
             this.suma++;
           }
         });
-        (cumple == this.indicadores.length) ? this.numerador += 1 : 0;
+        (cumple == this.indicadores.length || cumple == 7) ? this.numerador += 1 : 0;
         i++;
       }
     });

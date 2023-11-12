@@ -230,7 +230,7 @@ export class OchoBComponent implements OnInit {
             this.suma++;
           }
         });
-        (cumple == this.indicadores.length) ? this.numerador += 1 : 0;
+        (cumple == this.indicadores.length || cumple == 10) ? this.numerador += 1 : 0;
         i++;
       }
     });
