@@ -60,7 +60,7 @@ export class TresBComponent implements OnInit {
   initForm(): void {
     this.herramientasForm = this._formBuilder.group({
       provincia: [this.datosSucursal.provincia],
-      area_salud: [,Validators.required],
+      area_salud: [],
       unidad_operativa: [this.datosSucursal.establecimiento],
       fecha_medicion: [this._utilService.getDateCurrent()],
       mes_evaluado: [, Validators.required],
