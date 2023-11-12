@@ -189,6 +189,7 @@ export class UnoAComponent implements OnInit {
     }
     await this._indicadorService.getIUnoA(distrito, query).subscribe(resp => {
       this.seguimiento = resp;
+      console.log('resp=>',resp);
       if (this.seguimiento.length == 0) {
         this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
       }
@@ -203,7 +204,7 @@ export class UnoAComponent implements OnInit {
   }
 
   async onVisual(dataRow) {
-    console.log(dataRow);
+    console.log('dataRwo)=>',dataRow);
     this.selectRow = dataRow.ide_hlic;
     await this.loadForm(dataRow.ide_hlic, dataRow);
     this.promedio_insumo = Number(dataRow.promedio_preparacion_hlic);
@@ -234,6 +235,7 @@ export class UnoAComponent implements OnInit {
     if(this.visibleForm){
       this.reset();
     }
+    console.log('=Z>',this.datosSucursal);
     this.herramientasForm = this._formBuilder.group({
       ide_seges: [this._utilService.getSucursal()],
       ide_segdis: [this._utilService.getEmpresa()],
@@ -241,8 +243,8 @@ export class UnoAComponent implements OnInit {
       provincia_hlic: [this.datosSucursal.provincia],
       distrito_hlic: [this.datosSucursal.distrito],
       establecimiento_hlic: [this.datosSucursal.establecimiento],
-      fecha_medicion_hlic: [this._utilService.getDateCurrent()],
-      ide_indtp: [ide, Validators.required],
+      fecha_medicion_hlic: [this._utilService.getDateFormat(data.fecha_medicion_hlic,'yyyy/MM/dd')],
+      ide_indtp: [data.ide_indtp, Validators.required],
       responsable_medicion_hlic: [this.datosSucursal.responsable_establecimiento],
       promedio_preparacion_hlic: [Number(data.promedio_preparacion_hlic)],
       promedio_gineco_hlic: [Number(data.promedio_gineco_hlic)],
