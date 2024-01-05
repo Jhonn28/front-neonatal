@@ -133,7 +133,7 @@
                             </div>
                           </div>
 
-                          <cmp-button [icon]="'fas fa-plus'" (click)="insertRow()"></cmp-button>
+                          <cmp-button [icon]="'fas fa-plus'" (click)="insertRow()" [tooltip]="'Insertar'"></cmp-button>
 
                         <p-table [value]="insumosForm.controls" styleClass="p-datatable-gridlines p-datatable-wrapper mt-3"
                           [autoLayout]="true" responsiveLayout="scroll" [rowHover]="true" >

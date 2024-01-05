@@ -76,7 +76,7 @@
             <th class="font-black text-center">Período</th>
             <th class="font-black text-center">Items cumple</th>
             <th class="font-black text-center">T. Items</th>
-            <th class="font-black text-center">Puntaje</th>
+            <th class="font-black text-center">Porcentaje</th>
             <th class="min-w-8 w-fit text-center">Visualizar</th>
           </tr>
         </ng-template>
@@ -87,7 +87,7 @@
             <td class="text-center">{{dataRow.detalle_indtp}}</td>
             <td class="text-center">{{dataRow.items_cumple_hlic}}</td>
             <td class="text-center">{{dataRow.total_items_hlic}}</td>
-            <td class="text-center font-bold text-indigo-90">{{dataRow.porcentaje_estandar_hlic}}</td>
+            <td class="text-center font-bold text-indigo-90">{{dataRow.porcentaje_estandar_hlic}}%</td>
 
             <td class="text-center">
               <button (click)="onVisual(dataRow)"

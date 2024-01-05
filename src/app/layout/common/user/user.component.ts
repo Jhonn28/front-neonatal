@@ -4,23 +4,23 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
+import { AuthService, UtilsService } from '../../../../../projects/libreria/src/public-api';
 
 @Component({
-    selector       : 'user',
-    templateUrl    : './user.component.html',
-    encapsulation  : ViewEncapsulation.None,
+    selector: 'user',
+    templateUrl: './user.component.html',
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs       : 'user'
+    exportAs: 'user'
 })
-export class UserComponent implements OnInit, OnDestroy
-{
+export class UserComponent implements OnInit, OnDestroy {
     /* eslint-disable @typescript-eslint/naming-convention */
     static ngAcceptInputType_showAvatar: BooleanInput;
     /* eslint-enable @typescript-eslint/naming-convention */
 
     @Input() showAvatar: boolean = true;
     user: User;
-
+    iniciales_usuario;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -29,9 +29,11 @@ export class UserComponent implements OnInit, OnDestroy
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private _userService: UserService
-    )
-    {
+        private _userService: UserService,
+        private _authService: AuthService,
+        private _utilsService: UtilsService
+    ) {
+        this.iniciales_usuario = _utilsService.extraerCaracteres(_authService.usuario.responsable_seges);
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -41,8 +43,8 @@ export class UserComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    async ngOnInit() {
+
         // Subscribe to user changes
         this._userService.user$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -57,8 +59,7 @@ export class UserComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
@@ -73,11 +74,9 @@ export class UserComponent implements OnInit, OnDestroy
      *
      * @param status
      */
-    updateUserStatus(status: string): void
-    {
+    updateUserStatus(status: string): void {
         // Return if user is not available
-        if ( !this.user )
-        {
+        if (!this.user) {
             return;
         }
 
@@ -88,17 +87,19 @@ export class UserComponent implements OnInit, OnDestroy
         }).subscribe();
     }
 
-    profile(){
-      this._router.navigate(['private/cuenta/']);
+    profile() {
+        this._router.navigate(['private/cuenta/']);
     }
 
     /**
      * Sign out
      */
-    signOut(): void
-    {
-      sessionStorage.clear();
-    this._router.navigate(['/']);
+    signOut(): void {
+        sessionStorage.clear();
+        this._router.navigate(['/']);
         //this._router.navigate(['/sign-out']);
     }
+
+
+
 }

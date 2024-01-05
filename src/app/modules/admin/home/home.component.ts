@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   icono='';
   descripcion='';
   urlIcono='';
+  sucursal;
 
   accessDate: any;
   location: IPokedex;
@@ -43,22 +44,26 @@ export class HomeComponent implements OnInit {
     private _authService: AuthService,
     private _systemService: SystemService,
     ) {
-    this.startClock();
-    this.user = this._authService.usuario;
-    this.accessDate = _authService.accessDate;
-    //console.log('accessDATE=>',this.accessDate);
-    this.last_date = _utilService.getFormatDate(this.accessDate[0].fecha_seauac,'yyyy/mm/dd');
-    //this.last_date = this.accessDate.fecha_seauac;
-    this.last_time = this.accessDate[0].hora_seauac;
-    //console.log(this.route.snapshot.data.info);
-    this.establecimiento = this.route.snapshot.data.info[0];
-    //console.log("DATOS SUCUR=>",this.establecimiento);
-    this.location = this.route.snapshot.data.info[1];
-    /* this.location.geoplugin_city = 'Quito';
-    this.location.geoplugin_region= 'Pichincha'; */
-  }
+      this.startClock();
+      this.user = this._authService.usuario;
+      this.accessDate = _authService.accessDate;
+      //console.log('accessDATE=>',this.accessDate);
+      this.last_date = _utilService.getFormatDate(this.accessDate[0].fecha_seauac,'yyyy/mm/dd');
+      //this.last_date = this.accessDate.fecha_seauac;
+      this.last_time = this.accessDate[0].hora_seauac;
+      //console.log(this.route.snapshot.data.info);
+      this.establecimiento = this.route.snapshot.data.info[0];
+      //console.log("DATOS SUCUR=>",this.establecimiento);
+      this.location = this.route.snapshot.data.info[1];
+      /* this.location.geoplugin_city = 'Quito';
+      this.location.geoplugin_region= 'Pichincha'; */
+    }
+    
+    async ngOnInit() {
+    await this._systemService.getInfoSucursal().subscribe(resp=>{
+      this.sucursal=resp;
+    })
 
-  async ngOnInit() {
 
     this.ip = this._utilService.getIp();
     this.date = this._utilService.getDateCurrent();

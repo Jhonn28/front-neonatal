@@ -18,6 +18,7 @@ import moment from 'moment'
 import { PASSWORD_ENCRIPT } from '../config/config.const';
 import { ToastrService } from 'ngx-toastr';
 import { toInteger } from 'lodash';
+import { SystemService } from './system.service';
 // import { ToastrService } from 'ngx-toastr';
 
 
@@ -57,7 +58,8 @@ export class UtilsService {
     private _methodService: MethodsService,
     private spinner: NgxSpinnerService,
     private deviceService: DeviceDetectorService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    //private _systemService: SystemService
   ) {
     this.initDeviceDetector();
     //this._progressRef = progress.ref('myProgress');
@@ -486,7 +488,7 @@ export class UtilsService {
     return this._helper.getTokenExpirationDate(token);
   }
 
-  isExpiredToken(token: string){
+  isExpiredToken(token: string) {
     return this._helper.isTokenExpired(token);
   }
 
@@ -799,85 +801,98 @@ export class UtilsService {
     return pass;
   }
 
-  encontrarDuplicados(obj:any,campo?:string) {
-    let duplicados=[];
+  encontrarDuplicados(obj: any, campo?: string) {
+    let duplicados = [];
 
     for (let i = 0; i < obj.length; ++i) {
-      const uno=obj.slice(i);
+      const uno = obj.slice(i);
 
 
-    /*   if(uno.filter(ob=>ob.nro_distrito==obj[i].nro_distrito).length>1 && duplicados.filter(ob=>ob.nro_distrito==obj[i].nro_distrito).length==0){
+      /*   if(uno.filter(ob=>ob.nro_distrito==obj[i].nro_distrito).length>1 && duplicados.filter(ob=>ob.nro_distrito==obj[i].nro_distrito).length==0){
+  
+            duplicados.push(obj[i].nro_distrito);
+        } */
 
-          duplicados.push(obj[i].nro_distrito);
-      } */
-
-      if(uno.filter(ob=>ob[campo]==obj[i][campo]).length>1 && duplicados.filter(ob=>ob[campo]==obj[i][campo]).length==0){
+      if (uno.filter(ob => ob[campo] == obj[i][campo]).length > 1 && duplicados.filter(ob => ob[campo] == obj[i][campo]).length == 0) {
 
         duplicados.push(obj[i][campo]);
+      }
     }
-  }
 
 
     return duplicados;
-}
+  }
 
 
-//TODO: toastr
+  //TODO: toastr
 
-toast_success(mensaje: string, titulo?: string){
-  let title='Exito';
-  if(titulo){
-    title=titulo;
+  toast_success(mensaje: string, titulo?: string) {
+    let title = 'Exito';
+    if (titulo) {
+      title = titulo;
+    }
+    this._toastr.success(mensaje, title);
   }
-  this._toastr.success(mensaje,title);
-}
-toast_info(mensaje: string, titulo?: string){
-  let title='Información';
-  if(titulo){
-    title=titulo;
+  toast_info(mensaje: string, titulo?: string) {
+    let title = 'Información';
+    if (titulo) {
+      title = titulo;
+    }
+    this._toastr.info(mensaje, title);
   }
-  this._toastr.info(mensaje,title);
-}
-toast_warning(mensaje: string, titulo?: string){
-  let title='Advertencia';
-  if(titulo){
-    title=titulo;
+  toast_warning(mensaje: string, titulo?: string) {
+    let title = 'Advertencia';
+    if (titulo) {
+      title = titulo;
+    }
+    this._toastr.warning(mensaje, title);
   }
-  this._toastr.warning(mensaje,title);
-}
-toast_error(mensaje: string, titulo?: string){
-  let title='Error';
-  if(titulo){
-    title=title;
+  toast_error(mensaje: string, titulo?: string) {
+    let title = 'Error';
+    if (titulo) {
+      title = title;
+    }
+    this._toastr.error(mensaje, title);
   }
-  this._toastr.error(mensaje,title);
-}
 
-addLoadingMessage(message:string,icon: 'success'|'error',callback, title?:string){
-  let timerInterval
-Swal.fire({
-  title: 'Auto close alert!',
-  html: message,
-  icon:icon,
-  timer: 5000,
-  timerProgressBar: true,
-  didOpen: () => {
-    Swal.showLoading()
-    const b = Swal.getHtmlContainer().querySelector('b')
-    timerInterval = setInterval(() => {
-      b.textContent = String(toInteger(Swal.getTimerLeft()/1000));
-    }, 100)
-  },
-  willClose: () => {
-    clearInterval(timerInterval)
-  }
-}).then((result) => {
-  /* Read more about handling dismissals below */
-  if (result.dismiss === Swal.DismissReason.timer) {
-    callback();
-  }
-})
+  addLoadingMessage(message: string, icon: 'success' | 'error', callback, title?: string) {
+    let timerInterval
+    Swal.fire({
+      title: 'Auto close alert!',
+      html: message,
+      icon: icon,
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        const b = Swal.getHtmlContainer().querySelector('b')
+        timerInterval = setInterval(() => {
+          b.textContent = String(toInteger(Swal.getTimerLeft() / 1000));
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        callback();
+      }
+    })
 
-}
+  }
+
+  extraerCaracteres(text: string): string {
+    let letras = ''
+    if (text) {
+      letras = text.charAt(0);
+      if (text.indexOf(' ') !== -1) {
+        text = text.substring(text.indexOf(' ') + 1, text.length);
+        letras += text.charAt(0);
+      }
+    }
+    return letras;
+  }
+  
 
 }
