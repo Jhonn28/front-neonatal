@@ -2,7 +2,7 @@
   "name": "materno_neonatal",
   "version": "1.0.0",
   "description": "Aplicacion Materno neonatal",
-  "author": "Jhonn Guashpa",
+  "author": "Mary Cusquillo",
   "private": true,
   "scripts": {
     "ng": "ng",
