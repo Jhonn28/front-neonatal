@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthService, IDeviceInfo, IPokedex, UserCore, UtilsService } from '../../../../../projects/libreria/src/public-api';
 import { SystemService } from '../../../../../projects/libreria/src/lib/services/system.service';
+import { IndicadorService } from 'app/services/indicador.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { SystemService } from '../../../../../projects/libreria/src/lib/services
 })
 export class HomeComponent implements OnInit {
   puntaje;
-  color:string;
+  color1 = new Array();
   ip: string;
   date;
   user: UserCore;
@@ -21,14 +22,14 @@ export class HomeComponent implements OnInit {
   device: IDeviceInfo
   ampm: string;
   establecimiento: any;
-  clima: any[]=[];
-  ciudad='';
-  tempActual='';
-  tempMin='';
-  tempMax='';
-  icono='';
-  descripcion='';
-  urlIcono='';
+  clima: any[] = [];
+  ciudad = '';
+  tempActual = '';
+  tempMin = '';
+  tempMax = '';
+  icono = '';
+  descripcion = '';
+  urlIcono = '';
   sucursal;
 
   accessDate: any;
@@ -43,39 +44,28 @@ export class HomeComponent implements OnInit {
     private _utilService: UtilsService,
     private _authService: AuthService,
     private _systemService: SystemService,
-    ) {
-      this.startClock();
-      this.user = this._authService.usuario;
-      this.accessDate = _authService.accessDate;
-      //console.log('accessDATE=>',this.accessDate);
-      this.last_date = _utilService.getFormatDate(this.accessDate[0].fecha_seauac,'yyyy/mm/dd');
-      //this.last_date = this.accessDate.fecha_seauac;
-      this.last_time = this.accessDate[0].hora_seauac;
-      //console.log(this.route.snapshot.data.info);
-      this.establecimiento = this.route.snapshot.data.info[0];
-      //console.log("DATOS SUCUR=>",this.establecimiento);
-      this.location = this.route.snapshot.data.info[1];
-      /* this.location.geoplugin_city = 'Quito';
-      this.location.geoplugin_region= 'Pichincha'; */
-    }
-    
-    async ngOnInit() {
-    await this._systemService.getInfoSucursal().subscribe(resp=>{
-      this.sucursal=resp;
+    private _indicadorService: IndicadorService
+  ) {
+    this.startClock();
+    this.user = this._authService.usuario;
+    this.accessDate = _authService.accessDate;
+    this.last_date = _utilService.getFormatDate(this.accessDate[0].fecha_seauac, 'yyyy/mm/dd');
+    this.last_time = this.accessDate[0].hora_seauac;
+    this.establecimiento = this.route.snapshot.data.info[0];
+    this.location = this.route.snapshot.data.info[1];
+   
+  }
+
+  async ngOnInit() {
+    await this._systemService.getInfoSucursal().subscribe(resp => {
+      this.sucursal = resp;
     })
-
-
     this.ip = this._utilService.getIp();
     this.date = this._utilService.getDateCurrent();
     this.device = this._utilService.deviceInfo;
     this.getClima();
-    //this.puntaje = await this._seguimientoService.getPuntaje(this._utilService.getSucursal());
-    //console.log('pun=>',this.puntaje);
-    (this.puntaje<=60)? this.color='bg-red-200': 0;
-    (this.puntaje>60 && this.puntaje<80)? this.color='bg-yellow-200': 0;
-    (this.puntaje>80)? this.color='bg-green-200': 0;
-
-    console.log(this._utilService.getMultinacional(),this._utilService.getEmpresa(),this._utilService.getSucursal());
+    this.puntaje = await this._indicadorService.getPuntaje(this._utilService.getSucursal());
+    this.setColor();
   }
 
   startClock() {
@@ -104,15 +94,30 @@ export class HomeComponent implements OnInit {
     }, 500);
   }
 
-  getClima(){
+  getClima() {
 
 
     this._systemService.getClima(this.establecimiento.ciudad).subscribe((resp: any) => {
       //console.log("CLIMAAX=Z",resp);
-     this.tempActual=resp.main.temp;
-     this.icono=resp.weather[0].icon;
+      this.tempActual = resp.main.temp;
+      this.icono = resp.weather[0].icon;
       this.urlIcono = `http://openweathermap.org/img/wn/${this.icono}@4x.png`
     });
+  }
+
+  setColor() {
+
+    const green = 'bg-green-200';
+    const yellow = 'bg-yellow-200';
+    const red = 'bg-red-200';
+
+    this.puntaje.unoNueve.forEach(element => {
+      (element?.porcentaje >= 0 && element?.porcentaje < 71) ? this.color1.push(red) : 0;
+      (element?.porcentaje >= 71 && element?.porcentaje < 91) ? this.color1.push(yellow) : 0;
+      (element?.porcentaje > 91 && element?.porcentaje <= 100) ? this.color1.push(green) : 0;
+    });
+
+    console.log(this.color1);
   }
 
 }

@@ -18,7 +18,8 @@
               </ng-container>
               <div class="flex items-center">
                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
-                <div class="ml-1.5 leading-6 truncate text-secondary">Último ingreso {{last_date|date: 'dd/MM/yyyy'}} a las
+                <div class="ml-1.5 leading-6 truncate text-secondary">Último ingreso {{last_date|date: 'dd/MM/yyyy'}} a
+                  las
                   {{last_time}}</div>
               </div>
             </div>
@@ -167,27 +168,133 @@
             <div *ngIf="puntaje<60" class="text-xl font-medium tracking-tight leading-6 truncate">
               DISPOSITIVO: </div>
             <div class="ml-2 text-primary">
-              <div class="text-lg font-medium truncate text-primary">{{device.deviceType}}</div>
+              <div class="text-lg font-medium truncate text-primary">{{device?.deviceType}}</div>
             </div>
           </div>
           <div class="flex items-center justify-between w-full p-2 filter-info">
-            <img [src]="'assets/images/browser/'+ device.browser  + '-logo.png' " alt="browser" class="w-12 h-12 ">
+            <img [src]="'assets/images/browser/'+ device?.browser  + '-logo.png' " alt="browser" class="w-12 h-12 ">
             <div class="flex flex-col text-right">
-              <div class="text-lg font-semibold leading-tight">{{device.browser}}</div>
+              <div class="text-lg font-semibold leading-tight">{{device?.browser}}</div>
               <div class="text-md text-secondary rounded-full">
-                {{device.browser_version}}</div>
+                {{device?.browser_version}}</div>
             </div>
           </div>
           <div class="flex items-center justify-between w-full p-2 filter-info">
-            <img *ngIf="device.isMobile" src="assets/icons/movil.svg" alt="Mobile" class="w-12 h-12">
-            <img *ngIf="device.isTablet" src="assets/icons/desktop.svg" alt="Tablet" class="w-12 h-12">
-            <img *ngIf="device.isDesktop" src="assets/icons/desktop.svg" alt="Desktop" class="w-12 h-12">
+            <img *ngIf="device?.isMobile" src="assets/icons/movil.svg" alt="Mobile" class="w-12 h-12">
+            <img *ngIf="device?.isTablet" src="assets/icons/desktop.svg" alt="Tablet" class="w-12 h-12">
+            <img *ngIf="device?.isDesktop" src="assets/icons/desktop.svg" alt="Desktop" class="w-12 h-12">
             <div class="flex flex-col text-right">
-              <div class="text-xl font-semibold leading-tight">{{device.os}}</div>
-              <div class="text-md text-secondary">{{device.os_version}}</div>
+              <div class="text-xl font-semibold leading-tight">{{device?.os}}</div>
+              <div class="text-md text-secondary">{{device?.os_version}}</div>
             </div>
           </div>
         </div>
+
+        <!--TODO: card de porcentajes -->
+        <div class="sm:col-span-4 md:col-span-4 flex flex-col flex-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-3 grid-flow-row gap-4 w-full">
+            <!-- Indicador 1 -->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[0]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 1A</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de insumos, equipos y medicamentos esenciales con los que cuenta cada unidad operativa para la atención de la salud materna y del/a recién nacido/a
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[0]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[0] == null" class="text-base text-center font-semibold mt-4">No aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Indicador 2 -->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[1]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 2</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de mujeres embarazadas en cuyo control prenatal (en cualquier semana de gestación)
+                          se le realizaron y registraron actividades seleccionadas según la norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[1]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[1] == null" class="text-base text-center font-semibold mt-4">No aplica</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Indicador 3A-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[2]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 3A</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de partos atendidos en las Unidades de Salud con partograma graficado correctamente la curva de alerta y la curva de dilatación cervical de la paciente, y además se controló y registró la tensión arterial, la actividad uterina (frecuencia y duración) y la frecuencia cardiaca fetal
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[2]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[2] == null" class="text-base text-center font-semibold mt-4">No aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Indicador 3B-->
+          <!--   <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[1]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 3</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Tasa hospitalaria de letalidad por complicaciones obstétricas directas
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">10</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+
+          </div>
+        </div>
+
+
+        <!--TODO:-->
       </div>
     </div>
   </div>

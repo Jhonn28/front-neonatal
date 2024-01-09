@@ -182,4 +182,17 @@ export class IndicadorService {
     }
 
 
+    getPuntaje(establecimiento:number): Promise<any> {
+      return new Promise(async (resolve, reject) => {
+       // console.log(user)
+        await this._methodsService.get(`indicador/puntaje/${establecimiento}`).subscribe(async (result: IResultData) => {
+          console.log('puntaje:>',result);
+          resolve(result.data);
+        }, (err) => {
+          reject(err);
+        });
+      });
+    }
+
+
 }
