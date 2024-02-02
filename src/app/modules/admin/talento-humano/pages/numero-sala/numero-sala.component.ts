@@ -65,7 +65,7 @@ export class NumeroSalaComponent extends BarMenu implements OnInit {
         this._utilService.toast_warning('Recuerde que el número de salas no puede ser menor a 0 o mayor a 3');
         return;
       }
-      //await this._utilService.saveScreen(this.tabTable1);
+      await this._utilService.saveScreen(this.tabTable1);
     }
   }
   delete(): void {

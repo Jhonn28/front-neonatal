@@ -2,7 +2,7 @@
 
   <div class="flex items-center p-2 justify-center w-full bg-card">
     <div>
-      <div class="text-lg font-semibold tracking-tight leading-12  text-center">Revisión indicador 2.
+      <div class="text-lg font-semibold tracking-tight leading-12  text-center">Revisión indicador 3A
       </div>
     </div>
 
@@ -192,8 +192,8 @@
 
                         </label>
                         <p-dropdown [options]="tiempo" [filter]="tiempo.length >= 10" appendTo="body"
-                          [style]="{'width':'100%'}" formControlName="mes_evaluado"
-                          placeholder="Seleccione..." [readonly]="true"></p-dropdown>
+                          [style]="{'width':'100%'}" formControlName="mes_evaluado" placeholder="Seleccione..."
+                          [readonly]="true"></p-dropdown>
                       </div>
                     </div>
 
@@ -247,27 +247,31 @@
 
                       <ng-template pTemplate="header">
                         <tr>
-                          <th class="min-w-10  w-fit text-center">No. De Historia Clínica
+                          <th class="min-w-10 text-center w-80" rowspan="2">No. De Historia Clínica
                             <span class="text-required"> * </span>
                           </th>
 
                           <ng-container formArrayName="codigo">
                             <ng-container *ngFor="let cod of codigoForm.controls; let i=index">
                               <ng-container [formGroupName]="i">
-                                <th class="min-w-10  w-fit text-center h-24">
-                                  <input class="text-center w-16 -rotate-90	" disabled inputText pKeyFilter="int"
-                                    inputId="integeronly" formControlName="codigo_clinica" />
+                                <th class="title min-w-10  text-center h-8 w-16 td-border-color-left " colspan="2">
+                                  <p class="text-base font-medium text-primary">{{codigoForm.value[i].codigo_clinica}}
+                                  </p>
                                 </th>
                               </ng-container>
                             </ng-container>
                           </ng-container>
+                        </tr>
 
-
-
-                          <!--  <th class="min-w-10  w-fit text-center" *ngFor="let col of controlsCodigoForm">
-                                <input pInputText pKeyFilter="int" inputId="integeronly" formControlName="codigo_clinica"/>
-                              </th> -->
-
+                        <tr>
+                          <ng-container formArrayName="codigo">
+                            <ng-container *ngFor="let cod of codigoForm.controls; let i=index">
+                              <ng-container [formGroupName]="i">
+                                <th class="w-8">Cumple</th>
+                                <th class="td-border-color-left td-center w-8">No aplica</th>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
                         </tr>
                       </ng-template>
 
@@ -275,163 +279,283 @@
                       <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                         <ng-container formArrayName="insumos">
                           <tr [formGroupName]="rowIndex">
-                            <td style="text-align-last:rigth;">
-                              <p-dropdown appendTo="body" styleClass="component my-1 mx-1" [options]="indicadores"
-                                formControlName="ide" [readonly]="true">
-                                {{indicadores}}
-                              </p-dropdown>
+                            <td>
+                              <span class="text-sm font-light mx-3">{{indicadores[rowIndex].label}} </span>
                             </td>
-                            <td style="text-align-last:center;" *ngIf="numero_historias>0">
-                              <p-inputSwitch formControlName="1"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+
+                            <!--1-->
+                            <td class="td-center" *ngIf="numero_historias>0">
+                              <p-inputSwitch formControlName="1" readonly="true"></p-inputSwitch>
                             </td>
-                            <td style="text-align-last:center;" *ngIf="numero_historias>1">
-                              <p-inputSwitch formControlName="2" (onChange)="promedio(insumosForm,codigoForm)">
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>0">
+                              <p-inputSwitch formControlName="nc1" ariaLabelledBy="nc1" readonly="true">
                               </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>2">
-                              <p-inputSwitch formControlName="3"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--2-->
+                            <td class="td-center" *ngIf="numero_historias>1">
+                              <p-inputSwitch formControlName="2" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>1">
+                              <p-inputSwitch formControlName="nc2" ariaLabelledBy="nc2" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>3">
-                              <p-inputSwitch formControlName="4"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--3-->
+                            <td class="td-center" *ngIf="numero_historias>2">
+                              <p-inputSwitch formControlName="3" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>2">
+                              <p-inputSwitch formControlName="nc3" ariaLabelledBy="nc3" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>4">
-                              <p-inputSwitch formControlName="5"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--4-->
+                            <td class="td-center" *ngIf="numero_historias>3">
+                              <p-inputSwitch formControlName="4" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>3">
+                              <p-inputSwitch formControlName="nc4" ariaLabelledBy="nc4" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>5">
-                              <p-inputSwitch formControlName="6"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--5-->
+                            <td class="td-center" *ngIf="numero_historias>4">
+                              <p-inputSwitch formControlName="5" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>4">
+                              <p-inputSwitch formControlName="nc5" ariaLabelledBy="nc5" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>6">
-                              <p-inputSwitch formControlName="7"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--6-->
+                            <td class="td-center" *ngIf="numero_historias>5">
+                              <p-inputSwitch formControlName="6" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>5">
+                              <p-inputSwitch formControlName="nc6" ariaLabelledBy="nc6" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>7">
-                              <p-inputSwitch formControlName="8"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--7-->
+                            <td class="td-center" *ngIf="numero_historias>6">
+                              <p-inputSwitch formControlName="7" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>6">
+                              <p-inputSwitch formControlName="nc7" ariaLabelledBy="nc7" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>8">
-                              <p-inputSwitch formControlName="9"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--8-->
+                            <td class="td-center" *ngIf="numero_historias>7">
+                              <p-inputSwitch formControlName="8" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>7">
+                              <p-inputSwitch formControlName="nc8" ariaLabelledBy="nc8" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>9">
-                              <p-inputSwitch formControlName="10"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--9-->
+                            <td class="td-center" *ngIf="numero_historias>8">
+                              <p-inputSwitch formControlName="9" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>8">
+                              <p-inputSwitch formControlName="nc9" ariaLabelledBy="nc9" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>10">
-                              <p-inputSwitch formControlName="11"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--10-->
+                            <td class="td-center" *ngIf="numero_historias>9">
+                              <p-inputSwitch formControlName="10" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>9">
+                              <p-inputSwitch formControlName="nc10" ariaLabelledBy="nc10" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>11">
-                              <p-inputSwitch formControlName="12"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <td class="td-center" *ngIf="numero_historias>10">
+                              <p-inputSwitch formControlName="11" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>10">
+                              <p-inputSwitch formControlName="nc11" ariaLabelledBy="nc11" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>12">
-                              <p-inputSwitch formControlName="13"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--12-->
+                            <td class="td-center" *ngIf="numero_historias>11">
+                              <p-inputSwitch formControlName="12" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>11">
+                              <p-inputSwitch formControlName="nc12" ariaLabelledBy="nc12" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>13">
-                              <p-inputSwitch formControlName="14"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--13-->
+                            <td class="td-center" *ngIf="numero_historias>12">
+                              <p-inputSwitch formControlName="13" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>12">
+                              <p-inputSwitch formControlName="nc13" ariaLabelledBy="nc13" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>14">
-                              <p-inputSwitch formControlName="15"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--14-->
+                            <td class="td-center" *ngIf="numero_historias>13">
+                              <p-inputSwitch formControlName="14" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>13">
+                              <p-inputSwitch formControlName="nc14" ariaLabelledBy="nc14" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>15">
-                              <p-inputSwitch formControlName="16"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--15-->
+                            <td class="td-center" *ngIf="numero_historias>14">
+                              <p-inputSwitch formControlName="15" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>14">
+                              <p-inputSwitch formControlName="nc15" ariaLabelledBy="nc15" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>16">
-                              <p-inputSwitch formControlName="17"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--16-->
+                            <td class="td-center" *ngIf="numero_historias>15">
+                              <p-inputSwitch formControlName="16" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>15">
+                              <p-inputSwitch formControlName="nc16" ariaLabelledBy="nc16" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>17">
-                              <p-inputSwitch formControlName="18"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--17-->
+                            <td class="td-center" *ngIf="numero_historias>16">
+                              <p-inputSwitch formControlName="17" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>16">
+                              <p-inputSwitch formControlName="nc17" ariaLabelledBy="nc17" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>18">
-                              <p-inputSwitch formControlName="19"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--18-->
+                            <td class="td-center" *ngIf="numero_historias>17">
+                              <p-inputSwitch formControlName="18" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>17">
+                              <p-inputSwitch formControlName="nc18" ariaLabelledBy="nc18" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>19">
-                              <p-inputSwitch formControlName="20"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--19-->
+                            <td class="td-center" *ngIf="numero_historias>18">
+                              <p-inputSwitch formControlName="19" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>18">
+                              <p-inputSwitch formControlName="nc19" ariaLabelledBy="nc19" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>20">
-                              <p-inputSwitch formControlName="21"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--20-->
+                            <td class="td-center" *ngIf="numero_historias>19">
+                              <p-inputSwitch formControlName="20" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>19">
+                              <p-inputSwitch formControlName="nc20" ariaLabelledBy="nc20" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>21">
-                              <p-inputSwitch formControlName="22"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--21-->
+                            <td class="td-center" *ngIf="numero_historias>20">
+                              <p-inputSwitch formControlName="21" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>20">
+                              <p-inputSwitch formControlName="nc21" ariaLabelledBy="nc21" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>22">
-                              <p-inputSwitch formControlName="23"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--22-->
+                            <td class="td-center" *ngIf="numero_historias>21">
+                              <p-inputSwitch formControlName="22" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>21">
+                              <p-inputSwitch formControlName="nc22" ariaLabelledBy="nc22" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>23">
-                              <p-inputSwitch formControlName="24"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--23-->
+                            <td class="td-center" *ngIf="numero_historias>22">
+                              <p-inputSwitch formControlName="23" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>22">
+                              <p-inputSwitch formControlName="nc23" ariaLabelledBy="nc23" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>24">
-                              <p-inputSwitch formControlName="25"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--24-->
+                            <td class="td-center" *ngIf="numero_historias>23">
+                              <p-inputSwitch formControlName="24" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>23">
+                              <p-inputSwitch formControlName="nc24" ariaLabelledBy="nc24" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>25">
-                              <p-inputSwitch formControlName="26"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--25-->
+                            <td class="td-center" *ngIf="numero_historias>24">
+                              <p-inputSwitch formControlName="25" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>24">
+                              <p-inputSwitch formControlName="nc25" ariaLabelledBy="nc25" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>26">
-                              <p-inputSwitch formControlName="27"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--26-->
+                            <td class="td-center" *ngIf="numero_historias>25">
+                              <p-inputSwitch formControlName="26" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>25">
+                              <p-inputSwitch formControlName="nc26" ariaLabelledBy="nc26" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>27">
-                              <p-inputSwitch formControlName="28"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--27-->
+                            <td class="td-center" *ngIf="numero_historias>26">
+                              <p-inputSwitch formControlName="27" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>26">
+                              <p-inputSwitch formControlName="nc27" ariaLabelledBy="nc27" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>28">
-                              <p-inputSwitch formControlName="29"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--28-->
+                            <td class="td-center" *ngIf="numero_historias>27">
+                              <p-inputSwitch formControlName="28" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>27">
+                              <p-inputSwitch formControlName="nc28" ariaLabelledBy="nc28" readonly="true">
+                              </p-inputSwitch>
                             </td>
 
-                            <td style="text-align-last:center;" *ngIf="numero_historias>29">
-                              <p-inputSwitch formControlName="30"
-                                (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                            <!--29-->
+                            <td class="td-center" *ngIf="numero_historias>28">
+                              <p-inputSwitch formControlName="29" readonly="true"></p-inputSwitch>
                             </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>28">
+                              <p-inputSwitch formControlName="nc29" ariaLabelledBy="nc29" readonly="true">
+                              </p-inputSwitch>
+                            </td>
+
+                            <!--30-->
+                            <td class="td-center" *ngIf="numero_historias>29">
+                              <p-inputSwitch formControlName="30" readonly="true"></p-inputSwitch>
+                            </td>
+                            <td class="td-border-color-left td-center" *ngIf="numero_historias>29">
+                              <p-inputSwitch formControlName="nc30" ariaLabelledBy="nc30" readonly="true">
+                              </p-inputSwitch>
+                            </td>
+
 
 
                           </tr>
+
                         </ng-container>
                       </ng-template>
                     </p-table>
@@ -439,13 +563,6 @@
                       <p class="flex justify-end my-2"> Numerador: <span class="font-bold">{{numerador}}</span></p>
                       <p class="flex justify-end my-2"> Denominador: <span class="font-bold">{{denominador}}</span></p>
                       <p class="flex justify-end"> Porcentaje: <span class="font-bold">{{porcentaje}}</span></p>
-                    </div>
-
-                    <div class="flex justify-end p-2 my-3">
-
-                      <button class="px-8 bg-indigo-900	text-white p-2" mat-button type="submit">
-                        Guardar
-                      </button>
                     </div>
                   </div>
 

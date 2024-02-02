@@ -91,6 +91,9 @@ export class OnceComponent implements OnInit {
         unidad_operativa_heg: this.herramientasForm.get('unidad_operativa').value,
         fecha_medicion_heg: this.herramientasForm.get('fecha_medicion').value,
         responsable_medicion_heg: this.herramientasForm.get('responsable_medicion').value,
+        numerador_heg: this.herramientasForm.get('total_muertes').value,
+        denominador_heg: this.herramientasForm.get('total_atendidos').value,
+        porcentaje_heg: this.herramientasForm.get('porcentaje').value,
         nro_herramienta_heg: '11'
       }
     );

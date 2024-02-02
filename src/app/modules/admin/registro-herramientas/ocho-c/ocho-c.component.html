@@ -143,26 +143,33 @@
 
                           <ng-template pTemplate="header">
                             <tr>
-                              <th class="min-w-10  w-fit text-center">No. De Historia Clínica
+                              <th class="min-w-10  w-fit text-center" rowspan="2">No. De Historia Clínica
                                 <span class="text-required"> * </span>
                               </th>
 
                               <ng-container formArrayName="codigo">
                                 <ng-container *ngFor="let cod of codigoForm.controls; let i=index">
                                   <ng-container [formGroupName]="i">
-                                    <th class="min-w-10  w-fit text-center">
+                                    <th class="title min-w-32  text-center td-border-color-left" colspan="2">
                                       <input pInputText pKeyFilter="int" inputId="integeronly"
                                         formControlName="codigo_clinica" />
                                     </th>
-
                                   </ng-container>
                                 </ng-container>
                               </ng-container>
+                            </tr>
 
-
+                            <tr>
+                              <ng-container formArrayName="codigo">
+                                <ng-container *ngFor="let cod of codigoForm.controls; let i=index">
+                                  <ng-container [formGroupName]="i">
+                                    <th class="w-16">Cumple</th>
+                                    <th class="td-border-color-left td-center w-16">No aplica</th>
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
                             </tr>
                           </ng-template>
-
 
                           <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                             <ng-container formArrayName="insumos">
@@ -189,156 +196,337 @@
                                       pInputTextarea formControlName="text"
                                       [attr.disabled]="true"></textarea>
                                 </td>
-                                <td style="text-align-last:center;">
+                                 <!--1-->
+                                 <td class="td-center">
                                   <p-inputSwitch formControlName="1"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc1',insumosForm,codigoForm)"></p-inputSwitch>
                                 </td>
-                                <td style="text-align-last:center;">
-                                  <p-inputSwitch formControlName="2" (onChange)="promedio(insumosForm,codigoForm)">
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc1"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'1',insumosForm,codigoForm)">
                                   </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--2-->
+                                <td class="td-center">
+                                  <p-inputSwitch formControlName="2"
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc2',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc2"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'2',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
+                                </td>
+
+                                <!--3-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="3"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc3',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc3"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'3',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--4-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="4"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc4',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc4"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'4',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--5-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="5"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc5',insumosForm,codigoForm)"></p-inputSwitch>
                                 </td>
-
-                                <td style="text-align-last:center;">
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc5"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'5',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
+                                </td>
+                                <!--6-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="6"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc6',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc6"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'6',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--7-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="7"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc7',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc7"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'7',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--8-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="8"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc8',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc8"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'8',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+
+                                <!--9-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="9"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc9',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc9"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'9',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+
+                                <!--10-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="10"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc10',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc10"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'10',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--11-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="11"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc11',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc11"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'11',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--12-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="12"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc12',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc12"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'12',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--13-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="13"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc13',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc13"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'13',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--14-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="14"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc14',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc14"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'14',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--15-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="15"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc15',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc15"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'15',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--16-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="16"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc16',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc16"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'16',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--17-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="17"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc17',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc17"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'17',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--18-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="18"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc18',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc18"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'18',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--19-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="19"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc19',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc19"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'19',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--20-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="20"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc20',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc20"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'20',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--21-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="21"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc21',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc21"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'21',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--22-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="22"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc22',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc22"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'22',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--23-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="23"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc23',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc23"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'23',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--24-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="24"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc24',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc24"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'24',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--25-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="25"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc25',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc25"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'25',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--26-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="26"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc26',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc26"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'26',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--27-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="27"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc27',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc27"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'27',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--28-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="28"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc28',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc28"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'28',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--29-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="29"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc29',insumosForm,codigoForm)"></p-inputSwitch>
+                                </td>
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc29"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'29',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
                                 </td>
 
-                                <td style="text-align-last:center;">
+                                <!--30-->
+                                <td class="td-center">
                                   <p-inputSwitch formControlName="30"
-                                    (onChange)="promedio(insumosForm,codigoForm)"></p-inputSwitch>
+                                    (onChange)="checkYes($event,rowIndex,insumosForm.controls,'nc30',insumosForm,codigoForm)"></p-inputSwitch>
                                 </td>
-
-
+                                <td class="td-border-color-left td-center">
+                                  <p-inputSwitch formControlName="nc30"
+                                    (onChange)="checkNoAply($event,rowIndex,insumosForm.controls,'30',insumosForm,codigoForm)">
+                                  </p-inputSwitch>
+                                </td>
                               </tr>
                             </ng-container>
                           </ng-template>

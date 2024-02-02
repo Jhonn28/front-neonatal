@@ -33,6 +33,7 @@ const routes: Routes = [
       {path: 'indicadores', loadChildren:() => import('app/modules/admin/indicadores/indicadores.module').then(m=>m.IndicadoresModule)},
       {path:'registro-herramienta',loadChildren:()=> import('app/modules/admin/registro-herramientas/registro-herramientas.module').then(m=>m.RegistroHerramientasModule)},
       {path:'actualizar-herramienta',loadChildren:()=> import('app/modules/admin/actualizar-herramientas/actualizar-herramientas.module').then(m=>m.ActualizarHerramientasModule)},
+      {path: 'reporte', loadChildren:()=>import('app/modules/admin/reporte/reporte.module').then(m=>m.ReporteModule)},
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   },

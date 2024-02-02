@@ -281,6 +281,36 @@ export class TresAComponent implements OnInit {
           28: [false, Validators.required],
           29: [false, Validators.required],
           30: [false, Validators.required],
+          nc1: [false, Validators.required],
+          nc2: [false, Validators.required],
+          nc3: [false, Validators.required],
+          nc4: [false, Validators.required],
+          nc5: [false, Validators.required],
+          nc6: [false, Validators.required],
+          nc7: [false, Validators.required],
+          nc8: [false, Validators.required],
+          nc9: [false, Validators.required],
+          nc10: [false, Validators.required],
+          nc11: [false, Validators.required],
+          nc12: [false, Validators.required],
+          nc13: [false, Validators.required],
+          nc14: [false, Validators.required],
+          nc15: [false, Validators.required],
+          nc16: [false, Validators.required],
+          nc17: [false, Validators.required],
+          nc18: [false, Validators.required],
+          nc19: [false, Validators.required],
+          nc20: [false, Validators.required],
+          nc21: [false, Validators.required],
+          nc22: [false, Validators.required],
+          nc23: [false, Validators.required],
+          nc24: [false, Validators.required],
+          nc25: [false, Validators.required],
+          nc26: [false, Validators.required],
+          nc27: [false, Validators.required],
+          nc28: [false, Validators.required],
+          nc29: [false, Validators.required],
+          nc30: [false, Validators.required],
         }));
       }
     })
@@ -294,6 +324,7 @@ export class TresAComponent implements OnInit {
       console.log(index_indicador, element.cumple_hpa);
 
       form[index_indicador].get(String(index_codigo)).setValue(element.cumple_hpa)
+      form[index_indicador].get(String('nc'+index_codigo)).setValue(element.no_aplica_hpa);
 
       index_indicador++;
 
@@ -395,6 +426,10 @@ export class TresAComponent implements OnInit {
     });
     return array;
 
+  }
+
+  getRange(start: number, end: number): number[] {
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
 }

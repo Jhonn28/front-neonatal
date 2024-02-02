@@ -194,5 +194,42 @@ export class IndicadorService {
       });
     }
 
+    getReporteDistrito(distrito:number,anio): Promise<any> {
+      return new Promise(async (resolve, reject) => {
+       // console.log(user)
+        await this._methodsService.get(`indicador/reporte-distrito/${distrito}/${anio}`).subscribe(async (result: IResultData) => {
+          console.log('Data:>',result);
+          resolve(result.data);
+        }, (err) => {
+          reject(err);
+        });
+      });
+    }
+
+
+    getReporteZonal(anio): Promise<any> {
+      return new Promise(async (resolve, reject) => {
+       // console.log(user)
+        await this._methodsService.get(`indicador/reporte-zonal/${anio}`).subscribe(async (result: IResultData) => {
+          console.log('Data:>',result);
+          resolve(result.data);
+        }, (err) => {
+          reject(err);
+        });
+      });
+    }
+
+    getHistorico(): Promise<any> {
+      return new Promise(async (resolve, reject) => {
+       // console.log(user)
+        await this._methodsService.get(`indicador/historico`).subscribe(async (result: IResultData) => {
+          resolve(result.data);
+        }, (err) => {
+          reject(err);
+        });
+      });
+    }
+
+
 
 }

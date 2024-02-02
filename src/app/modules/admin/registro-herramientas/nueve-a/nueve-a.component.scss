@@ -1,12 +1,40 @@
-th{
-  height: 6rem;
+th.title{
+  height: 8rem;
 }
 
 input.p-inputtext{
   transform: rotate(-90deg);
-  width: 4rem !important;
+  width: 6rem !important;
 }
-td,th {
+/* td,th {
   border-width: 1px !important;
   border-color: #20295c57 !important;
 }
+
+th.title{
+  height: 8rem;
+}
+
+
+input.p-inputtext{
+  transform: rotate(-90deg);
+  width: 6rem !important;
+}
+
+
+
+
+input.p-inputtext{
+width: 7rem !important;
+}
+ */
+
+
+th.td-border-color-left,td.td-border-color-left{
+  border-color: #f4f4f5 #6b728085 !important;
+}
+td.td-center{
+  text-align-last:center;
+}
+
+

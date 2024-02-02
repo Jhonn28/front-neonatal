@@ -1,9 +1,19 @@
 
-/* th{
-  height: 6rem !important;
+th.data{
+  height: 8rem;
 }
 
-input.p-inputtext{
-  transform: rotate(-90deg) !important;
-  width: 4rem !important;
-} */
+input.codigo{
+/*   transform: rotate(-90deg);
+ */  width: 7rem !important;
+}
+
+
+th.td-border-color-left,td.td-border-color-left{
+  border-color: #f4f4f5 #6b728085 !important;
+}
+td.td-center{
+  text-align-last:center;
+}
+
+

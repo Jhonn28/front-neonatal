@@ -35,7 +35,7 @@ export class PermisosComponent extends BarMenu implements AfterViewInit {
     await this.tabTable2.setTable('seg_perfil_opcion', 'ide_sepeop', 2);
     this.tabTable2.setTitle('Permisos de menú del perfil ' + this.tabTable1.getValue('nombre_segper'));
     this.tabTable2.getColumn('ide_segopc').setDropdownService('seguridad/opciones');
-    this.tabTable2.getColumn('ide_segopc').setAutocomplete();
+    //this.tabTable2.getColumn('ide_segopc').setAutocomplete();
     this.tabTable2.getColumn('ide_sepeop').setVisualName('código');
     this.tabTable2.getColumn('ide_segopc').setVisualName('opción');
     this.tabTable2.getColumn('ide_segopc').setRequired(true);

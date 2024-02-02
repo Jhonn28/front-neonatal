@@ -87,60 +87,7 @@ export class OchoAComponent implements OnInit {
 
   }
 
-  async saveData(event) {
 
-
-    if (this.compare(this.herramientasForm.value, this.originalData)) {
-      this._utilService.toast_info('No se realizaron cambios.');
-      return;
-    }
-
-
-    this.setData(this.insumosForm, this.codigoForm);
-    const cabecera = new Object(
-      {
-        numerador_heg: this.numerador,
-        denominador_heg: this.denominador,
-        porcentaje_heg: this.porcentaje,
-        ide_heg: this.selectRow
-      }
-    );
-
-    const body = this.dataForm.value;
-    let index = 0;
-    this.datosIndicador.forEach(element => {
-
-      delete body[index].ide_indcoa;
-      delete body[index].nro_historia_clinica_hcoa;
-      body[index]['ide_hcoa'] = +element.ide_hcoa;
-      index++;
-    });
-
-
-    const data = new Object({
-      cabecera: cabecera,
-      indicadores: body
-    })
-
-
-
-
-
-    await this._indicadorService.updateData(data, 'her_encabezado_general', 'ide_heg', 'her_complicacion_obstetrica_a', 'ide_hcoa', 'ide_indcoa').subscribe(async (res: any) => {
-      //this.buscarSupervision();
-      this.buscarSupervision();
-      this.deleteForm(this.insumosForm);
-      this.deleteForm(this.codigoForm);
-      this.deleteForm(this.dataForm);
-
-      this.numerador = 0;
-      this.denominador = 0;
-      this.porcentaje = 0;
-      this.selectRow = 0;
-      this.visibleForm = false;
-    });
-
-  }
 
   async buscarSupervision() {
 
@@ -190,7 +137,6 @@ export class OchoAComponent implements OnInit {
     this.selectRow = dataRow.ide_heg;
     this.loadForm(this.selectRow, dataRow);
 
-    //await this.loadForm(dataRow.ide_hlic, dataRow);
 
   }
 
@@ -281,6 +227,36 @@ export class OchoAComponent implements OnInit {
           28: [false, Validators.required],
           29: [false, Validators.required],
           30: [false, Validators.required],
+          nc1: [false, Validators.required],
+          nc2: [false, Validators.required],
+          nc3: [false, Validators.required],
+          nc4: [false, Validators.required],
+          nc5: [false, Validators.required],
+          nc6: [false, Validators.required],
+          nc7: [false, Validators.required],
+          nc8: [false, Validators.required],
+          nc9: [false, Validators.required],
+          nc10: [false, Validators.required],
+          nc11: [false, Validators.required],
+          nc12: [false, Validators.required],
+          nc13: [false, Validators.required],
+          nc14: [false, Validators.required],
+          nc15: [false, Validators.required],
+          nc16: [false, Validators.required],
+          nc17: [false, Validators.required],
+          nc18: [false, Validators.required],
+          nc19: [false, Validators.required],
+          nc20: [false, Validators.required],
+          nc21: [false, Validators.required],
+          nc22: [false, Validators.required],
+          nc23: [false, Validators.required],
+          nc24: [false, Validators.required],
+          nc25: [false, Validators.required],
+          nc26: [false, Validators.required],
+          nc27: [false, Validators.required],
+          nc28: [false, Validators.required],
+          nc29: [false, Validators.required],
+          nc30: [false, Validators.required],
         }));
       }
     })
@@ -293,6 +269,7 @@ export class OchoAComponent implements OnInit {
     this.datosIndicador.forEach(element => {
 
       form[index_indicador].get(String(index_codigo)).setValue(element.cumple_hcoa)
+      form[index_indicador].get(String('nc'+index_codigo)).setValue(element.no_aplica_hcoa);
 
       index_indicador++;
 
@@ -309,54 +286,6 @@ export class OchoAComponent implements OnInit {
 
   }
 
-  //promedio
-  promedio(formulario, codigo) {
-    let i = 0;
-    this.suma = 0;
-    let cumple = 0;
-    this.numerador = 0;
-    this.denominador = 0;
-    let valido = false;
-    codigo.value.forEach(element => {
-      if (element.codigo_clinica.length > 0) {
-        valido = true;
-        this.denominador++;
-        cumple = 0;
-        formulario.value.forEach(element => {
-          if (element[i + 1] == true) {
-            cumple++;
-            this.suma++;
-          }
-        });
-        (cumple == this.indicadores.length) ? this.numerador += 1 : 0;
-        i++;
-      }
-    });
-    if (valido) {
-      this.porcentaje = Number(((this.numerador * 100) / this.denominador).toFixed(2));
-    }
-
-  }
-
-
-
-  //set data
-  setData(formulario, codigo) {
-    let i = 0;
-
-    codigo.value.forEach(element => {
-      if (element.codigo_clinica.length > 0) {
-        formulario.value.forEach(form => {
-          this.dataForm.push(this._formBuilder.group({
-            ide_indcoa: [form.ide],
-            nro_historia_clinica_hcoa: [element.codigo_clinica],
-            cumple_hcoa: [form[i + 1]],
-          }))
-        });
-        i++;
-      }
-    });
-  }
 
   deleteForm(formulario) {
     while (formulario.length !== 0) {
@@ -368,7 +297,8 @@ export class OchoAComponent implements OnInit {
 
 
   //getters
-  get insumosForm(): FormArray {
+  get insumosForm(): FormArray { 
+    console.log(this.herramientasForm.get('insumos'));
     return this.herramientasForm.get('insumos') as FormArray;
   }
 

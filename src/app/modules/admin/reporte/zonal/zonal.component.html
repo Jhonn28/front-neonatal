@@ -1,0 +1,150 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <div class="flex items-center p-2 px-4 justify-center w-full bg-card">
+        <div>
+            <div class="text-lg font-semibold tracking-tight leading-12  text-center">Generar reportes
+            </div>
+        </div>
+
+    </div>
+    <div class="flex-auto pt-2 sm:px-4 sm:pb-4">
+        <div class="barra"></div>
+        <div class="p-2 bg-card shadow rounded overflow-hidden">
+            <div class="flex justify-center flex-col sm:flex-row items-center w-full py-3 sm:my-2">
+
+                <form [formGroup]="reporteForm" (ngSubmit)="buscar()">
+                    <div class="flex flex-wrap  -mx-3 mb-6">
+                        <div class="w-full md:w-1/1 px-3 mb-6 md:mb-0 text-center">
+                            <label class="block tracking-wide text-gray-700 text-sm font-bold mb-2">
+                                Año:
+                            </label>
+                            <p-calendar formControlName="anio" view="year" dateFormat="yy"
+                                inputId="yearpicker"></p-calendar>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 m-auto my-2 flex justify-center">
+                            <button class="ml-3 mr-3 bg-indigo-900 text-white text-bold p-1 rounded" mat-flat
+                                type="submit">
+                                <span class="mr-2 font-medium"><i class="fas fa-search mx-1"></i> Consultar</span>
+                            </button>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 m-auto my-2 flex justify-center">
+                            <button class=" ml-3 mr-3  bg-red-500 text-white text-bold p-1 rounded" mat-flat-button
+                                type="button" (click)="limpiar()">
+
+                                <span class="ml-2 font-medium"> <i class="fas fa-trash mx-1"></i> Limpiar</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0 mt-1">
+
+                        <div
+                            class="sm:col-span-6 flex flex-col flex-auto p-0 bg-card shadow rounded-lg overflow-hidden">
+                            <div class="flex flex-col flex-auto overflow-x-auto">
+
+                                <div class="stepper">
+
+                                    <p-table [value]="data" rowGroupMode="rowspan"
+                                        groupRowsBy="provincia" sortField="provincia" sortMode="single"
+                                        [tableStyle]="{'min-width': '75rem'}">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <td class="text-center font-bold text-base px-2" rowspan="3">Provincia</td>
+                                                <td class="text-center font-bold text-base px-2" rowspan="3">Distrito</td>
+                                                <td class="text-center font-bold text-base px-2" colspan="22">Provincia</td>
+                                                <td class="text-center font-bold text-base px-2" rowspan="3">Total</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center font-bold text-base">1</td>
+                                                <td class="text-center font-bold text-base">2</td>
+                                                <td class="text-center font-bold text-base">3A</td>
+                                                <td class="text-center font-bold text-base">3B</td>
+                                                <td class="text-center font-bold text-base">4</td>
+                                                <td class="text-center font-bold text-base">5</td>
+                                                <td class="text-center font-bold text-base">6</td>
+                                                <td class="text-center font-bold text-base">7A</td>
+                                                <td class="text-center font-bold text-base">7B</td>
+                                                <td class="text-center font-bold text-base">8A</td>
+                                                <td class="text-center font-bold text-base">8B</td>
+                                                <td class="text-center font-bold text-base">8C</td>
+                                                <td class="text-center font-bold text-base">8D</td>
+                                                <td class="text-center font-bold text-base">8E</td>
+                                                <td class="text-center font-bold text-base">8F</td>
+                                                <td class="text-center font-bold text-base">9A</td>
+                                                <td class="text-center font-bold text-base">9B</td>
+                                                <td class="text-center font-bold text-base">9C</td>
+                                                <td class="text-center font-bold text-base">10</td>
+                                                <td class="text-center font-bold text-base">11</td>
+                                                <td class="text-center font-bold text-base">12</td>
+                                                <td class="text-center font-bold text-base">13</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-2">% Insumos esenciales atención Materna y RN.</td>
+                                                <td class="px-2">Control prenatal atendido según norma</td>
+                                                <td class="px-2">% Partos con partograma graficado y con control</td>
+                                                <td class="px-2">% partos con decisiones frente a desviaciones de curva de partograma</td>
+                                                <td class="px-2">% Partos con Oxitocina (manejo activo del tercer período)</td>
+                                                <td class="px-2">% de post partos con control según la norma</td>
+                                                <td class="px-2">% de RN en los que se realizó actividades de la norma</td>
+                                                <td class="px-2">% partos atendidos por médico/a u obstetriz</td>
+                                                <td class="px-2">% de RN atendidos por médico/a u obstetriz</td>
+                                                <td class="px-2">% de pctes con preeclampsia, eclampsia manejada según la norma</td>
+                                                <td class="px-2">% de Hemorragias Obstétricas manejadas según la norma</td>
+                                                <td class="px-2">% de infecciones obstétricas manejadas según la norma</td>
+                                                <td class="px-2">% Partos Pretermino con Corticoides prenatales</td>
+                                                <td class="px-2">% Partos Pretermino con Nifedipina como Uteroinhibidor</td>
+                                                <td class="px-2">% Embarazadas con Ruptura Prematura de membranas, manejadas de acuerdo a norma</td>
+                                                <td class="px-2"></td>
+                                                <td class="px-2">% RN con Trastornos Respiratorios, manejados de acuerdo a la norma</td>
+                                                <td class="px-2">% RN con Prematurez, manejados de acuerdo a la norma</td>
+                                                <td class="px-2">Tasa de letalidad por complicaciones obstétricas directas</td>
+                                                <td class="px-2">Tasa hospitalaria de mortalidad neonatal</td>
+                                                <td class="px-2">% de complicaciones obstétricas atendidas, de las esperadas</td>
+                                                <td class="px-2">% de muertes maternas investigadas</td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-data let-rowIndex="rowIndex"
+                                            let-rowgroup="rowgroup" let-rowspan="rowspan">
+                                            <tr>
+                                                <td *ngIf="rowgroup" [attr.rowspan]="rowspan" class="text-center">
+                                                    <span class="font-bold px-2">{{data.provincia}}</span>
+                                                </td>
+                                                <td class="font-bold text-center px-2">{{data.distrito}}</td>
+                                                <td class="text-center">{{data.promedio_1}}</td>
+                                                <td class="text-center">{{data.dos}}</td>
+                                                <td class="text-center">{{data.tres_a}}</td>
+                                                <td class="text-center">{{data.tres_b}}</td>
+                                                <td class="text-center">{{data.cuatro}}</td>
+                                                <td class="text-center">{{data.cinco}}</td>
+                                                <td class="text-center">{{data.seis}}</td>
+                                                <td class="text-center">{{data.siete_a}}</td>
+                                                <td class="text-center">{{data.siete_b}}</td>
+                                                <td class="text-center">{{data.ocho_a}}</td>
+                                                <td class="text-center">{{data.ocho_b}}</td>
+                                                <td class="text-center">{{data.ocho_c}}</td>
+                                                <td class="text-center">{{data.ocho_d}}</td>
+                                                <td class="text-center">{{data.ocho_e}}</td>
+                                                <td class="text-center">{{data.ocho_f}}</td>
+                                                <td class="text-center">{{data.nueve_a}}</td>
+                                                <td class="text-center">{{data.nueve_b}}</td>
+                                                <td class="text-center">{{data.nueve_c}}</td>
+                                                <td class="text-center">{{data.diez}}</td>
+                                                <td class="text-center">{{data.once}}</td>
+                                                <td class="text-center">{{data.doce}}</td>
+                                                <td class="text-center">{{data.trece}}</td>
+                                                <td class="text-center">{{data.total}}%</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" flex align-items justify-end text-base m-4 font-bold">
+                        Puntaje total: {{promedio}}%
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

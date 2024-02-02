@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { AuthService, IDeviceInfo, IPokedex, UserCore, UtilsService } from '../../../../../projects/libreria/src/public-api';
 import { SystemService } from '../../../../../projects/libreria/src/lib/services/system.service';
 import { IndicadorService } from 'app/services/indicador.service';
+import { ExcelService } from 'app/services/excel.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -30,12 +32,18 @@ export class HomeComponent implements OnInit {
   icono = '';
   descripcion = '';
   urlIcono = '';
+
+
+  anio: Date[] | undefined;
   sucursal;
 
   accessDate: any;
   location: IPokedex;
   last_date: string;
   last_time: string;
+
+  supervisionForm: FormGroup = new FormGroup({});
+
 
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -44,7 +52,10 @@ export class HomeComponent implements OnInit {
     private _utilService: UtilsService,
     private _authService: AuthService,
     private _systemService: SystemService,
-    private _indicadorService: IndicadorService
+    private _indicadorService: IndicadorService,
+    private _excelService: ExcelService,
+    private _formBuilder: FormBuilder,
+
   ) {
     this.startClock();
     this.user = this._authService.usuario;
@@ -53,10 +64,17 @@ export class HomeComponent implements OnInit {
     this.last_time = this.accessDate[0].hora_seauac;
     this.establecimiento = this.route.snapshot.data.info[0];
     this.location = this.route.snapshot.data.info[1];
-   
+
   }
 
   async ngOnInit() {
+    this.supervisionForm = this._formBuilder.group({
+      fecha_de: [],
+      fecha_hasta: [],
+      distrito: [],
+      establecimiento: [],
+    })
+    
     await this._systemService.getInfoSucursal().subscribe(resp => {
       this.sucursal = resp;
     })
@@ -106,7 +124,7 @@ export class HomeComponent implements OnInit {
   }
 
   setColor() {
-
+    console.log(this.puntaje);
     const green = 'bg-green-200';
     const yellow = 'bg-yellow-200';
     const red = 'bg-red-200';
@@ -117,7 +135,13 @@ export class HomeComponent implements OnInit {
       (element?.porcentaje > 91 && element?.porcentaje <= 100) ? this.color1.push(green) : 0;
     });
 
+    (this.puntaje.diez.porcentaje>1) ?  this.color1.push(red): (this.puntaje.diez.porcentaje!=null) ? this.color1.push(green):0 ;
+    (this.puntaje.once.porcentaje>1 && (this.puntaje.once.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.once.porcentaje!=null) ? this.color1.push(green):0 ;
+    (this.puntaje.doce.porcentaje<71 && (this.puntaje.doce.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.doce.porcentaje!=null) ? this.color1.push(green):0 ;
+    (this.puntaje.trece.porcentaje<100 && (this.puntaje.trece.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.trece.porcentaje!=null) ? this.color1.push(green):0 ;
+
     console.log(this.color1);
   }
+
 
 }

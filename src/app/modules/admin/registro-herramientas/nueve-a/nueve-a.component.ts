@@ -178,36 +178,66 @@ export class NueveAComponent implements OnInit {
         this.insumosForm.push(this._formBuilder.group({
           ide: [element.value, Validators.required],
           text:[element.label],
-          1: [false, Validators.required],
-          2: [false, Validators.required],
-          3: [false, Validators.required],
-          4: [false, Validators.required],
-          5: [false, Validators.required],
-          6: [false, Validators.required],
-          7: [false, Validators.required],
-          8: [false, Validators.required],
-          9: [false, Validators.required],
-          10: [false, Validators.required],
-          11: [false, Validators.required],
-          12: [false, Validators.required],
-          13: [false, Validators.required],
-          14: [false, Validators.required],
-          15: [false, Validators.required],
-          16: [false, Validators.required],
-          17: [false, Validators.required],
-          18: [false, Validators.required],
-          19: [false, Validators.required],
-          20: [false, Validators.required],
-          21: [false, Validators.required],
-          22: [false, Validators.required],
-          23: [false, Validators.required],
-          24: [false, Validators.required],
-          25: [false, Validators.required],
-          26: [false, Validators.required],
-          27: [false, Validators.required],
-          28: [false, Validators.required],
-          29: [false, Validators.required],
-          30: [false, Validators.required],
+          1: [false],
+          2: [false],
+          3: [false],
+          4: [false],
+          5: [false],
+          6: [false],
+          7: [false],
+          8: [false],
+          9: [false],
+          10: [false],
+          11: [false],
+          12: [false],
+          13: [false],
+          14: [false],
+          15: [false],
+          16: [false],
+          17: [false],
+          18: [false],
+          19: [false],
+          20: [false],
+          21: [false],
+          22: [false],
+          23: [false],
+          24: [false],
+          25: [false],
+          26: [false],
+          27: [false],
+          28: [false],
+          29: [false],
+          30: [false],
+          nc1: [false],
+          nc2: [false],
+          nc3: [false],
+          nc4: [false],
+          nc5: [false],
+          nc6: [false],
+          nc7: [false],
+          nc8: [false],
+          nc9: [false],
+          nc10: [false],
+          nc11: [false],
+          nc12: [false],
+          nc13: [false],
+          nc14: [false],
+          nc15: [false],
+          nc16: [false],
+          nc17: [false],
+          nc18: [false],
+          nc19: [false],
+          nc20: [false],
+          nc21: [false],
+          nc22: [false],
+          nc23: [false],
+          nc24: [false],
+          nc25: [false],
+          nc26: [false],
+          nc27: [false],
+          nc28: [false],
+          nc29: [false],
+          nc30: [false],
         }));
       }
     })
@@ -216,7 +246,7 @@ export class NueveAComponent implements OnInit {
 
   promedio(formulario, codigo) {
     let i = 0;
-    this.suma = 0;
+    let suma = 0;
     let cumple = 0;
     this.numerador = 0;
     this.denominador = 0;
@@ -226,20 +256,22 @@ export class NueveAComponent implements OnInit {
         valido = true;
         this.denominador++;
         cumple = 0;
+        suma=0;
         formulario.value.forEach(element => {
           if (element[i + 1] == true) {
             cumple++;
-            this.suma++;
+          }
+          if(element[i+1]!=null){
+            suma++;
           }
         });
-        (cumple == this.indicadores.length) ? this.numerador += 1 : 0;
+        (cumple == suma) ? this.numerador += 1 : 0;
         i++;
       }
     });
     if (valido) {
       this.porcentaje = Number(((this.numerador * 100) / this.denominador).toFixed(2));
     }
-
   }
 
   setData(formulario, codigo) {
@@ -252,6 +284,7 @@ export class NueveAComponent implements OnInit {
             ide_indcna: [form.ide],
             nro_historia_clinica_hcna: [element.codigo_clinica],
             cumple_hcna: [form[i + 1]],
+            no_aplica_hcna:[form['nc'+Number(i+1)]]
           }))
         });
         i++;
@@ -303,4 +336,14 @@ export class NueveAComponent implements OnInit {
     return array;
   }
 
+  checkNoAply(event: any, index: number, form: FormArray, campo: string,indicador,codigo) {
+    console.log(event);
+    (event.checked) ? form[index].get(campo).setValue(null) : form[index].get(campo).setValue(false);
+    this.promedio(indicador,codigo);
+  }
+
+  checkYes(event: any, index: number, form: FormArray, campo: string,indicador,codigo ){
+    (event) ? form[index].get(campo).setValue(false) : 0;
+    this.promedio(indicador,codigo);
+  }
 }

@@ -303,16 +303,16 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[0].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)" readonly="true"></p-inputSwitch>
                               </td>
-                              <td style="text-align-last:center;" *ngIf="numero_sala[0].numero>=2">
+                              <td style="text-align-last:center;" *ngIf="numero_sala[0].numero>=2" >
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)">
+                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[0].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)" readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -365,16 +365,16 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[1].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)" readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[1].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)">
+                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[1].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)" readonly="true"></p-inputSwitch>
                               </td>
 
                             </tr>
@@ -431,16 +431,16 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[2].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)" readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[2].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)">
+                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[2].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)" readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -499,16 +499,16 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[3].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)" readonly="true"></p-inputSwitch>
                               </td>
-                              <td style="text-align-last:center;" *ngIf="numero_sala[3].numero>=2">
+                              <td style="text-align-last:center;" *ngIf="numero_sala[3].numero>=2" >
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)">
+                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[3].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)" readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -562,16 +562,16 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[4].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)" readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[4].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)">
+                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[4].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)" readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -627,16 +627,16 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[5].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)" readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[5].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)">
+                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[5].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)" readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -691,16 +691,16 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[6].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)" readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[6].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)">
+                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[6].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)" readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -756,16 +756,16 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[7].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)" readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[7].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)">
+                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[7].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)" readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -801,9 +801,6 @@
                       <div class="flex justify-end mt-4">
                         <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                           Anterior
-                        </button>
-                        <button class="px-8 bg-indigo-900	text-white" type="submit" mat-button>
-                          Guardar
                         </button>
                       </div>
                     </mat-step>

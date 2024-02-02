@@ -189,7 +189,7 @@ export class UtilsService {
    * @param callback
    * @param title
    */
-  confirmationAlert(message: string, callback, title?: string) {
+  confirmationAlert(message: string, callback, button_tittle?:string,title?: string) {
     if (!this.isUndefined(title)) {
       title = 'Confirmar';
     }
@@ -201,7 +201,7 @@ export class UtilsService {
       focusConfirm: false,
       reverseButtons: true,
       confirmButtonText:
-        '<span class="ion-padding-horizontal"></span> Aceptar <span class="ion-padding-horizontal"></span> ',
+        `<span class="ion-padding-horizontal"></span> ${button_tittle} <span class="ion-padding-horizontal"></span>`,
       confirmButtonAriaLabel: 'Aceptar',
       cancelButtonText:
         '<span class="ion-padding-horizontal"></span>  Cancelar <span class="ion-padding-horizontal"></span> ',
@@ -855,20 +855,24 @@ export class UtilsService {
     this._toastr.error(mensaje, title);
   }
 
-  addLoadingMessage(message: string, icon: 'success' | 'error', callback, title?: string) {
+  addLoadingMessage(message: string, icon: 'success' | 'error', callback, title: string) {
     let timerInterval
     Swal.fire({
-      title: 'Auto close alert!',
+      title: title,
       html: message,
       icon: icon,
       timer: 5000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading()
-        const b = Swal.getHtmlContainer().querySelector('b')
+        const timer = Swal.getPopup().querySelector("b");
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Math.trunc(Swal.getTimerLeft()/1000)}`;
+        }, 100);
+      /*   const b = Swal.getHtmlContainer().querySelector('b')
         timerInterval = setInterval(() => {
           b.textContent = String(toInteger(Swal.getTimerLeft() / 1000));
-        }, 100)
+        }, 100) */
       },
       willClose: () => {
         clearInterval(timerInterval)

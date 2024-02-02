@@ -11,6 +11,7 @@
               <img *ngIf="user.foto_segusu" class="w-full h-full object-cover" [src]="user.foto_segusu">
               <img *ngIf="!user.foto_segusu" class="w-full h-full object-cover" src="assets/images/user.png">
             </div>
+
             <div class="flex flex-col min-w-0 ml-4">
               <ng-container>
                 <div class="text-2xl md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
@@ -205,10 +206,12 @@
                     <div class="flex flex-col flex-auto">
                       <div class="text-base text-primary-500  tracking-tight leading-tight">
                         <p class="text-center">
-                          Porcentaje de insumos, equipos y medicamentos esenciales con los que cuenta cada unidad operativa para la atención de la salud materna y del/a recién nacido/a
+                          Porcentaje de insumos, equipos y medicamentos esenciales con los que cuenta cada unidad
+                          operativa para la atención de la salud materna y del/a recién nacido/a
                         </p>
                         <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[0]?.porcentaje}}</p>
-                        <p *ngIf="puntaje?.unoNueve[0] == null" class="text-base text-center font-semibold mt-4">No aplica</p>
+                        <p *ngIf="puntaje?.unoNueve[0] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
 
                       </div>
                     </div>
@@ -233,7 +236,8 @@
                           se le realizaron y registraron actividades seleccionadas según la norma
                         </p>
                         <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[1]?.porcentaje}}</p>
-                        <p *ngIf="puntaje?.unoNueve[1] == null" class="text-base text-center font-semibold mt-4">No aplica</p>
+                        <p *ngIf="puntaje?.unoNueve[1] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
                       </div>
                     </div>
 
@@ -253,10 +257,14 @@
                     <div class="flex flex-col flex-auto">
                       <div class="text-base text-primary-500  tracking-tight leading-tight">
                         <p class="text-center">
-                          Porcentaje de partos atendidos en las Unidades de Salud con partograma graficado correctamente la curva de alerta y la curva de dilatación cervical de la paciente, y además se controló y registró la tensión arterial, la actividad uterina (frecuencia y duración) y la frecuencia cardiaca fetal
+                          Porcentaje de partos atendidos en las Unidades de Salud con partograma graficado correctamente
+                          la curva de alerta y la curva de dilatación cervical de la paciente, y además se controló y
+                          registró la tensión arterial, la actividad uterina (frecuencia y duración) y la frecuencia
+                          cardiaca fetal
                         </p>
                         <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[2]?.porcentaje}}</p>
-                        <p *ngIf="puntaje?.unoNueve[2] == null" class="text-base text-center font-semibold mt-4">No aplica</p>
+                        <p *ngIf="puntaje?.unoNueve[2] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
 
                       </div>
                     </div>
@@ -266,13 +274,407 @@
               </div>
             </div>
 
-            <!--Indicador 3B-->
-          <!--   <div class="sm:col-span-1 flex flex-col flex-auto">
+            <!--3B-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
               <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
                 <div
-                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[1]}}">
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[3]}}">
                   <div class="flex items-center justify-center border-b">
-                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 3</div>
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 3B</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de partos atendidos en las Unidades de Salud en los que se tomó decisiones frente a
+                          desviaciones de la curva de dilatación cervical del partograma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[3]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[3] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--4 4-->
+
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[4]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 4</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de partos vaginales atendidos en el hospital en los que se administró a la
+                          parturienta 10 UI. de Oxitocina intramuscular dentro del Minuto después del nacimiento del/a
+                          recién nacido/a, como parte del manejo activo del tercer periodo del parto y se registró en la
+                          historia clínica perinatal
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[4]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[4] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--5 5-->
+
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[5]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 5</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de post partos inmediatos en los que se controló y registró en la historia clínica
+                          perinatal en tres controles obligatorios durante las dos primeras horas las actividades
+                          seleccionadas según la norma </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[5]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[5] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--6 6-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[6]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 6</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de recién nacidos/as a término en los/as que se realizó y registró en la historia
+                          clínica perinatal por lo menos 11 actividades seleccionadas de la Norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[6]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[6] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--7A 7-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[7]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 7A</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de partos atendidos por profesional capacitado (médico/a u obstetriz)
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[7]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[7] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--7B 8-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[8]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 7B</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de recién nacidos/as atendidos/as por profesional capacitado (médico/a u obstetriz)
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[8]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[8] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--8A 9-->
+
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[9]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 8A</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de pacientes con Pre eclampsia y Eclampsia que fueron manejadas de acuerdo a la
+                          norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[9]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[9] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--8B 10-->
+
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[10]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 8B</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de pacientes con Hemorragias Obstétricas que fueron manejadas de acuerdo a la norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[10]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[10] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--8C 11-->
+
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[11]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 8C</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de pacientes con Infección / Fiebre de causa obstétrica: aborto séptico,
+                          corioamnionitis, endometritis que fueron manejadas de acuerdo a la norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[11]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[11] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--8D 12-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[12]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 8D</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de amenaza Partos Pretérmino en los que se administró a la madre corticoides y se
+                          registró en la historia clínica perinatal / Historia Clínica única, la inducción de maduración
+                          fetal pulmonar
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[12]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[12] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--8E 13-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[13]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 8E</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de Partos Pretérmino en los que se administro a la madre Nifedipina como Utero
+                          inhibidor y se registró en la historia clínica perinatal / Historia Clínica única
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[13]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[13] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--8F 14-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[14]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 8F</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de Embarazadas con Ruptura Prematura de membranas que fueron manejadas de acuerdo a
+                          la norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[14]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[14] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--9A 15-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[15]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 9A</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de Recién Nacidos con infección sistémica, que fueron manejados de acuerdo a la
+                          norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[15]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[15] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--9B 16-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[16]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 9B</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de RN con trastornos respiratorios, que fueron manejados de acuerdo a la norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[16]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[16] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--9C 17-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[17]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 9C</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de RN con prematurez  y/o  peso bajo, que fueron manejados de acuerdo a la norma
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[17]?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.unoNueve[17] == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--10 18-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[18]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 10</div>
                   </div>
                   <div class="flex items-center mt-1">
                     <div class="flex flex-col flex-auto">
@@ -280,14 +682,89 @@
                         <p class="text-center">
                           Tasa hospitalaria de letalidad por complicaciones obstétricas directas
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">10</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.diez?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.diez?.porcentaje == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
                       </div>
                     </div>
 
                   </div>
                 </div>
               </div>
-            </div> -->
+            </div>
+            <!--11 19-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[19]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 11</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Tasa hospitalaria de mortalidad neonatal
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.once?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.once?.porcentaje == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--12 20-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[20]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 12</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de complicaciones obstétricas atendidas en las Unidades del Área de Salud, de las esperadas
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.doce?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.doce?.porcentaje == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--13 21-->
+            <div class="sm:col-span-1 flex flex-col flex-auto">
+              <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+                <div
+                  class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden {{color1[21]}}">
+                  <div class="flex items-center justify-center border-b">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">INDICADOR 13</div>
+                  </div>
+                  <div class="flex items-center mt-1">
+                    <div class="flex flex-col flex-auto">
+                      <div class="text-base text-primary-500  tracking-tight leading-tight">
+                        <p class="text-center">
+                          Porcentaje de las muertes maternas ocurridas en el Área de Salud/Hospital que tienen un proceso de investigación epidemiológica de la muerte materna
+                        </p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.trece.porcentaje?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.trece?.porcentaje == null" class="text-base text-center font-semibold mt-4">No
+                          aplica</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
 
           </div>

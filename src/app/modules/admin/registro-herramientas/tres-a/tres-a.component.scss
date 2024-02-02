@@ -1,8 +1,15 @@
-th{
+th.title{
   height: 6rem;
 }
 
 input.p-inputtext{
   transform: rotate(-90deg);
-  width: 4rem !important;
+  width: 6rem !important;
+}
+
+th.td-border-color-left,td.td-border-color-left{
+  border-color: #f4f4f5 #6b728085 !important;
+}
+td.td-center{
+  text-align-last:center;
 }
