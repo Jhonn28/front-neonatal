@@ -209,7 +209,7 @@
                           Porcentaje de insumos, equipos y medicamentos esenciales con los que cuenta cada unidad
                           operativa para la atención de la salud materna y del/a recién nacido/a
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[0]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[0]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[0] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -235,7 +235,7 @@
                           Porcentaje de mujeres embarazadas en cuyo control prenatal (en cualquier semana de gestación)
                           se le realizaron y registraron actividades seleccionadas según la norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[1]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[1]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[1] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
                       </div>
@@ -262,7 +262,7 @@
                           registró la tensión arterial, la actividad uterina (frecuencia y duración) y la frecuencia
                           cardiaca fetal
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[2]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[2]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[2] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -289,7 +289,7 @@
                           Porcentaje de partos atendidos en las Unidades de Salud en los que se tomó decisiones frente a
                           desviaciones de la curva de dilatación cervical del partograma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[3]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[3]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[3] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -319,7 +319,7 @@
                           recién nacido/a, como parte del manejo activo del tercer periodo del parto y se registró en la
                           historia clínica perinatal
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[4]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[4]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[4] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -347,7 +347,7 @@
                           Porcentaje de post partos inmediatos en los que se controló y registró en la historia clínica
                           perinatal en tres controles obligatorios durante las dos primeras horas las actividades
                           seleccionadas según la norma </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[5]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[5]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[5] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -374,7 +374,7 @@
                           Porcentaje de recién nacidos/as a término en los/as que se realizó y registró en la historia
                           clínica perinatal por lo menos 11 actividades seleccionadas de la Norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[6]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[6]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[6] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -400,7 +400,7 @@
                         <p class="text-center">
                           Porcentaje de partos atendidos por profesional capacitado (médico/a u obstetriz)
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[7]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[7]?.porcentaje || '' }}</p>
                         <p *ngIf="puntaje?.unoNueve[7] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -425,7 +425,7 @@
                         <p class="text-center">
                           Porcentaje de recién nacidos/as atendidos/as por profesional capacitado (médico/a u obstetriz)
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[8]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[8]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[8] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -453,7 +453,7 @@
                           Porcentaje de pacientes con Pre eclampsia y Eclampsia que fueron manejadas de acuerdo a la
                           norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[9]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[9]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[9] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -479,7 +479,7 @@
                         <p class="text-center">
                           Porcentaje de pacientes con Hemorragias Obstétricas que fueron manejadas de acuerdo a la norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[10]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[10]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[10] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -506,7 +506,7 @@
                           Porcentaje de pacientes con Infección / Fiebre de causa obstétrica: aborto séptico,
                           corioamnionitis, endometritis que fueron manejadas de acuerdo a la norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[11]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[11]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[11] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -533,7 +533,7 @@
                           registró en la historia clínica perinatal / Historia Clínica única, la inducción de maduración
                           fetal pulmonar
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[12]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[12]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[12] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -558,7 +558,7 @@
                           Porcentaje de Partos Pretérmino en los que se administro a la madre Nifedipina como Utero
                           inhibidor y se registró en la historia clínica perinatal / Historia Clínica única
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[13]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[13]?.porcentaje || '' }}</p>
                         <p *ngIf="puntaje?.unoNueve[13] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -584,7 +584,7 @@
                           Porcentaje de Embarazadas con Ruptura Prematura de membranas que fueron manejadas de acuerdo a
                           la norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[14]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[14]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[14] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
 
@@ -610,7 +610,7 @@
                           Porcentaje de Recién Nacidos con infección sistémica, que fueron manejados de acuerdo a la
                           norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[15]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[15]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[15] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
                       </div>
@@ -634,7 +634,7 @@
                         <p class="text-center">
                           Porcentaje de RN con trastornos respiratorios, que fueron manejados de acuerdo a la norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[16]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[16]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[16] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
                       </div>
@@ -658,7 +658,7 @@
                         <p class="text-center">
                           Porcentaje de RN con prematurez  y/o  peso bajo, que fueron manejados de acuerdo a la norma
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[17]?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.unoNueve[17]?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.unoNueve[17] == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
                       </div>
@@ -682,7 +682,7 @@
                         <p class="text-center">
                           Tasa hospitalaria de letalidad por complicaciones obstétricas directas
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.diez?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.diez?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.diez?.porcentaje == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
                       </div>
@@ -706,7 +706,7 @@
                         <p class="text-center">
                           Tasa hospitalaria de mortalidad neonatal
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.once?.porcentaje}}</p>
+                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.once?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.once?.porcentaje == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
                       </div>
@@ -730,7 +730,7 @@
                         <p class="text-center">
                           Porcentaje de complicaciones obstétricas atendidas en las Unidades del Área de Salud, de las esperadas
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.doce?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.doce?.porcentaje" class="text-base text-center font-semibold mt-4">{{puntaje?.doce?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.doce?.porcentaje == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
                       </div>
@@ -754,7 +754,7 @@
                         <p class="text-center">
                           Porcentaje de las muertes maternas ocurridas en el Área de Salud/Hospital que tienen un proceso de investigación epidemiológica de la muerte materna
                         </p>
-                        <p class="text-base text-center font-semibold mt-4">{{puntaje?.trece.porcentaje?.porcentaje}}</p>
+                        <p *ngIf="puntaje?.trece?.porcentaje" class="text-base text-center font-semibold mt-4">{{puntaje?.trece.porcentaje?.porcentaje || ''}}</p>
                         <p *ngIf="puntaje?.trece?.porcentaje == null" class="text-base text-center font-semibold mt-4">No
                           aplica</p>
                       </div>

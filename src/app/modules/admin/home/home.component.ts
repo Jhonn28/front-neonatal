@@ -83,6 +83,7 @@ export class HomeComponent implements OnInit {
     this.device = this._utilService.deviceInfo;
     this.getClima();
     this.puntaje = await this._indicadorService.getPuntaje(this._utilService.getSucursal());
+    console.log('pinma0>',this.puntaje);
     this.setColor();
   }
 
@@ -135,10 +136,10 @@ export class HomeComponent implements OnInit {
       (element?.porcentaje > 91 && element?.porcentaje <= 100) ? this.color1.push(green) : 0;
     });
 
-    (this.puntaje.diez.porcentaje>1) ?  this.color1.push(red): (this.puntaje.diez.porcentaje!=null) ? this.color1.push(green):0 ;
-    (this.puntaje.once.porcentaje>1 && (this.puntaje.once.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.once.porcentaje!=null) ? this.color1.push(green):0 ;
-    (this.puntaje.doce.porcentaje<71 && (this.puntaje.doce.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.doce.porcentaje!=null) ? this.color1.push(green):0 ;
-    (this.puntaje.trece.porcentaje<100 && (this.puntaje.trece.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.trece.porcentaje!=null) ? this.color1.push(green):0 ;
+    (this.puntaje.diez?.porcentaje>1) ?  this.color1.push(red): (this.puntaje.diez?.porcentaje!=null) ? this.color1.push(green):0 ;
+    (this.puntaje.once?.porcentaje>1 && (this.puntaje.once?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.once?.porcentaje!=null) ? this.color1.push(green):0 ;
+    (this.puntaje.doce?.porcentaje<71 && (this.puntaje.doce?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.doce?.porcentaje!=null) ? this.color1.push(green):0 ;
+    (this.puntaje.trece?.porcentaje<100 && (this.puntaje.trece?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.trece?.porcentaje!=null) ? this.color1.push(green):0 ;
 
     console.log(this.color1);
   }
