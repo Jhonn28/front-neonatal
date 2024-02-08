@@ -15,7 +15,7 @@ export class TresAComponent implements OnInit {
   herramientasForm: FormGroup = new FormGroup({});
 
   datosIndicador;
-
+  porcentaje_total: number = 0;
 
   visibleForm: boolean = false;
   numero_historias=0;
@@ -113,7 +113,6 @@ export class TresAComponent implements OnInit {
         index++;
     });
 
-    console.log(body);
 
     const data = new Object({
       cabecera: cabecera,
@@ -152,9 +151,14 @@ export class TresAComponent implements OnInit {
     await this._indicadorService.getEncabezadoGeneral(distrito, '3a', query).subscribe(resp => {
       this.seguimiento = resp;
       if (this.seguimiento.length == 0) {
-        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
+        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.');
+        return;
       }
-      console.log('seguimient=>', this.seguimiento);
+      let suma_porcentaje: number = 0;
+      this.seguimiento.forEach(element=>{
+        suma_porcentaje+= Number(element.porcentaje);
+      })
+      this.porcentaje_total = Number((suma_porcentaje/this.seguimiento.length).toFixed(2));
     })
 
   }
@@ -168,6 +172,7 @@ export class TresAComponent implements OnInit {
       this.numerador = 0;
       this.denominador = 0;
       this.porcentaje = 0;
+      this.porcentaje_total=0;
       this.visibleForm=false;
     }
     this.seguimiento = [];
@@ -204,10 +209,9 @@ export class TresAComponent implements OnInit {
       this.reset();
     }
     */
-   console.log(data);
-    this.numerador = data.numerador_heg;
-    this.denominador = data.denominador_heg;
-    this.porcentaje = data.porcentaje_heg;
+    this.numerador = data.numerador;
+    this.denominador = data.denominador;
+    this.porcentaje = data.porcentaje;
 
     this.herramientasForm = this._formBuilder.group({
       provincia: [this.datosSucursal.provincia],
@@ -230,12 +234,9 @@ export class TresAComponent implements OnInit {
 
   async loadData(ide: number) {
     this.datosIndicador = await this._indicadorService.getDataIndicador('her_atencion_parto', this.selectRow, 'nro_historia_clinica_hpa asc, ide_indapar asc');
-    console.log('data=>', this.datosIndicador);
     //Carga indicadores
     const codigo = await this.filterCodigo(this.datosIndicador);
     this.numero_historias = codigo.length;
-    console.log('codigoS=>', codigo);
-    console.log('data=>', this.datosIndicador);
 
     codigo.forEach(element => {
       if (element.nro_historia_clinica_hpa) {
@@ -244,8 +245,6 @@ export class TresAComponent implements OnInit {
         }))
       }
     });
-
-    console.log(this.codigoForm.value[0].codigo_clinica);
 
     this.indicadores.forEach(element => {
       if (element.value != null) {
@@ -321,7 +320,6 @@ export class TresAComponent implements OnInit {
 
 
     this.datosIndicador.forEach(element => {
-      console.log(index_indicador, element.cumple_hpa);
 
       form[index_indicador].get(String(index_codigo)).setValue(element.cumple_hpa)
       form[index_indicador].get(String('nc'+index_codigo)).setValue(element.no_aplica_hpa);

@@ -142,8 +142,8 @@ export class AuthService {
     const user = this._utilService.getUserUid();
     return this._methodService.get(`auth/renew-token/${user}`).pipe(
       map((resp: IResultAuth) => {
-        const { ide_segusu, nombre_segusu, username_segusu, correo_segusu, tema_segusu, nombre_segper, foto_segusu,responsable_seges } = resp.user[0];
-        this.usuario = new UserCore(ide_segusu, nombre_segusu, username_segusu, correo_segusu, nombre_segper, tema_segusu, foto_segusu,responsable_seges);
+        const { ide_segusu, nombre_segusu, username_segusu, correo_segusu, tema_segusu, nombre_segper, foto_segusu,responsable_seges,admin_multi_segusu } = resp.user[0];
+        this.usuario = new UserCore(ide_segusu, nombre_segusu, username_segusu, correo_segusu, nombre_segper, tema_segusu, foto_segusu,responsable_seges,admin_multi_segusu);
         //console.log('user=>',this.usuario);
         this.accessToken = resp.accessToken;
         this.accessDate = resp.accessDate;

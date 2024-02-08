@@ -84,12 +84,14 @@
         </ng-template>
         <ng-template pTemplate="body" let-dataRow>
           <tr>
-            <td class="text-center">{{dataRow.unidad_operativa_heg}}</td>
-            <td class="text-center">{{dataRow.fecha_medicion_heg | date:'yyyy'}}</td>
-            <td class="text-center">{{dataRow.detalle_indtp}}</td>
-            <td class="text-center">{{dataRow.numerador_heg}}</td>
-            <td class="text-center">{{dataRow.denominador_heg}}</td>
-            <td class="text-center font-bold text-indigo-90">{{dataRow.porcentaje_heg}}</td>
+            <td class="text-center">{{dataRow.establecimiento}}</td>
+            <td class="text-center">{{dataRow.anio}}</td>
+            <td class="text-center">{{dataRow.periodo}}</td>
+            <td class="text-center">{{dataRow.numerador}}</td>
+            <td class="text-center">{{dataRow.denominador}}</td>
+            <td *ngIf="dataRow.porcentaje >= 0 &&  dataRow.porcentaje <71" class="text-center bg-red-300">{{dataRow.porcentaje}}%</td>
+            <td *ngIf="dataRow.porcentaje >= 71 &&  dataRow.porcentaje <91" class="text-center font-bold text-indigo-90 bg-yellow-300">{{dataRow.porcentaje}}%</td>
+            <td *ngIf="dataRow.porcentaje >91" class="text-center font-bold text-indigo-90 bg-green-300">{{dataRow.porcentaje}}%</td>
 
             <td class="text-center">
               <button (click)="onVisual(dataRow)"
@@ -104,6 +106,14 @@
             <td colspan="7">No customers found.</td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="summary">
+          <p *ngIf="porcentaje_total >= 0 &&  porcentaje_total <71" class="text-center bg-red-300">
+            {{porcentaje_total}}%</p>
+          <p *ngIf="porcentaje_total >= 71 &&  porcentaje_total <91"
+            class="text-center font-bold text-indigo-90 bg-yellow-300">{{porcentaje_total}}%</p>
+          <p *ngIf="porcentaje_total >91" class="text-center font-bold text-indigo-90 bg-green-300">
+            {{porcentaje_total}}%</p>
+      </ng-template>
       </p-table>
     </div>
   </div>

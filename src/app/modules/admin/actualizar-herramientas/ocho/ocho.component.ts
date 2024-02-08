@@ -22,6 +22,7 @@ export class OchoComponent implements OnInit {
   visibleForm: boolean = false;
 
   suma: number = 0;
+  porcentaje_total: number = 0;
 
 
   //guarda encabezados
@@ -181,9 +182,15 @@ export class OchoComponent implements OnInit {
     await this._indicadorService.getEncabezadoGeneral(distrito, '8', query).subscribe(resp => {
       this.seguimiento = resp;
       if (this.seguimiento.length == 0) {
-        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
+        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.');
+        return;
       }
-    })
+      let suma_porcentaje: number = 0;
+      this.seguimiento.forEach(element=>{
+        suma_porcentaje+= Number(element.porcentaje);
+      })
+      this.porcentaje_total = Number((suma_porcentaje/this.seguimiento.length).toFixed(2));
+    });
 
   }
 
@@ -210,6 +217,7 @@ export class OchoComponent implements OnInit {
       this.amenaza_hco = 0;
       this.cesarea_hco = 0;
       this.selectRow=0;
+      this.porcentaje_total = 0;
     }
     this.seguimiento = [];
     this.originalData = [];
@@ -243,7 +251,6 @@ export class OchoComponent implements OnInit {
       distrito: [this.datosSucursal.distrito],
       unidad_operativa: [this.datosSucursal.establecimiento],
       fecha_medicion: [this._utilService.getDateCurrent()],
-      area_salud: [data.ide_thas],
       mes_evaluado: [data.ide_indtp, Validators.required],
       responsable_medicion: [this.datosSucursal.responsable_establecimiento],
       insumos: this._formBuilder.array([]),

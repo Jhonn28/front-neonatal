@@ -8,7 +8,8 @@ export class UserCore {
         public nombre_segper: string,
         public tema_segusu?: string,
         public foto_segusu?: string,
-        public responsable_seges?:string
+        public responsable_seges?:string,
+        public admin_multi_segusu?
     ) { }
 
     /*get imagenUrl() {

@@ -238,7 +238,9 @@
                             formControlName="noviembre" type="number" min="0" class="max-w-20">
                         </td>
                         <td style="text-align-last:center;">
-                          <input (change)="promedio(herramientasForm)" [min]="0" formControlName="diciembre"
+                          <input *ngIf="disable_diciembre" (change)="promedio(herramientasForm)" [min]="0" formControlName="diciembre"
+                            type="number" min="0" class="max-w-20" disabled>
+                            <input *ngIf="!disable_diciembre" (change)="promedio(herramientasForm)" [min]="0" formControlName="diciembre"
                             type="number" min="0" class="max-w-20">
                         </td>
                       </tr>

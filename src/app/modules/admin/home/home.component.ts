@@ -42,6 +42,8 @@ export class HomeComponent implements OnInit {
   last_date: string;
   last_time: string;
 
+  admin_distrital;
+
   supervisionForm: FormGroup = new FormGroup({});
 
 
@@ -59,7 +61,9 @@ export class HomeComponent implements OnInit {
   ) {
     this.startClock();
     this.user = this._authService.usuario;
+    console.log('user=>',this.user);
     this.accessDate = _authService.accessDate;
+    this.admin_distrital = this.user.admin_multi_segusu;
     this.last_date = _utilService.getFormatDate(this.accessDate[0].fecha_seauac, 'yyyy/mm/dd');
     this.last_time = this.accessDate[0].hora_seauac;
     this.establecimiento = this.route.snapshot.data.info[0];
@@ -129,17 +133,20 @@ export class HomeComponent implements OnInit {
     const green = 'bg-green-200';
     const yellow = 'bg-yellow-200';
     const red = 'bg-red-200';
+    const white = 'bg-slate-50';
 
     this.puntaje.unoNueve.forEach(element => {
       (element?.porcentaje >= 0 && element?.porcentaje < 71) ? this.color1.push(red) : 0;
       (element?.porcentaje >= 71 && element?.porcentaje < 91) ? this.color1.push(yellow) : 0;
       (element?.porcentaje > 91 && element?.porcentaje <= 100) ? this.color1.push(green) : 0;
+      (!element?.porcentaje) ? this.color1.push(white) : 0;
+
     });
 
-    (this.puntaje.diez?.porcentaje>1) ?  this.color1.push(red): (this.puntaje.diez?.porcentaje!=null) ? this.color1.push(green):0 ;
-    (this.puntaje.once?.porcentaje>1 && (this.puntaje.once?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.once?.porcentaje!=null) ? this.color1.push(green):0 ;
-    (this.puntaje.doce?.porcentaje<71 && (this.puntaje.doce?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.doce?.porcentaje!=null) ? this.color1.push(green):0 ;
-    (this.puntaje.trece?.porcentaje<100 && (this.puntaje.trece?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.trece?.porcentaje!=null) ? this.color1.push(green):0 ;
+    (this.puntaje.diez?.porcentaje>1) ?  this.color1.push(red): (this.puntaje.diez?.porcentaje!=null) ? this.color1.push(green):this.color1.push(white) ;
+    (this.puntaje.once?.porcentaje>1 && (this.puntaje.once?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.once?.porcentaje!=null) ? this.color1.push(green):this.color1.push(white) ;
+    (this.puntaje.doce?.porcentaje<71 && (this.puntaje.doce?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.doce?.porcentaje!=null) ? this.color1.push(green):this.color1.push(white) ;
+    (this.puntaje.trece?.porcentaje<100 && (this.puntaje.trece?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.trece?.porcentaje!=null) ? this.color1.push(green):this.color1.push(white) ;
 
     console.log(this.color1);
   }

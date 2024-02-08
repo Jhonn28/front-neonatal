@@ -232,9 +232,10 @@ export class ExcelService {
 
       });
       this._utilService.hideSpinner();
-      this._utilService.toast_success('Puede descargar el reporte en el botón "Exportar .xlsx".', 'Reporte generado.');
+    this._utilService.toast_success('Puede descargar el reporte en el botón "Exportar .xlsx".', 'Reporte generado.');
       //this._utilService.addMessageSuccess('Puede descargar el reporte en el botón "exportar .xlsx".','Reporte generado.');
       //this._utilService.confirmationAlert('Si desea guardar el archivo, click en descargar. ',()=>{this.downloadExcel()},'Descargar','Excel generado')
+     // this._utilService.addLoadingMessage('excel generado','success',()=>this.downloadExcel(),'Descargar');
       return true;
     } catch (e) {
       console.log('e=>', e);

@@ -61,17 +61,23 @@ export class DoceComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.mes= Number(this._utilService.getDateCurrent('MM'));
-    if(this.mes>1) this.disable_enero = true;
-    if(this.mes>2) this.disable_febrero = true;
-    if(this.mes>3) this.disable_marzo = true;
-    if(this.mes>4) this.disable_abril = true;
-    if(this.mes>5) this.disable_mayo = true;
-    if(this.mes>6) this.disable_junio = true;
-    if(this.mes>7) this.disable_julio = true;
-    if(this.mes>8) this.disable_agosto = true;
-    if(this.mes>9) this.disable_septiembre = true;
-    if(this.mes>10) this.disable_octubre = true;
-    if(this.mes>11) this.disable_noviembre = true;
+
+    const currentDate: Date = new Date();
+    const currentMonth: number = currentDate.getMonth()+1;
+    const currentDay: number = currentDate.getDay();
+    console.log('mes=>',this.mes);
+    if((currentMonth+1)>1 && currentDay > 15) this.disable_enero = true;
+    if(((currentMonth+1)>2 && currentDay > 15) || currentMonth<2) this.disable_febrero = true;
+    if(((currentMonth+1)>3 && currentDay > 15) || currentMonth<3) this.disable_marzo = true;
+    if(((currentMonth+1)>4 && currentDay > 15) || currentMonth<4) this.disable_abril = true;
+    if(((currentMonth+1)>5 && currentDay > 15) || currentMonth<5) this.disable_mayo = true;
+    if(((currentMonth+1)>6 && currentDay > 15) || currentMonth<6) this.disable_junio = true;
+    if(((currentMonth+1)>7 && currentDay > 15) || currentMonth<7) this.disable_julio = true;
+    if(((currentMonth+1)>8 && currentDay > 15) || currentMonth<8) this.disable_agosto = true;
+    if(((currentMonth+1)>9 && currentDay > 15) || currentMonth<9) this.disable_septiembre = true;
+    if(((currentMonth+1)>10 && currentDay > 15) || currentMonth<10) this.disable_octubre = true;
+    if(((currentMonth+1)>11 && currentDay > 15) || currentMonth<11) this.disable_noviembre = true;
+    if((currentMonth==1 && currentDay > 15) || currentMonth<12) this.disable_diciembre = true;
 
   }
 
@@ -156,7 +162,7 @@ export class DoceComponent implements OnInit {
         fecha_medicion_heg: this.herramientasForm.get('fecha_medicion').value,
         responsable_medicion_heg: this.herramientasForm.get('responsable_medicion').value,
         numerador_heg: this.herramientasForm.get('total_muertes').value,
-        denominador_heg: this.herramientasForm.get('total_atendidos').value,
+        denominador_heg: Number((this.herramientasForm.get('total_atendidos').value).toFixed(0)),
         porcentaje_heg: this.herramientasForm.get('porcentaje').value,
         nro_herramienta_heg: '12'
       }
@@ -210,7 +216,7 @@ export class DoceComponent implements OnInit {
     const octubre = formulario.value.octubre;
     const noviembre = formulario.value.noviembre;
     const diciembre = formulario.value.diciembre;
-    let total = (formulario.value.embarazadas*0.15);
+    let total = Number((formulario.value.embarazadas*0.15).toFixed(2));
     let porcentaje = 0;
 
 

@@ -84,7 +84,7 @@ export class TalentoHumanoService {
     });
   }
 
-  getExisteEstablecimiento(query: string): Promise<any> {
+  getExisteEstablecimiento(query?: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       await this._methodsService.get(`seguridad/existe-establecimiento?${query}`).subscribe(async (result: IResultData) => {
         resolve(result.data);

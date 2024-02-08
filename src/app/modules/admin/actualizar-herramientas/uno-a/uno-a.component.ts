@@ -31,6 +31,7 @@ export class UnoAComponent implements OnInit {
 
   visibleForm: boolean=false;
 
+  porcentaje_total: number =0;
 
 
   //
@@ -193,6 +194,11 @@ export class UnoAComponent implements OnInit {
       if (this.seguimiento.length == 0) {
         this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
       }
+      let suma_porcentaje: number = 0;
+      this.seguimiento.forEach(element=>{
+        suma_porcentaje+= Number(element.porcentaje_estandar_hlic);
+      })
+      this.porcentaje_total = Number((suma_porcentaje/this.seguimiento.length).toFixed(2));
     })
 
   }

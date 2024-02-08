@@ -25,6 +25,7 @@ export class OchoAComponent implements OnInit {
   denominador: number = 0;
   porcentaje: number = 0;
   suma: number = 0;
+  porcentaje_total: number = 0;
 
 
   //guarda encabezados
@@ -71,7 +72,7 @@ export class OchoAComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.indicadores = await this._indicadorService.getIndicador({ide:'ide_indcoa',campo:'detalle_indcoa',tabla:'ind_complicacion_obstetrica_a'});
+    this.indicadores = await this._indicadorService.getIndicador({ ide: 'ide_indcoa', campo: 'detalle_indcoa', tabla: 'ind_complicacion_obstetrica_a' });
   }
 
   async initForm() {
@@ -101,9 +102,15 @@ export class OchoAComponent implements OnInit {
     await this._indicadorService.getEncabezadoGeneral(distrito, '8a', query).subscribe(resp => {
       this.seguimiento = resp;
       if (this.seguimiento.length == 0) {
-        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
+        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.');
+        return;
       }
-    })
+      let suma_porcentaje: number = 0;
+      this.seguimiento.forEach(element=>{
+        suma_porcentaje+= Number(element.porcentaje);
+      })
+      this.porcentaje_total = Number((suma_porcentaje/this.seguimiento.length).toFixed(2));
+    });
 
   }
 
@@ -116,6 +123,7 @@ export class OchoAComponent implements OnInit {
       this.numerador = 0;
       this.denominador = 0;
       this.porcentaje = 0;
+      this.porcentaje_total = 0;
       this.visibleForm = false;
     }
     this.seguimiento = [];
@@ -149,9 +157,9 @@ export class OchoAComponent implements OnInit {
 
   loadForm(ide: number, data) {
 
-    this.numerador = data.numerador_heg;
-    this.denominador = data.denominador_heg;
-    this.porcentaje = data.porcentaje_heg;
+    this.numerador = data.numerador;
+    this.denominador = data.denominador;
+    this.porcentaje = data.porcentaje;
 
     this.herramientasForm = this._formBuilder.group({
       provincia: [this.datosSucursal.provincia],
@@ -196,7 +204,7 @@ export class OchoAComponent implements OnInit {
       if (element.value != null) {
         this.insumosForm.push(this._formBuilder.group({
           ide: [element.value, Validators.required],
-          text:[element.label],
+          text: [element.label],
           1: [false, Validators.required],
           2: [false, Validators.required],
           3: [false, Validators.required],
@@ -269,7 +277,7 @@ export class OchoAComponent implements OnInit {
     this.datosIndicador.forEach(element => {
 
       form[index_indicador].get(String(index_codigo)).setValue(element.cumple_hcoa)
-      form[index_indicador].get(String('nc'+index_codigo)).setValue(element.no_aplica_hcoa);
+      form[index_indicador].get(String('nc' + index_codigo)).setValue(element.no_aplica_hcoa);
 
       index_indicador++;
 
@@ -297,7 +305,7 @@ export class OchoAComponent implements OnInit {
 
 
   //getters
-  get insumosForm(): FormArray { 
+  get insumosForm(): FormArray {
     console.log(this.herramientasForm.get('insumos'));
     return this.herramientasForm.get('insumos') as FormArray;
   }

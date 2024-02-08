@@ -87,7 +87,9 @@
             <td class="text-center">{{dataRow.detalle_indtp}}</td>
             <td class="text-center">{{dataRow.items_cumple_hlic}}</td>
             <td class="text-center">{{dataRow.total_items_hlic}}</td>
-            <td class="text-center font-bold text-indigo-90">{{dataRow.porcentaje_estandar_hlic}}%</td>
+            <td *ngIf="dataRow.porcentaje_estandar_hlic >= 0 &&  dataRow.porcentaje_estandar_hlic <71" class="text-center bg-red-300">{{dataRow.porcentaje_estandar_hlic}}%</td>
+            <td *ngIf="dataRow.porcentaje_estandar_hlic >= 71 &&  dataRow.porcentaje_estandar_hlic <91" class="text-center font-bold text-indigo-90 bg-yellow-300">{{dataRow.porcentaje_estandar_hlic}}%</td>
+            <td *ngIf="dataRow.porcentaje_estandar_hlic >91" class="text-center font-bold text-indigo-90 bg-green-300">{{dataRow.porcentaje_estandar_hlic}}%</td>
 
             <td class="text-center">
               <button (click)="onVisual(dataRow)"
@@ -97,6 +99,14 @@
             </td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="summary">
+          <p *ngIf="porcentaje_total >= 0 &&  porcentaje_total <71" class="text-center bg-red-300">
+            {{porcentaje_total}}%</p>
+          <p *ngIf="porcentaje_total >= 71 &&  porcentaje_total <91"
+            class="text-center font-bold text-indigo-90 bg-yellow-300">{{porcentaje_total}}%</p>
+          <p *ngIf="porcentaje_total >91" class="text-center font-bold text-indigo-90 bg-green-300">
+            {{porcentaje_total}}%</p>
+      </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr>
             <td colspan="7">No customers found.</td>

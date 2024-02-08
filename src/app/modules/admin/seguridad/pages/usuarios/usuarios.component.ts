@@ -84,6 +84,10 @@ export class UsuariosComponent extends BarMenu implements AfterViewInit {
     this.tabTable1.getColumn('admin_multi_segusu').setDefaultValue(false);
     this.tabTable1.getColumn('admin_multi_segusu').setWidth(5);
 
+    this.tabTable1.getColumn('zonal_segusu').setVisualName('admin. zonal');
+    this.tabTable1.getColumn('zonal_segusu').setDefaultValue(false);
+    this.tabTable1.getColumn('zonal_segusu').setWidth(5);
+
 
     this.tabTable1.getColumn('ide_seges').setDefaultValue(this._utilService.getSucursal());
     this.tabTable1.getColumn('ide_seges').setVisible(false);
@@ -177,7 +181,10 @@ export class UsuariosComponent extends BarMenu implements AfterViewInit {
 
       let existe;
       let message='';
-      if(!this.tabTable1.getValue('admin_multi_segusu')){
+      if(this.tabTable1.getValue('zonal_segusu')){
+        existe = await this._talentoHumanoService.getExisteEstablecimiento();
+        message='Se presento un error al crear al usuario <strong>';
+      }else if(!this.tabTable1.getValue('admin_multi_segusu')){
         existe = await this._talentoHumanoService.getExisteEstablecimiento('unicodigo='+this.tabTable1.getValue('username_segusu'));
           message='No se encuentra registrado un establecimiento con el unicódigo <strong>';
         console.log('entro false');
@@ -186,6 +193,8 @@ export class UsuariosComponent extends BarMenu implements AfterViewInit {
         message='No se encuentra registrado un distrito con el número <strong>';
         console.log('entro a true');
       }
+
+      
 
 
 

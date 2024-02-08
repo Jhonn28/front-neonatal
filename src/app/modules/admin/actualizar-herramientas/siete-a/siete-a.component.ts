@@ -25,6 +25,7 @@ export class SieteAComponent implements OnInit {
   denominador: number = 0;
   porcentaje: number = 0;
   suma: number = 0;
+  porcentaje_total: number = 0;
 
 
   //guarda encabezados
@@ -149,10 +150,15 @@ export class SieteAComponent implements OnInit {
     await this._indicadorService.getEncabezadoGeneral(distrito, '7a', query).subscribe(resp => {
       this.seguimiento = resp;
       if (this.seguimiento.length == 0) {
-        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
+        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.');
+        return;
       }
-    })
-
+      let suma_porcentaje: number = 0;
+      this.seguimiento.forEach(element=>{
+        suma_porcentaje+= Number(element.porcentaje);
+      })
+      this.porcentaje_total = Number((suma_porcentaje/this.seguimiento.length).toFixed(2));
+    });
   }
 
   async resetInfo() {
@@ -166,6 +172,7 @@ export class SieteAComponent implements OnInit {
       this.porcentaje = 0;
       this.visibleForm = false;
       this.selectRow=0;
+      this.porcentaje_total = 0;
     }
     this.seguimiento = [];
     this.originalData = [];
@@ -199,9 +206,9 @@ export class SieteAComponent implements OnInit {
 
   loadForm(ide: number, data) {
 
-    this.numerador = data.numerador_heg;
-    this.denominador = data.denominador_heg;
-    this.porcentaje = data.porcentaje_heg;
+    this.numerador = data.numerador;
+    this.denominador = data.denominador;
+    this.porcentaje = data.porcentaje;
 
     this.herramientasForm = this._formBuilder.group({
       provincia: [this.datosSucursal.provincia],

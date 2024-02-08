@@ -15,6 +15,7 @@ export class DosComponent implements OnInit {
   herramientasForm: FormGroup = new FormGroup({});
 
   datosIndicador;
+  porcentaje_total: number=0;
 
 
   visibleForm: boolean = false;
@@ -162,9 +163,15 @@ export class DosComponent implements OnInit {
     await this._indicadorService.getEncabezadoGeneral(distrito, '2', query).subscribe(resp => {
       this.seguimiento = resp;
       if (this.seguimiento.length == 0) {
-        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
+        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.');
+        return;
       }
-      console.log('seguimient=>', this.seguimiento);
+      let suma_porcentaje: number = 0;
+      this.seguimiento.forEach(element=>{
+        console.log('element=>',element,this.seguimiento.length);
+        suma_porcentaje+= Number(element.porcentaje);
+      })
+      this.porcentaje_total = Number((suma_porcentaje/this.seguimiento.length).toFixed(2));
     })
 
   }
@@ -178,6 +185,7 @@ export class DosComponent implements OnInit {
       this.numerador = 0;
       this.denominador = 0;
       this.porcentaje = 0;
+      this.porcentaje_total = 0;
       this.visibleForm=false;
     }
     this.seguimiento = [];
@@ -215,10 +223,10 @@ export class DosComponent implements OnInit {
     }
     */
   // console.log(data);
-    this.numerador = data.numerador_heg;
-    this.denominador = data.denominador_heg;
-    this.porcentaje = data.porcentaje_heg;
-
+    this.numerador = data.numerador;
+    this.denominador = data.denominador;
+    this.porcentaje = data.porcentaje;
+    console.log(ide,data);
     this.herramientasForm = this._formBuilder.group({
       provincia: [this.datosSucursal.provincia],
       distrito: [this.datosSucursal.distrito],

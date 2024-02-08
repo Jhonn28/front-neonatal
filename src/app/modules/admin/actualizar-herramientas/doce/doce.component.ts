@@ -18,7 +18,7 @@ export class DoceComponent implements OnInit {
 
 
   visibleForm: boolean = false;
-
+  porcentaje_total: number = 0;
 
   //guarda encabezados
   seguimiento: any;
@@ -148,9 +148,15 @@ export class DoceComponent implements OnInit {
     await this._indicadorService.getEncabezadoGeneral(distrito, '12', query).subscribe(resp => {
       this.seguimiento = resp;
       if (this.seguimiento.length == 0) {
-        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
+        this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.');
+        return;
       }
-    })
+      let suma_porcentaje: number = 0;
+      this.seguimiento.forEach(element=>{
+        suma_porcentaje+= Number(element.porcentaje);
+      })
+      this.porcentaje_total = Number((suma_porcentaje/this.seguimiento.length).toFixed(2));
+    });
 
   }
 
@@ -161,6 +167,7 @@ export class DoceComponent implements OnInit {
 
       this.visibleForm = false;
     }
+    this.porcentaje_total = 0;
     this.selectRow=0;
     this.seguimiento = [];
     this.originalData = [];
