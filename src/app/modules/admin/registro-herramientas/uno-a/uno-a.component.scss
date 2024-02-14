@@ -6,3 +6,6 @@ input.p-inputtext{
   transform: rotate(-90deg);
   width: 4rem !important;
 }
+.mat-horizontal-stepper-header { 
+  pointer-events: none !important; 
+}

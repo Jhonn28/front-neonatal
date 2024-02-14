@@ -54,8 +54,8 @@ export class SystemService {
    * Retorna la informacion de la sucursal activa
    * @returns data
    */
-  getInfoSucursal(): Observable<any> {
-    const sucursal = this._utilService.getSucursal();
+  getInfoSucursal(sucursal?: number): Observable<any> {
+    (!sucursal)? sucursal = this._utilService.getSucursal():0;
     if (sucursal === -1) {
       sessionStorage.clear();
       return

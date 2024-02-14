@@ -20,6 +20,9 @@ export class UnoAComponent implements OnInit {
   load6 = false;
   load7 = false;
   load8 = false;
+  load9 = false;
+  load10 = false;
+  load11 = false;
 
 
   datosSucursal;
@@ -35,6 +38,10 @@ export class UnoAComponent implements OnInit {
   charoles;
   sala_recien;
   sala_parto;
+  estacion_enfermeria;
+  sala_cirugia;
+  material_anestesia;
+
 
   numero_sala: any;
   items_cumple: number=0;
@@ -53,6 +60,9 @@ export class UnoAComponent implements OnInit {
   promedio_charol: number=0;
   promedio_atencion_parto: number=0;
   promedio_atencion_nacido: number=0;
+  promedio_estacion_enfermeria: number = 0;
+  promedio_sala_cirugia: number = 0;
+  promedio_material_anestesia: number = 0;
   //TODO: formulario
   herramientasForm: FormGroup = new FormGroup({});
 
@@ -68,7 +78,7 @@ export class UnoAComponent implements OnInit {
     this.numero_sala = _route.snapshot.data['info'][1];
     this.tiempo = _route.snapshot.data['info'][2];
 
-    console.log('sucursal=>', this.datosSucursal);
+    console.log('sucursal=>', this.numero_sala);
     this.initForm();
 
   }
@@ -103,6 +113,9 @@ export class UnoAComponent implements OnInit {
       promedio_charol_hlic: [],
       promedio_atencion_parto_hlic: [],
       promedio_atencion_nacido_hlic: [],
+      promedio_estacion_enfermeria_hlic: [],
+      promedio_sala_cirugia_hlic:[],
+      promedio_material_anestesia_hlic: [],
       items_cumple_hlic: [],
       total_items_hlic: [],
       porcentaje_estandar_hlic: [],
@@ -114,7 +127,10 @@ export class UnoAComponent implements OnInit {
       servicio: this._formBuilder.array([]),
       charol_emergencia: this._formBuilder.array([]),
       atencion_parto: this._formBuilder.array([]),
-      atencion_nacido: this._formBuilder.array([])
+      atencion_nacido: this._formBuilder.array([]),
+      estacion_enfermeria: this._formBuilder.array([]),
+      sala_cirugia: this._formBuilder.array([]),
+      material_anestesia: this._formBuilder.array([]),
 
     })
 
@@ -146,6 +162,15 @@ export class UnoAComponent implements OnInit {
   get atencionPartoForm(): FormArray {
     return this.herramientasForm.get('atencion_parto') as FormArray;
   }
+  get estacionEnfermeriaForm(): FormArray {
+    return this.herramientasForm.get('estacion_enfermeria') as FormArray;
+  }
+  get salaCirugiaForm(): FormArray {
+    return this.herramientasForm.get('sala_cirugia') as FormArray;
+  }
+  get materialAnestesiaForm(): FormArray {
+    return this.herramientasForm.get('material_anestesia') as FormArray;
+  }
 
 
   async saveData(event: any) {
@@ -162,6 +187,9 @@ console.log(this.herramientasForm.value);
     this.deleteForm(this.charolEmergenciaForm);
     this.deleteForm(this.atencionNacidoForm);
     this.deleteForm(this.atencionPartoForm);
+    this.deleteForm(this.estacionEnfermeriaForm);
+    this.deleteForm(this.salaCirugiaForm);
+    this.deleteForm(this.materialAnestesiaForm);
 
     this.loadDataStep1();
     this.load2 = false;
@@ -171,6 +199,9 @@ console.log(this.herramientasForm.value);
     this.load6 = false;
     this.load7 = false;
     this.load8 = false;
+    this.load9 = false;
+    this.load10 = false;
+    this.load11 = false;
     this.promedio_insumo = 0;
     this.promedio_gineco = 0;
     this.promedio_stock = 0;
@@ -179,6 +210,9 @@ console.log(this.herramientasForm.value);
     this.promedio_charol = 0;
     this.promedio_atencion_parto = 0;
     this.promedio_atencion_nacido = 0;
+    this.promedio_estacion_enfermeria = 0;
+    this.promedio_sala_cirugia = 0;
+    this.promedio_material_anestesia=0;
     }
     });
 
@@ -291,24 +325,6 @@ console.log(this.herramientasForm.value);
     }
   }
 
-  async loadDataStep8() {
-    if (!this.load8) {
-      this.sala_recien = await this._indicadorService.getInsumos(8);
-      this.sala_recien.forEach(element => {
-        if (element.value != null) {
-          this.atencionNacidoForm.push(this._formBuilder.group({
-            ide_indare: [8, Validators.required],
-            ide_indins: [element.value, Validators.required],
-            uno_hlic: [false, Validators.required],
-            dos_hlic: [false, Validators.required],
-            tres_hlic: [false, Validators.required],
-          }));
-        }
-      })
-      this.load8 = true;
-    }
-  }
-
   async loadDataStep7() {
     if (!this.load7) {
       this.sala_parto = await this._indicadorService.getInsumos(7);
@@ -326,6 +342,79 @@ console.log(this.herramientasForm.value);
       this.load7 = true;
     }
   }
+
+  async loadDataStep8() {
+    if (!this.load8) {
+      this.sala_recien = await this._indicadorService.getInsumos(8);
+      this.sala_recien.forEach(element => {
+        if (element.value != null) {
+          this.atencionNacidoForm.push(this._formBuilder.group({
+            ide_indare: [8, Validators.required],
+            ide_indins: [element.value, Validators.required],
+            uno_hlic: [false, Validators.required],
+            dos_hlic: [false, Validators.required],
+            tres_hlic: [false, Validators.required],
+          }));
+        }
+      })
+      this.load8 = true;
+    }
+  }
+  async loadDataStep9() {
+    if (!this.load9) {
+      this.estacion_enfermeria = await this._indicadorService.getInsumos(9);
+      this.estacion_enfermeria.forEach(element => {
+        if (element.value != null) {
+          this.estacionEnfermeriaForm.push(this._formBuilder.group({
+            ide_indare: [9, Validators.required],
+            ide_indins: [element.value, Validators.required],
+            uno_hlic: [false, Validators.required],
+            dos_hlic: [false, Validators.required],
+            tres_hlic: [false, Validators.required],
+          }));
+        }
+      })
+      this.load9 = true;
+    }
+  }
+  async loadDataStep10() {
+    if (!this.load10) {
+      this.sala_cirugia = await this._indicadorService.getInsumos(10);
+      this.sala_cirugia.forEach(element => {
+        if (element.value != null) {
+          this.salaCirugiaForm.push(this._formBuilder.group({
+            ide_indare: [10, Validators.required],
+            ide_indins: [element.value, Validators.required],
+            uno_hlic: [false, Validators.required],
+            dos_hlic: [false, Validators.required],
+            tres_hlic: [false, Validators.required],
+          }));
+        }
+      })
+      this.load10 = true;
+    }
+  }
+
+  async loadDataStep11() {
+    if (!this.load11) {
+      this.material_anestesia = await this._indicadorService.getInsumos(11);
+      this.material_anestesia.forEach(element => {
+        if (element.value != null) {
+          this.materialAnestesiaForm.push(this._formBuilder.group({
+            ide_indare: [11, Validators.required],
+            ide_indins: [element.value, Validators.required],
+            uno_hlic: [false, Validators.required],
+            dos_hlic: [false, Validators.required],
+            tres_hlic: [false, Validators.required],
+          }));
+        }
+      })
+      this.load11 = true;
+    }
+  }
+
+
+
 
 
 
@@ -347,14 +436,17 @@ console.log(this.herramientasForm.value);
     (indicador == 6) ? this.promedio_charol = Number(((suma * data.length) / total).toFixed(2)) : 0;
     (indicador == 7) ? this.promedio_atencion_parto = Number(((suma * data.length) / total).toFixed(2)) : 0;
     (indicador == 8) ? this.promedio_atencion_nacido = Number(((suma * data.length) / total).toFixed(2)) : 0;
+    (indicador == 9) ? this.promedio_estacion_enfermeria = Number(((suma * data.length) / total).toFixed(2)) : 0;
+    (indicador == 10) ? this.promedio_sala_cirugia = Number(((suma * data.length) / total).toFixed(2)) : 0;
+    (indicador == 11) ? this.promedio_material_anestesia = Number(((suma * data.length) / total).toFixed(2)) : 0;
   }
 
   calculaTotal() {
 
 
-    this.items_cumple = this.promedio_insumo + this.promedio_gineco + this.promedio_stock + this.promedio_laboratorio + this.promedio_servicio + this.promedio_charol + this.promedio_atencion_parto + this.promedio_atencion_nacido;
+    this.items_cumple = this.promedio_insumo + this.promedio_gineco + this.promedio_stock + this.promedio_laboratorio + this.promedio_servicio + this.promedio_charol + this.promedio_atencion_parto + this.promedio_atencion_nacido+this.promedio_estacion_enfermeria+this.promedio_sala_cirugia+this.promedio_material_anestesia;
 
-    this.total_items = this.insumosForm.length + this.consultorioForm.length + this.farmaciaForm.length + this.laboratorioForm.length + this.servicioForm.length + this.charolEmergenciaForm.length + this.atencionNacidoForm.length + this.atencionPartoForm.length;
+    this.total_items = this.insumosForm.length + this.consultorioForm.length + this.farmaciaForm.length + this.laboratorioForm.length + this.servicioForm.length + this.charolEmergenciaForm.length + this.atencionNacidoForm.length + this.atencionPartoForm.length+this.estacionEnfermeriaForm.length+this.salaCirugiaForm.length+this.materialAnestesiaForm.length;
 
     this.promedio_general = Number(((this.items_cumple * 100) / this.total_items).toFixed(2));
 
@@ -366,6 +458,9 @@ console.log(this.herramientasForm.value);
     this.herramientasForm.get('promedio_charol_hlic').setValue(this.promedio_charol);
     this.herramientasForm.get('promedio_atencion_parto_hlic').setValue(this.promedio_atencion_parto);
     this.herramientasForm.get('promedio_atencion_nacido_hlic').setValue(this.promedio_atencion_nacido);
+    this.herramientasForm.get('promedio_estacion_enfermeria_hlic').setValue(this.promedio_estacion_enfermeria);
+    this.herramientasForm.get('promedio_sala_cirugia_hlic').setValue(this.promedio_sala_cirugia);
+    this.herramientasForm.get('promedio_material_anestesia_hlic').setValue(this.promedio_sala_cirugia);
     this.herramientasForm.get('items_cumple_hlic').setValue(this.items_cumple);
     this.herramientasForm.get('total_items_hlic').setValue(this.total_items);
     this.herramientasForm.get('porcentaje_estandar_hlic').setValue(this.promedio_general);
@@ -389,6 +484,9 @@ console.log(this.herramientasForm.value);
     this.deleteForm(this.charolEmergenciaForm);
     this.deleteForm(this.atencionNacidoForm);
     this.deleteForm(this.atencionPartoForm);
+    this.deleteForm(this.estacionEnfermeriaForm);
+    this.deleteForm(this.salaCirugiaForm);
+    this.deleteForm(this.materialAnestesiaForm);
 
     this.loadDataStep1();
     this.load2 = false;
@@ -398,6 +496,9 @@ console.log(this.herramientasForm.value);
     this.load6 = false;
     this.load7 = false;
     this.load8 = false;
+    this.load9 = false;
+    this.load10 = false;
+    this.load11 = false;
     this.promedio_insumo = 0;
     this.promedio_gineco = 0;
     this.promedio_stock = 0;
@@ -406,6 +507,9 @@ console.log(this.herramientasForm.value);
     this.promedio_charol = 0;
     this.promedio_atencion_parto = 0;
     this.promedio_atencion_nacido = 0;
+    this.promedio_estacion_enfermeria = 0;
+    this.promedio_sala_cirugia = 0;
+    this.promedio_material_anestesia = 0;
 
   }
 

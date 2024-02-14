@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { UtilsService } from '../../../../../../projects/libreria/src/public-api';
+import { SystemService, UtilsService } from '../../../../../../projects/libreria/src/public-api';
 import { ActivatedRoute } from '@angular/router';
 import { IndicadorService } from 'app/services/indicador.service';
 
@@ -23,6 +23,9 @@ export class UnoAComponent implements OnInit {
   charoles;
   sala_recien;
   sala_parto;
+  estacion_enfermeria;
+  sala_cirugia;
+  material_anestesia;
 
   numero_sala: any;
   items_cumple: number;
@@ -44,6 +47,9 @@ export class UnoAComponent implements OnInit {
   promedio_charol: number;
   promedio_atencion_parto: number;
   promedio_atencion_nacido: number;
+  promedio_estacion_enfermeria: number;
+  promedio_sala_cirugia: number;
+  promedio_material_anestesia: number;
 
   //guarda encabezados
   seguimiento: any;
@@ -73,7 +79,8 @@ export class UnoAComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _utilService: UtilsService,
     private _route: ActivatedRoute,
-    private _indicadorService: IndicadorService
+    private _indicadorService: IndicadorService,
+    private _systemService: SystemService
   ) {
     this.distritos = _route.snapshot.data['info'][0];
     this.establecimientos = _route.snapshot.data['info'][1];
@@ -105,79 +112,14 @@ export class UnoAComponent implements OnInit {
     this.charoles = await this._indicadorService.getInsumos(6);
     this.sala_parto = await this._indicadorService.getInsumos(7);
     this.sala_recien = await this._indicadorService.getInsumos(8);
-    this.numero_sala = await this._indicadorService.getNumeroSala();
+    this.estacion_enfermeria = await this._indicadorService.getInsumos(9);
+    this.sala_cirugia = await this._indicadorService.getInsumos(10);
+    this.material_anestesia = await this._indicadorService.getInsumos(11);
+    
 
   }
 
-  async saveData(event) {
 
-
-    if (this.compare(this.herramientasForm.value, this.originalData)) {
-      this._utilService.toast_info('No se realizaron cambios.');
-      return;
-    }
-
-    await this.calculaTotal();
-    let cabecera = new Object();
-    cabecera = {
-      ide_hlic: this.selectRow,
-      promedio_preparacion_hlic: Number(this.herramientasForm.value.promedio_preparacion_hlic),
-      promedio_gineco_hlic: (this.herramientasForm.value.promedio_gineco_hlic).toFixed(2),
-      promedio_farmacia_hlic: (this.herramientasForm.value.promedio_farmacia_hlic).toFixed(2),
-      promedio_laboratorio_hlic: (this.herramientasForm.value.promedio_laboratorio_hlic).toFixed(2),
-      promedio_servicio_hlic: (this.herramientasForm.value.promedio_servicio_hlic).toFixed(2),
-      promedio_charol_hlic: (this.herramientasForm.value.promedio_charol_hlic).toFixed(2),
-      promedio_atencion_parto_hlic: (this.herramientasForm.value.promedio_atencion_parto_hlic).toFixed(2),
-      promedio_atencion_nacido_hlic: (this.herramientasForm.value.promedio_atencion_nacido_hlic).toFixed(2),
-      items_cumple_hlic: (this.herramientasForm.value.items_cumple_hlic).toFixed(2),
-      total_items_hlic: this.herramientasForm.value.total_items_hlic,
-      porcentaje_estandar_hlic: (this.herramientasForm.value.porcentaje_estandar_hlic).toFixed(2),
-    }
-
-    let indicadores = new Array();
-
-
-    indicadores = this.insumosForm.value;
-    this.consultorioForm.value.forEach(element => {
-      indicadores.push(element);
-    });
-    indicadores = this.insumosForm.value;
-    this.farmaciaForm.value.forEach(element => {
-      indicadores.push(element);
-    });
-    indicadores = this.insumosForm.value;
-    this.laboratorioForm.value.forEach(element => {
-      indicadores.push(element);
-    });
-    indicadores = this.insumosForm.value;
-    this.servicioForm.value.forEach(element => {
-      indicadores.push(element);
-    });
-    indicadores = this.insumosForm.value;
-    this.charolEmergenciaForm.value.forEach(element => {
-      indicadores.push(element);
-    });
-    indicadores = this.insumosForm.value;
-    this.atencionPartoForm.value.forEach(element => {
-      indicadores.push(element);
-    });
-    indicadores = this.insumosForm.value;
-    this.atencionNacidoForm.value.forEach(element => {
-      indicadores.push(element);
-    });
-    let data = new Object();
-
-    data = {
-      cabecera: cabecera,
-      indicadores: indicadores
-    }
-
-    await this._indicadorService.updateData(data, 'her_lista_chequeo', 'ide_hlic', 'her_indicador_lista_chequeo','ide_hilic','ide_indins').subscribe(async (res: any) => {
-      this.buscarSupervision();
-      this.reset();
-    });
-
-  }
 
   async buscarSupervision() {
 
@@ -190,7 +132,6 @@ export class UnoAComponent implements OnInit {
     }
     await this._indicadorService.getIUnoA(distrito, query).subscribe(resp => {
       this.seguimiento = resp;
-      console.log('resp=>',resp);
       if (this.seguimiento.length == 0) {
         this._utilService.toast_info('No existen registros relacionados a los criterios de búsqueda.')
       }
@@ -210,7 +151,10 @@ export class UnoAComponent implements OnInit {
   }
 
   async onVisual(dataRow) {
-    console.log('dataRwo)=>',dataRow);
+    this.numero_sala = await this._indicadorService.getNumeroSala(dataRow.ide_seges);
+    await this._systemService.getInfoSucursal(dataRow.ide_seges).subscribe(res=>{
+      this.datosSucursal = res;
+    })
     this.selectRow = dataRow.ide_hlic;
     await this.loadForm(dataRow.ide_hlic, dataRow);
     this.promedio_insumo = Number(dataRow.promedio_preparacion_hlic);
@@ -221,13 +165,12 @@ export class UnoAComponent implements OnInit {
     this.promedio_charol = Number(dataRow.promedio_charol_hlic);
     this.promedio_atencion_parto = Number(dataRow.promedio_atencion_parto_hlic);
     this.promedio_atencion_nacido = Number(dataRow.promedio_atencion_nacido_hlic);
+    this.promedio_estacion_enfermeria = Number(dataRow.promedio_estacion_enfermeria_hlic);
+    this.promedio_sala_cirugia = Number(dataRow.promedio_sala_cirugia_hlic);
+    this.promedio_material_anestesia = Number(dataRow.promedio_material_anestesia_hlic);
     this.items_cumple = Number(dataRow.items_cumple_hlic);
     this.total_items = Number(dataRow.total_items_hlic);
     this.promedio_general = Number(dataRow.porcentaje_estandar_hlic);
-
-
-
-    console.log('Compa=>', this.compare(this.herramientasForm.value, this.originalData));
   }
 
   //funciones de comparacion
@@ -241,7 +184,6 @@ export class UnoAComponent implements OnInit {
     if(this.visibleForm){
       this.reset();
     }
-    console.log('=Z>',this.datosSucursal);
     this.herramientasForm = this._formBuilder.group({
       ide_seges: [this._utilService.getSucursal()],
       ide_segdis: [this._utilService.getEmpresa()],
@@ -271,10 +213,16 @@ export class UnoAComponent implements OnInit {
       servicio: this._formBuilder.array([]),
       charol_emergencia: this._formBuilder.array([]),
       atencion_parto: this._formBuilder.array([]),
-      atencion_nacido: this._formBuilder.array([])
+      atencion_nacido: this._formBuilder.array([]),
+      estacion_enfermeria: this._formBuilder.array([]),
+      sala_cirugia: this._formBuilder.array([]),
+      material_anestesia: this._formBuilder.array([]),
 
     });
 
+    this.items_cumple = data.items_cumple_hlic;
+    this.total_items = data.total_items_hlic;
+    this.porcentaje_total = data.porcentaje_estandar_hlic;
 
 
     this.loadData(ide);
@@ -283,7 +231,6 @@ export class UnoAComponent implements OnInit {
   //Carga indicadores
 
   async loadData(ide: number) {
-    console.log('entro',ide);
     //Carga indicadores
 
     let data = await this._indicadorService.getDataUnoA(ide, 1);
@@ -297,7 +244,6 @@ export class UnoAComponent implements OnInit {
       }));
     })
 
-    console.log('csadas=>',this.insumosForm.value);
 
     data = await this._indicadorService.getDataUnoA(ide, 2);
     data.forEach(element => {
@@ -377,6 +323,39 @@ export class UnoAComponent implements OnInit {
       }));
     })
 
+    data = await this._indicadorService.getDataUnoA(ide, 9);
+    data.forEach(element => {
+      this.estacionEnfermeriaForm.push(this._formBuilder.group({
+        ide_hilic:[element.ide_hilic],
+        ide_indins: [element.ide_indins, Validators.required],
+        uno_hlic: [element.uno_hlic, Validators.required],
+        dos_hlic: [element.dos_hlic, Validators.required],
+        tres_hlic: [element.tres_hlic, Validators.required],
+      }));
+    })
+
+    data = await this._indicadorService.getDataUnoA(ide, 10);
+    data.forEach(element => {
+      this.salaCirugiaForm.push(this._formBuilder.group({
+        ide_hilic:[element.ide_hilic],
+        ide_indins: [element.ide_indins, Validators.required],
+        uno_hlic: [element.uno_hlic, Validators.required],
+        dos_hlic: [element.dos_hlic, Validators.required],
+        tres_hlic: [element.tres_hlic, Validators.required],
+      }));
+    })
+
+    data = await this._indicadorService.getDataUnoA(ide, 11);
+    data.forEach(element => {
+      this.materialAnestesiaForm.push(this._formBuilder.group({
+        ide_hilic:[element.ide_hilic],
+        ide_indins: [element.ide_indins, Validators.required],
+        uno_hlic: [element.uno_hlic, Validators.required],
+        dos_hlic: [element.dos_hlic, Validators.required],
+        tres_hlic: [element.tres_hlic, Validators.required],
+      }));
+    })
+
     this.visibleForm=true;
     this.originalData = this.herramientasForm.value;
 
@@ -404,31 +383,6 @@ export class UnoAComponent implements OnInit {
   }
 
 
-  //calcula total
-  calculaTotal() {
-    console.log(this.promedio_insumo);
-    console.log(this.promedio_gineco);
-    console.log(this.promedio_stock);
-    console.log(this.promedio_insumo + this.promedio_gineco + this.promedio_stock);
-    this.items_cumple = this.promedio_insumo + this.promedio_gineco + this.promedio_stock + this.promedio_laboratorio + this.promedio_servicio + this.promedio_charol + this.promedio_atencion_parto + this.promedio_atencion_nacido;
-
-    this.total_items = this.insumosForm.length + this.consultorioForm.length + this.farmaciaForm.length + this.laboratorioForm.length + this.servicioForm.length + this.charolEmergenciaForm.length + this.atencionNacidoForm.length + this.atencionPartoForm.length;
-
-    this.promedio_general = Number(((this.items_cumple * 100) / this.total_items).toFixed(2));
-
-    this.herramientasForm.get('promedio_preparacion_hlic').setValue(this.promedio_insumo);
-    this.herramientasForm.get('promedio_gineco_hlic').setValue(this.promedio_gineco);
-    this.herramientasForm.get('promedio_farmacia_hlic').setValue(this.promedio_stock);
-    this.herramientasForm.get('promedio_laboratorio_hlic').setValue(this.promedio_laboratorio);
-    this.herramientasForm.get('promedio_servicio_hlic').setValue(this.promedio_servicio);
-    this.herramientasForm.get('promedio_charol_hlic').setValue(this.promedio_charol);
-    this.herramientasForm.get('promedio_atencion_parto_hlic').setValue(this.promedio_atencion_parto);
-    this.herramientasForm.get('promedio_atencion_nacido_hlic').setValue(this.promedio_atencion_nacido);
-    this.herramientasForm.get('items_cumple_hlic').setValue(this.items_cumple);
-    this.herramientasForm.get('total_items_hlic').setValue(this.total_items);
-    this.herramientasForm.get('porcentaje_estandar_hlic').setValue(this.promedio_general);
-
-  }
 
   //getters
 
@@ -456,6 +410,15 @@ export class UnoAComponent implements OnInit {
   get atencionPartoForm(): FormArray {
     return this.herramientasForm.get('atencion_parto') as FormArray;
   }
+  get estacionEnfermeriaForm(): FormArray {
+    return this.herramientasForm.get('estacion_enfermeria') as FormArray;
+  }
+  get salaCirugiaForm(): FormArray {
+    return this.herramientasForm.get('sala_cirugia') as FormArray;
+  }
+  get materialAnestesiaForm(): FormArray {
+    return this.herramientasForm.get('material_anestesia') as FormArray;
+  }
 
   deleteForm(formulario) {
     while (formulario.length !== 0) {
@@ -474,6 +437,9 @@ export class UnoAComponent implements OnInit {
     this.deleteForm(this.charolEmergenciaForm);
     this.deleteForm(this.atencionNacidoForm);
     this.deleteForm(this.atencionPartoForm);
+    this.deleteForm(this.estacionEnfermeriaForm);
+    this.deleteForm(this.salaCirugiaForm);
+    this.deleteForm(this.materialAnestesiaForm);
 
 
     this.promedio_insumo = 0;
@@ -484,6 +450,9 @@ export class UnoAComponent implements OnInit {
     this.promedio_charol = 0;
     this.promedio_atencion_parto = 0;
     this.promedio_atencion_nacido = 0;
+    this.promedio_estacion_enfermeria = 0;
+    this.promedio_sala_cirugia = 0;
+    this.promedio_material_anestesia = 0;
 
     this.visibleForm=false;
   }

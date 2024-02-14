@@ -21,9 +21,9 @@
                 Distrito:
               </label>
               <p-dropdown class="flex justify-end w-full" appendTo="body" [filter]="distritos.length >= 10"
-                emptyFilterMessage="No existen registros"
-                [(ngModel)]="selectDistrito" styleClass="component my-1 mx-1" [options]="distritos"
-                placeholder="Seleccione..." formControlName="distrito" [readonly]="lectura_distrito">
+                emptyFilterMessage="No existen registros" [(ngModel)]="selectDistrito" styleClass="component my-1 mx-1"
+                [options]="distritos" placeholder="Seleccione..." formControlName="distrito"
+                [readonly]="lectura_distrito">
                 {{distritos}}
               </p-dropdown>
             </div>
@@ -87,9 +87,12 @@
             <td class="text-center">{{dataRow.detalle_indtp}}</td>
             <td class="text-center">{{dataRow.items_cumple_hlic}}</td>
             <td class="text-center">{{dataRow.total_items_hlic}}</td>
-            <td *ngIf="dataRow.porcentaje_estandar_hlic >= 0 &&  dataRow.porcentaje_estandar_hlic <71" class="text-center bg-red-300">{{dataRow.porcentaje_estandar_hlic}}%</td>
-            <td *ngIf="dataRow.porcentaje_estandar_hlic >= 71 &&  dataRow.porcentaje_estandar_hlic <91" class="text-center font-bold text-indigo-90 bg-yellow-300">{{dataRow.porcentaje_estandar_hlic}}%</td>
-            <td *ngIf="dataRow.porcentaje_estandar_hlic >91" class="text-center font-bold text-indigo-90 bg-green-300">{{dataRow.porcentaje_estandar_hlic}}%</td>
+            <td *ngIf="dataRow.porcentaje_estandar_hlic >= 0 &&  dataRow.porcentaje_estandar_hlic <71"
+              class="text-center bg-red-300">{{dataRow.porcentaje_estandar_hlic}}%</td>
+            <td *ngIf="dataRow.porcentaje_estandar_hlic >= 71 &&  dataRow.porcentaje_estandar_hlic <91"
+              class="text-center font-bold text-indigo-90 bg-yellow-300">{{dataRow.porcentaje_estandar_hlic}}%</td>
+            <td *ngIf="dataRow.porcentaje_estandar_hlic >91" class="text-center font-bold text-indigo-90 bg-green-300">
+              {{dataRow.porcentaje_estandar_hlic}}%</td>
 
             <td class="text-center">
               <button (click)="onVisual(dataRow)"
@@ -106,7 +109,7 @@
             class="text-center font-bold text-indigo-90 bg-yellow-300">{{porcentaje_total}}%</p>
           <p *ngIf="porcentaje_total >91" class="text-center font-bold text-indigo-90 bg-green-300">
             {{porcentaje_total}}%</p>
-      </ng-template>
+        </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr>
             <td colspan="7">No customers found.</td>
@@ -125,7 +128,7 @@
       <div class="flex flex-col flex-auto overflow-x-auto">
 
 
-        <form [formGroup]="herramientasForm" (ngSubmit)="saveData(stepper)">
+        <form [formGroup]="herramientasForm">
 
           <section class=" py-1 bg-blueGray-100">
             <div
@@ -211,8 +214,8 @@
 
                       </label>
                       <p-dropdown [options]="tiempo" [filter]="tiempo.length >= 10" appendTo="body"
-                        [style]="{'width':'100%'}" formControlName="ide_indtp"
-                        placeholder="Seleccione..." [readonly]="true"></p-dropdown>
+                        [style]="{'width':'100%'}" formControlName="ide_indtp" placeholder="Seleccione..."
+                        [readonly]="true"></p-dropdown>
                     </div>
                   </div>
 
@@ -278,7 +281,8 @@
                         <div class="p-4">
                           <div class="text-base text-justify font-bold">
 
-                            <p> 1 A. Porcentaje de insumos, equipos y medicamentos esenciales con los que cuenta cada unidad
+                            <p> 1 A. Porcentaje de insumos, equipos y medicamentos esenciales con los que cuenta cada
+                              unidad
                               operativa para la atención de la salud materna y del/a recién nacido/a.
                           </div>
                         </div>
@@ -313,16 +317,18 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[0].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
-                              <td style="text-align-last:center;" *ngIf="numero_sala[0].numero>=2" >
+                              <td style="text-align-last:center;" *ngIf="numero_sala[0].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
                                   (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[0].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(insumosForm,1,numero_sala[0].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -334,8 +340,7 @@
 
                       <div class="flex justify-end mt-4">
 
-                        <button class="px-8 bg-indigo-900	text-white" mat-button type="button" matStepperNext
-                        >
+                        <button class="px-8 bg-indigo-900	text-white" mat-button type="button" matStepperNext>
                           Siguiente
                         </button>
                       </div>
@@ -345,9 +350,8 @@
                     <mat-step [stepControl]="consultorioForm" [editable]="true">
 
 
-                      <p-table [value]="consultorioForm.controls"
-                        styleClass="p-datatable-gridlines p-datatable-wrapper" [autoLayout]="true"
-                        responsiveLayout="scroll" [rowHover]="true">
+                      <p-table [value]="consultorioForm.controls" styleClass="p-datatable-gridlines p-datatable-wrapper"
+                        [autoLayout]="true" responsiveLayout="scroll" [rowHover]="true">
 
                         <ng-template pTemplate="header">
                           <tr>
@@ -375,16 +379,15 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[1].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)" readonly="true"></p-inputSwitch>
+                                  readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[1].numero>=2">
-                                <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)" readonly="true">
+                                <p-inputSwitch formControlName="dos_hlic" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[1].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(consultorioForm,2,numero_sala[1].numero)" readonly="true"></p-inputSwitch>
+                                  readonly="true"></p-inputSwitch>
                               </td>
 
                             </tr>
@@ -400,8 +403,7 @@
                         <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                           Anterior
                         </button>
-                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
-                        >
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext>
                           Siguiente
                         </button>
                       </div>
@@ -441,7 +443,8 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[2].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[2].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
@@ -450,7 +453,8 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[2].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(farmaciaForm,3,numero_sala[2].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -465,23 +469,19 @@
                           Anterior
                         </button>
                         <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
-                            (click)="loadDataStep4()" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
-                            Siguiente
-                          </button>
-                          <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
-                          (click)="calculaTotal()" *ngIf="(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
-                            Siguiente
-                          </button>
+                         >
+                          Siguiente
+                        </button>
                       </div>
                     </mat-step>
 
                     <!-- TODO: STEP 4-->
-                    <mat-step [stepControl]="laboratorioForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
+                    <mat-step [stepControl]="laboratorioForm" [editable]="true"
+                    *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8 || datosSucursal.tipo==9)">
 
 
-                      <p-table [value]="laboratorioForm.controls"
-                        styleClass="p-datatable-gridlines p-datatable-wrapper" [autoLayout]="true"
-                        responsiveLayout="scroll" [rowHover]="true">
+                      <p-table [value]="laboratorioForm.controls" styleClass="p-datatable-gridlines p-datatable-wrapper"
+                        [autoLayout]="true" responsiveLayout="scroll" [rowHover]="true">
 
                         <ng-template pTemplate="header">
                           <tr>
@@ -509,16 +509,18 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[3].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
-                              <td style="text-align-last:center;" *ngIf="numero_sala[3].numero>=2" >
+                              <td style="text-align-last:center;" *ngIf="numero_sala[3].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
                                   (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)" readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[3].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(laboratorioForm,4,numero_sala[3].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -532,15 +534,15 @@
                         <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                           Anterior
                         </button>
-                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
-                        >
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext>
                           Siguiente
                         </button>
                       </div>
                     </mat-step>
 
                     <!-- TODO: STEP 5-->
-                    <mat-step [stepControl]="servicioForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
+                    <mat-step [stepControl]="servicioForm" [editable]="true"
+                    *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==2 ||datosSucursal.tipo==8 || datosSucursal.tipo==9)">
 
 
                       <p-table [value]="servicioForm.controls" styleClass="p-datatable-gridlines p-datatable-wrapper"
@@ -572,7 +574,8 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[4].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[4].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
@@ -581,7 +584,8 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[4].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(servicioForm,5,numero_sala[4].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -595,15 +599,15 @@
                         <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                           Anterior
                         </button>
-                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
-                        >
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext>
                           Siguiente
                         </button>
                       </div>
                     </mat-step>
 
                     <!-- TODO: STEP 6-->
-                    <mat-step [stepControl]="charolEmergenciaForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
+                    <mat-step [stepControl]="charolEmergenciaForm" [editable]="true"
+                    *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==2 ||datosSucursal.tipo==8 || datosSucursal.tipo==9)">
 
 
                       <p-table [value]="charolEmergenciaForm.controls"
@@ -637,16 +641,19 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[5].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[5].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)" readonly="true">
+                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)"
+                                  readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[5].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(charolEmergenciaForm,6,numero_sala[5].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -660,15 +667,15 @@
                         <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                           Anterior
                         </button>
-                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
-                        >
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext>
                           Siguiente
                         </button>
                       </div>
                     </mat-step>
 
                     <!-- TODO: STEP 7-->
-                    <mat-step [stepControl]="atencionPartoForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
+                    <mat-step [stepControl]="atencionPartoForm" [editable]="true"
+                    *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==2 ||datosSucursal.tipo==8 || datosSucursal.tipo==9)">
 
 
                       <p-table [value]="atencionPartoForm.controls"
@@ -701,16 +708,19 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[6].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[6].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)" readonly="true">
+                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)"
+                                  readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[6].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(atencionPartoForm,7,numero_sala[6].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -724,15 +734,15 @@
                         <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                           Anterior
                         </button>
-                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
-                        >
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext>
                           Siguiente
                         </button>
                       </div>
                     </mat-step>
 
                     <!-- TODO: STEP 8-->
-                    <mat-step [stepControl]="atencionNacidoForm" [editable]="true" *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==8)">
+                    <mat-step [stepControl]="atencionNacidoForm" [editable]="true"
+                    *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==2 ||datosSucursal.tipo==8 || datosSucursal.tipo==9)">
 
 
                       <p-table [value]="atencionNacidoForm.controls"
@@ -766,16 +776,19 @@
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[7].numero>=1">
                                 <p-inputSwitch formControlName="uno_hlic"
-                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[7].numero>=2">
                                 <p-inputSwitch formControlName="dos_hlic"
-                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)" readonly="true">
+                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)"
+                                  readonly="true">
                                 </p-inputSwitch>
                               </td>
                               <td style="text-align-last:center;" *ngIf="numero_sala[7].numero>=3">
                                 <p-inputSwitch formControlName="tres_hlic"
-                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)" readonly="true"></p-inputSwitch>
+                                  (onChange)="promedioInsumo(atencionNacidoForm,8,numero_sala[7].numero)"
+                                  readonly="true"></p-inputSwitch>
                               </td>
                             </tr>
                           </ng-container>
@@ -789,20 +802,212 @@
                         <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
                           Anterior
                         </button>
-                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext (click)="calculaTotal()">
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext>
                           Siguiente
                         </button>
                       </div>
                     </mat-step>
 
-                    //TODO: STEP 9
+                    <!-- TODO: STEP 9 -->
+                    <mat-step [stepControl]="estacionEnfermeriaForm" [editable]="true"
+                    *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==2 ||datosSucursal.tipo==8 || datosSucursal.tipo==9)">
+
+
+                      <p-table [value]="estacionEnfermeriaForm.controls"
+                        styleClass="p-datatable-gridlines p-datatable-wrapper" [autoLayout]="true"
+                        responsiveLayout="scroll" [rowHover]="true">
+
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="min-w-10  w-fit text-center">Estación de enfermería de hospitalización obstétrica
+                              <span class="text-required"> * </span>
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[8].numero>=1">1
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[8].numero>=2">2
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[8].numero>=3">3
+                            </th>
+                          </tr>
+                        </ng-template>
+
+
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                          <ng-container formArrayName="estacion_enfermeria">
+                            <tr [formGroupName]="rowIndex">
+                              <td style="text-align-last:rigth;">
+                                <p-dropdown appendTo="body" styleClass="component my-1 mx-1"
+                                  [options]="estacion_enfermeria" formControlName="ide_indins" [readonly]="true">
+                                  {{insumos}}
+                                </p-dropdown>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[8].numero>=1">
+                                <p-inputSwitch formControlName="uno_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(estacionEnfermeriaForm,9,numero_sala[8].numero)"></p-inputSwitch>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[8].numero>=2">
+                                <p-inputSwitch formControlName="dos_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(estacionEnfermeriaForm,9,numero_sala[8].numero)">
+                                </p-inputSwitch>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[8].numero>=3">
+                                <p-inputSwitch formControlName="tres_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(estacionEnfermeriaForm,9,numero_sala[8].numero)"></p-inputSwitch>
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+                      </p-table>
+                      <div class="flex justify-end my-2">
+                        <p> Promedio: <span class="font-bold">{{promedio_estacion_enfermeria}}</span></p>
+                      </div>
+
+                      <div class="flex justify-end mt-4">
+                        <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                          Anterior
+                        </button>
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext
+                        >
+                          Siguiente
+                        </button>
+                      </div>
+                    </mat-step>
+                    <!-- TODO: STEP 10 -->
+                    <mat-step [stepControl]="salaCirugiaForm" [editable]="true"
+                    *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==3 ||datosSucursal.tipo==2 ||datosSucursal.tipo==8 || datosSucursal.tipo==9)">
+
+
+                      <p-table [value]="salaCirugiaForm.controls" styleClass="p-datatable-gridlines p-datatable-wrapper"
+                        [autoLayout]="true" responsiveLayout="scroll" [rowHover]="true">
+
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="min-w-10  w-fit text-center">Sala de cirugía / quirófano (obstétrico)
+                              <span class="text-required"> * </span>
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[9].numero>=1">1
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[9].numero>=2">2
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[9].numero>=3">3
+                            </th>
+                          </tr>
+                        </ng-template>
+
+
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                          <ng-container formArrayName="sala_cirugia">
+                            <tr [formGroupName]="rowIndex">
+                              <td style="text-align-last:rigth;">
+                                <p-dropdown appendTo="body" styleClass="component my-1 mx-1" [options]="sala_cirugia"
+                                  formControlName="ide_indins" [readonly]="true">
+                                  {{insumos}}
+                                </p-dropdown>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[9].numero>=1">
+                                <p-inputSwitch formControlName="uno_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(salaCirugiaForm,10,numero_sala[9].numero)"></p-inputSwitch>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[9].numero>=2">
+                                <p-inputSwitch formControlName="dos_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(salaCirugiaForm,10,numero_sala[9].numero)">
+                                </p-inputSwitch>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[9].numero>=3">
+                                <p-inputSwitch formControlName="tres_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(salaCirugiaForm,10,numero_sala[9].numero)"></p-inputSwitch>
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+                      </p-table>
+                      <div class="flex justify-end my-2">
+                        <p> Promedio: <span class="font-bold">{{promedio_sala_cirugia}}</span></p>
+                      </div>
+
+                      <div class="flex justify-end mt-4">
+                        <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                          Anterior
+                        </button>
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext>
+                          Siguiente
+                        </button>
+                      </div>
+                    </mat-step>
+                    <!-- TODO: STEP 11 -->
+                    <mat-step [stepControl]="materialAnestesiaForm" [editable]="true"
+                    *ngIf="!(datosSucursal.tipo==1 || datosSucursal.tipo==3 || datosSucursal.tipo==2 ||datosSucursal.tipo==8 || datosSucursal.tipo==9)">
+
+
+                      <p-table [value]="materialAnestesiaForm.controls"
+                        styleClass="p-datatable-gridlines p-datatable-wrapper" [autoLayout]="true"
+                        responsiveLayout="scroll" [rowHover]="true">
+
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th class="min-w-10  w-fit text-center">Sala de cirugía / quirófano (obstétrico)
+                              <span class="text-required"> * </span>
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[10].numero>=1">1
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[10].numero>=2">2
+                            </th>
+                            <th class="min-w-10  w-fit text-center" *ngIf="numero_sala[10].numero>=3">3
+                            </th>
+                          </tr>
+                        </ng-template>
+
+
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                          <ng-container formArrayName="material_anestesia">
+                            <tr [formGroupName]="rowIndex">
+                              <td style="text-align-last:rigth;">
+                                <p-dropdown appendTo="body" styleClass="component my-1 mx-1"
+                                  [options]="material_anestesia" formControlName="ide_indins" [readonly]="true">
+                                  {{insumos}}
+                                </p-dropdown>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[10].numero>=1">
+                                <p-inputSwitch formControlName="uno_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(materialAnestesiaForm,11,numero_sala[10].numero)"></p-inputSwitch>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[10].numero>=2">
+                                <p-inputSwitch formControlName="dos_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(materialAnestesiaForm,11,numero_sala[10].numero)">
+                                </p-inputSwitch>
+                              </td>
+                              <td style="text-align-last:center;" *ngIf="numero_sala[10].numero>=3">
+                                <p-inputSwitch formControlName="tres_hlic" readonly="true"
+                                  (onChange)="promedioInsumo(materialAnestesiaForm,11,numero_sala[10].numero)"></p-inputSwitch>
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+                      </p-table>
+                      <div class="flex justify-end my-2">
+                        <p> Promedio: <span class="font-bold">{{promedio_material_anestesia}}</span></p>
+                      </div>
+
+                      <div class="flex justify-end mt-4">
+                        <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                          Anterior
+                        </button>
+                        <button class="px-8 bg-indigo-900	text-white	" mat-button type="button" matStepperNext>
+                          Siguiente
+                        </button>
+                      </div>
+                    </mat-step>
+
+                    <!-- //TODO: STEP 12 -->
                     <mat-step [editable]="true" [stepControl]="atencionNacidoForm">
 
                       <div class="text-base text-justify">
 
-                        <p>¿Cuántos ítems del estándar cumple?  <span class="font-bold">{{items_cumple}}</span></p>
-                        <p>¿Cuántos ítems del estándar debe cumplir de acuerdo a su nivel de complejidad? <span class="font-bold">{{total_items}}</span></p>
-                        <p>Porcentaje del cumplimiento del estándar <span class="font-bold">{{promedio_general}}</span></p>
+                        <p>¿Cuántos ítems del estándar cumple? <span class="font-bold">{{items_cumple}}</span></p>
+                        <p>¿Cuántos ítems del estándar debe cumplir de acuerdo a su nivel de complejidad? <span
+                            class="font-bold">{{total_items}}</span></p>
+                        <p>Porcentaje del cumplimiento del estándar <span class="font-bold">{{promedio_general}}</span>
+                        </p>
                       </div>
 
 

@@ -20,9 +20,10 @@ export class IndicadorService {
        });
      }
 
-     getNumeroSala(): Promise<any> {
+     getNumeroSala(establecimiento?:number): Promise<any> {
+      (!establecimiento)? establecimiento=this._utilService.getSucursal():0;
       return new Promise(async (resolve, reject) => {
-        await this._methodsService.get(`indicador/numero-sala/${this._utilService.getSucursal()}`).subscribe(async (result: IResultData) => {
+        await this._methodsService.get(`indicador/numero-sala/${establecimiento}`).subscribe(async (result: IResultData) => {
           resolve(result.data);
         }, (err) => {
           reject(err);
