@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   urlIcono = '';
 
 
-  anio: Date[] | undefined;
+  anio;
   sucursal;
 
   accessDate: any;
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
   ) {
     this.startClock();
     this.user = this._authService.usuario;
-    console.log('user=>',this.user);
+    console.log('user=>', this.user);
     this.accessDate = _authService.accessDate;
     this.admin_distrital = this.user.admin_multi_segusu;
     this.last_date = _utilService.getFormatDate(this.accessDate[0].fecha_seauac, 'yyyy/mm/dd');
@@ -72,22 +72,18 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.supervisionForm = this._formBuilder.group({
-      fecha_de: [],
-      fecha_hasta: [],
-      distrito: [],
-      establecimiento: [],
-    })
-    
+
+
     await this._systemService.getInfoSucursal().subscribe(resp => {
       this.sucursal = resp;
     })
+    this.anio = this._utilService.getDateCurrent('YYYY/MM/DD');
     this.ip = this._utilService.getIp();
     this.date = this._utilService.getDateCurrent();
     this.device = this._utilService.deviceInfo;
     this.getClima();
-    this.puntaje = await this._indicadorService.getPuntaje(this._utilService.getEmpresa());
-    console.log('pinma0>',this.puntaje);
+    this.puntaje = await this._indicadorService.getPuntaje(this._utilService.getEmpresa(),this.anio);
+    console.log('pinma0>', this.puntaje);
     this.setColor();
   }
 
@@ -136,17 +132,27 @@ export class HomeComponent implements OnInit {
     const white = 'bg-slate-50';
 
     this.puntaje.unoNueve.forEach(element => {
-      (element?.porcentaje >= 0 && element?.porcentaje < 71) ? this.color1.push(red) : 0;
-      (element?.porcentaje >= 71 && element?.porcentaje < 91) ? this.color1.push(yellow) : 0;
-      (element?.porcentaje > 91 && element?.porcentaje <= 100) ? this.color1.push(green) : 0;
-      (!element?.porcentaje) ? this.color1.push(white) : 0;
+      const puntaje = Number(element?.porcentaje);
+      
+      console.log('nummmber=>',puntaje);
+      if(!puntaje){
+        console.log('emtro a null');
+      }
+      (!element?.porcentaje) ? this.color1.push(white):0;
+      (element?.porcentaje && element?.porcentaje >= 0 && element?.porcentaje < 71) ? this.color1.push(red):0;
+      (element?.porcentaje && element?.porcentaje >= 71 && element?.porcentaje < 91) ? this.color1.push(yellow):0;
+      (element?.porcentaje && element?.porcentaje >= 91 && element?.porcentaje <= 100) ? this.color1.push(green):0;
+      /* (puntaje >= 0 && puntaje < 71 && puntaje != null ) ? this.color1.push(red) : 0 ;
+      (puntaje >= 71 && puntaje < 91 && puntaje != null) ? this.color1.push(yellow) : 0 ;
+      (puntaje > 91 && puntaje <= 100 && puntaje != null) ? this.color1.push(green) : 0 ;
+      (!puntaje || puntaje === null ) ? this.color1.push(white) : 0; */
 
     });
 
-    (this.puntaje.diez?.porcentaje>1) ?  this.color1.push(red): (this.puntaje.diez?.porcentaje!=null) ? this.color1.push(green):this.color1.push(white) ;
-    (this.puntaje.once?.porcentaje>1 && (this.puntaje.once?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.once?.porcentaje!=null) ? this.color1.push(green):this.color1.push(white) ;
-    (this.puntaje.doce?.porcentaje<71 && (this.puntaje.doce?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.doce?.porcentaje!=null) ? this.color1.push(green):this.color1.push(white) ;
-    (this.puntaje.trece?.porcentaje<100 && (this.puntaje.trece?.porcentaje!=null)) ? this.color1.push(red): (this.puntaje.trece?.porcentaje!=null) ? this.color1.push(green):this.color1.push(white) ;
+    (this.puntaje.diez?.porcentaje > 1) ? this.color1.push(red) : (this.puntaje.diez?.porcentaje != null) ? this.color1.push(green) : this.color1.push(white);
+    (this.puntaje.once?.porcentaje > 1 && (this.puntaje.once?.porcentaje != null)) ? this.color1.push(red) : (this.puntaje.once?.porcentaje != null) ? this.color1.push(green) : this.color1.push(white);
+    (this.puntaje.doce?.porcentaje < 71 && (this.puntaje.doce?.porcentaje != null)) ? this.color1.push(red) : (this.puntaje.doce?.porcentaje != null) ? this.color1.push(green) : this.color1.push(white);
+    (this.puntaje.trece?.porcentaje < 100 && (this.puntaje.trece?.porcentaje != null)) ? this.color1.push(red) : (this.puntaje.trece?.porcentaje != null) ? this.color1.push(green) : this.color1.push(white);
 
     console.log(this.color1);
   }

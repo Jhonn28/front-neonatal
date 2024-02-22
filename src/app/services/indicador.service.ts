@@ -183,10 +183,10 @@ export class IndicadorService {
     }
 
 
-    getPuntaje(distrito:number): Promise<any> {
+    getPuntaje(distrito:number,anio:string): Promise<any> {
       return new Promise(async (resolve, reject) => {
        // console.log(user)
-        await this._methodsService.get(`indicador/puntaje/${distrito}`).subscribe(async (result: IResultData) => {
+        await this._methodsService.get(`indicador/puntaje/${distrito}?fecha=${anio}`).subscribe(async (result: IResultData) => {
           console.log('puntaje:>',result);
           resolve(result.data);
         }, (err) => {
