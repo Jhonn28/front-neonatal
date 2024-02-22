@@ -102,7 +102,7 @@ export class UnoAComponent implements OnInit {
       provincia_hlic: [this.datosSucursal.provincia],
       distrito_hlic: [this.datosSucursal.distrito],
       establecimiento_hlic: [this.datosSucursal.establecimiento],
-      fecha_medicion_hlic: [this._utilService.getDateCurrent()],
+      fecha_medicion_hlic: [this._utilService.getDateCurrent('YYYY/MM/DD')],
       ide_indtp: [,Validators.required],
       responsable_medicion_hlic: [this.datosSucursal.responsable_establecimiento],
       promedio_preparacion_hlic: [],

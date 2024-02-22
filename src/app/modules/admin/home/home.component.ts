@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
     this.date = this._utilService.getDateCurrent();
     this.device = this._utilService.deviceInfo;
     this.getClima();
-    this.puntaje = await this._indicadorService.getPuntaje(this._utilService.getSucursal());
+    this.puntaje = await this._indicadorService.getPuntaje(this._utilService.getEmpresa());
     console.log('pinma0>',this.puntaje);
     this.setColor();
   }

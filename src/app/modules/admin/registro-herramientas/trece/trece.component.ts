@@ -57,7 +57,7 @@ export class TreceComponent implements OnInit {
       provincia: [this.datosSucursal.provincia],
       area_salud: [],
       unidad_operativa: [this.datosSucursal.establecimiento],
-      fecha_medicion: [this._utilService.getDateCurrent()],
+      fecha_medicion: [this._utilService.getDateCurrent('YYYY/MM/DD')],
       mes_evaluado: [, Validators.required],
       responsable_medicion: [this.datosSucursal.responsable_establecimiento],
       total_muertes: [0,Validators.required],
