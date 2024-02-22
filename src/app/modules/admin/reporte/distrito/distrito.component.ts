@@ -41,4 +41,9 @@ export class DistritoComponent implements OnInit {
     this._excelService.downloadExcel();
   }
 
+  limpiar(){
+    this.reporteForm.reset();
+    this.reporteForm.get('distrito').setValue(this._utilService.getEmpresa());
+  }
+
 }

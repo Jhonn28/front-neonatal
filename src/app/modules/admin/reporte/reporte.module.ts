@@ -9,13 +9,15 @@ import { CalendarModule } from 'primeng/calendar';
 import { ZonalComponent } from './zonal/zonal.component';
 import { TableModule } from 'primeng/table';
 import { HistoricoComponent } from './historico/historico.component';
+import { DistritoTrimestreComponent } from './distrito-trimestre/distrito-trimestre.component';
 
 
 @NgModule({
   declarations: [
     DistritoComponent,
     ZonalComponent,
-    HistoricoComponent
+    HistoricoComponent,
+    DistritoTrimestreComponent
   ],
   imports: [
     CommonModule,

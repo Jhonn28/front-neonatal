@@ -207,6 +207,18 @@ export class IndicadorService {
       });
     }
 
+    getReporteDistritoTrimestral(distrito:number,anio,trimestre: number): Promise<any> {
+      return new Promise(async (resolve, reject) => {
+       // console.log(user)
+        await this._methodsService.get(`indicador/reporte-distrito-trimestral/${distrito}/${anio}/${trimestre}`).subscribe(async (result: IResultData) => {
+          console.log('Data:>',result);
+          resolve(result.data);
+        }, (err) => {
+          reject(err);
+        });
+      });
+    }
+
 
     getReporteZonal(anio): Promise<any> {
       return new Promise(async (resolve, reject) => {

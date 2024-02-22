@@ -77,6 +77,7 @@ export class ExcelService {
   }
 
   downloadExcel() {
+    console.log('emtrp ');
     this._workbook.xlsx.writeBuffer().then((data) => {
       const blob = new Blob([data]);
       fs.saveAs(blob, `reporte${this._utilService.getDateCurrent()}.xlsx`);
@@ -248,6 +249,137 @@ export class ExcelService {
 
   }
 
+  async reporteDistritoTrimestral(anio: string,trimestre: number): Promise<Boolean> {
+
+    
+
+    this.createWorbook();
+
+    try {
+      const data = await this._indicadorService.getReporteDistritoTrimestral(this._utilService.getEmpresa(), anio,trimestre);
+      if (data.length === 0) {
+        this._utilService.hideSpinner();
+        this._utilService.addMessageInfo('No se encuentran registros en el año de búsqueda.');
+        return false;
+      }
+      if (data.length < 22) {
+        this._utilService.hideSpinner();
+        this._utilService.addMessageInfo('Llene todos los indicadores y vuelta a intentar.');
+        return false;
+      }
+
+      console.log(data);
+
+      const celeste = '33F9FF';
+      const verde_claro = 'C6FF33';
+      const gris = 'AFAFAF'
+      const verde_sub = 'B1F178';
+      const amarillo_sub = 'F8FA8F';
+
+      const sheet = this._workbook.addWorksheet('REPORTE TRIMESTRAL');
+
+      this.setAligmentRange(sheet, 1, 26);//centramos todas las filas
+      //TODO: Fila 1 titulos
+      sheet.mergeCells('A1:C2');
+      sheet.mergeCells('D1:F2');
+
+
+      sheet.getCell('A1:C2').value = 'ZONA 3'
+      sheet.getCell('D1:F2').value = 'PROMEDIO DE PORCENTAJE DE CUMPLIMIENTO TRIMESTRAL'
+
+      this.setCellColor(sheet, 'A1,C3', verde_claro);
+      this.setCellColor(sheet, 'D1,F2', celeste);
+    
+
+
+      //TODO: fila 2 subtitulos
+      sheet.mergeCells('A3:A4');
+      sheet.mergeCells('B3:B4');
+      sheet.mergeCells('C3:C4');
+      sheet.getCell('A3:A4').value = 'Proceso';
+      sheet.getCell('B3:B4').value = 'Estandar #';
+      sheet.getCell('C3:C4').value = 'Indicador';
+
+
+      this.setCellColor(sheet, 'A3:A4', gris);
+      this.setCellColor(sheet, 'B3:B4', gris);
+      this.setCellColor(sheet, 'C3:C4', gris);
+      this.setCellColor(sheet, 'C3:C4', gris);
+
+
+      sheet.mergeCells('D3:F3');
+      (trimestre==1)? sheet.getCell('D3:F3').value = 'PRIMER TRIMESTRE ENERO-MARZO':0; 
+      (trimestre==2)? sheet.getCell('D3:F3').value = 'SEGUNDO TRIMESTRE ABRIL-JUNIO':0;
+      (trimestre==3)? sheet.getCell('D3:F3').value = 'TERCER SEMESTRE JULIO-SEPTIEMBRE':0; 
+      (trimestre==4)? sheet.getCell('D3:F3').value = 'CUARTO SEMESTRE OCTUBRE-DICIEMBRE':0; 
+
+
+      //TODO: n d %
+      sheet.getCell('D4').value = 'N';
+      sheet.getCell('E4').value = 'D';
+      sheet.getCell('F4').value = '%';
+
+      
+      this.setCellColor(sheet, 'D4', amarillo_sub);
+      this.setCellColor(sheet, 'E4', verde_sub);
+      this.setCellColor(sheet, 'F4', verde_sub);
+
+
+
+      this.setBoldRow(sheet, 1);
+      this.setBoldRow(sheet, 2);
+      this.setBoldRow(sheet, 3);
+      this.setBoldRow(sheet, 4);
+
+
+
+      //TODO: Titulos de las columnas 
+      this.setColorRange(sheet, 'A', 5, 26, celeste); //set color celeste en toda la columna a 
+
+      this.setMergeValue(sheet, 'A5', 'Estandar de la entrada para AM y RM');
+      this.setMergeValue(sheet, 'A6', 'C.P.', true);
+      this.setMergeValue(sheet, 'A7:A9', 'Atención del parto', true);
+      this.setMergeValue(sheet, 'A10', 'P.P', true);
+      this.setMergeValue(sheet, 'A11', 'R.N', true);
+      this.setMergeValue(sheet, 'A12:A13', 'Atención profesional', true);
+      this.setMergeValue(sheet, 'A14:A19', 'Complicaciones obstétricas', true);
+      this.setMergeValue(sheet, 'A20:A22', 'Complicaciones neonatales', true);
+      this.setMergeValue(sheet, 'A23:A26', 'Estándares e indicadores de salída', true);
+
+
+      this.setValueArray(sheet, 'B', this.estandar, 5);
+      this.setValueArray(sheet, 'C', this.indicador, 5);
+
+      this.estandar.forEach((indicador, row) => {
+        //console.log('datos=>',data);
+        //console.log('indicador=>', indicador)
+        //const index = data.findIndex(data => data.indicador === indicador.toLowerCase());
+        const dato = data.find(data => data.indicador === indicador.toLowerCase());
+        //console.log(row,dato);
+        this.setDataTrimestral(sheet, dato, row + 5);
+        
+        
+      });
+      //this.downloadExcel();
+      this._utilService.hideSpinner();
+    this._utilService.toast_success('Puede descargar el reporte en el botón "Exportar .xlsx".', 'Reporte generado.');
+      //this._utilService.addMessageSuccess('Puede descargar el reporte en el botón "exportar .xlsx".','Reporte generado.');
+      //this._utilService.confirmationAlert('Si desea guardar el archivo, click en descargar. ',()=>{this.downloadExcel()},'Descargar','Excel generado')
+     // this._utilService.addLoadingMessage('excel generado','success',()=>this.downloadExcel(),'Descargar');
+      return true;
+    } catch (e) {
+      console.log('e=>', e);
+      this._utilService.hideSpinner();
+      this._utilService.addWarningMessage('Ocurrió un error al generar el excel. Inténtelo mas tarde.');
+      return false;
+    }
+
+
+
+  }
+
+
+
 
   //TODO: color de celda
   setCellColor(sheet, cell, color) {
@@ -388,6 +520,34 @@ export class ExcelService {
     (data.indicador == '12') ? (porcentaje < 71) ? this.setCellColor(sheet, 'R' + row, rojo) : this.setCellColor(sheet, 'R' + row, verde) : 0;
     (data.indicador == '13') ? (porcentaje < 100) ? this.setCellColor(sheet, 'R' + row, rojo) : this.setCellColor(sheet, 'R' + row, verde) : 0;
   }
+
+  setDataTrimestral(sheet, data, row) {
+    let porcentaje = 0;
+    const verde = '27AE60';
+    const amarillo = 'F4D03F';
+    const rojo = 'EA3737';
+    /*     console.log(Number(data.denominador_trimestre_1)!=0,Number(data.numerador_trimestre_1),Number(data.denominador_trimestre_1),Number(data.denominador_trimestre_1)*100);
+        console.log('data=>',data);
+        console.log('D'+row); */
+    sheet.getCell('D' + row).value = data.numerador;
+    sheet.getCell('E' + row).value = data.denominador;
+    (Number(data.denominador) != 0) ? porcentaje = (Number(data.numerador) * 100) / Number(data.denominador) : porcentaje = 0;
+    sheet.getCell('F' + row).value = Number(porcentaje).toFixed(2);
+
+    //TODO: color 1-9
+    if (data.indicador == '1' || data.indicador == '2' || data.indicador == '3a' || data.indicador == '3b' || data.indicador == '4' || data.indicador == '5' || data.indicador == '6' || data.indicador == '7a' || data.indicador == '7b' || data.indicador == '8a' || data.indicador == '8b' || data.indicador == '8c' || data.indicador == '8d' || data.indicador == '8e' || data.indicador == '8f') {
+      (porcentaje >= 91 && porcentaje <= 100) ? this.setCellColor(sheet, 'F' + row, verde) : 0;
+      (porcentaje >= 71 && porcentaje < 91) ? this.setCellColor(sheet, 'F' + row, amarillo) : 0;
+      (porcentaje > 0 && porcentaje < 71) ? this.setCellColor(sheet, 'F' + row, rojo) : 0;
+    }
+    (data.indicador == '10') ? (porcentaje > 1) ? this.setCellColor(sheet, 'F' + row, rojo) : this.setCellColor(sheet, 'F' + row, verde) : 0;
+    (data.indicador == '11') ? (porcentaje > 1) ? this.setCellColor(sheet, 'F' + row, rojo) : this.setCellColor(sheet, 'F' + row, verde) : 0;
+    (data.indicador == '12') ? (porcentaje < 71) ? this.setCellColor(sheet, 'F' + row, rojo) : this.setCellColor(sheet, 'F' + row, verde) : 0;
+    (data.indicador == '13') ? (porcentaje < 100) ? this.setCellColor(sheet, 'F' + row, rojo) : this.setCellColor(sheet, 'F' + row, verde) : 0;
+
+  }
+
+  
 
   async downloadHistorico() {
 
